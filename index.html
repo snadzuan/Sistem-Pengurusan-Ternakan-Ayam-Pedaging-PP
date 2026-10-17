@@ -329,6 +329,7 @@
 
 
   /* ===== Laporan Prestasi Projek ===== */
+  .kl-nilai { white-space: nowrap; font-family: var(--font-mono); font-size: 12.5px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 2px 7px; letter-spacing: .02em; }
   .lp-dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr)); gap: 16px 22px; }
   .lp-dl dt { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
   .lp-dl dd { font-weight: 600; margin-top: 3px; overflow-wrap: anywhere; }
@@ -633,11 +634,17 @@
           <div class="grid sm:grid-cols-2 gap-4">
             <div class="field">
               <label for="daftar-katalaluan">Kata Laluan</label>
-              <input id="daftar-katalaluan" class="input" type="password" autocomplete="new-password" placeholder="Min. 8 aksara" required>
+              <div class="relative">
+                <input id="daftar-katalaluan" class="input pr-12" type="password" autocomplete="new-password" placeholder="Min. 8 aksara" required>
+                <button type="button" class="icon-btn absolute right-1.5 top-1/2 -translate-y-1/2 w-10 h-10" data-toggle-pw="daftar-katalaluan" aria-label="Papar kata laluan" aria-pressed="false" title="Papar / sembunyi"><i class="fa-regular fa-eye"></i></button>
+              </div>
             </div>
             <div class="field">
               <label for="daftar-sahkan">Sahkan Kata Laluan</label>
-              <input id="daftar-sahkan" class="input" type="password" autocomplete="new-password" required>
+              <div class="relative">
+                <input id="daftar-sahkan" class="input pr-12" type="password" autocomplete="new-password" placeholder="Ulang kata laluan" required>
+                <button type="button" class="icon-btn absolute right-1.5 top-1/2 -translate-y-1/2 w-10 h-10" data-toggle-pw="daftar-sahkan" aria-label="Papar kata laluan" aria-pressed="false" title="Papar / sembunyi"><i class="fa-regular fa-eye"></i></button>
+              </div>
             </div>
           </div>
           <p id="daftar-ralat" class="err" role="alert" hidden></p>
@@ -698,6 +705,7 @@
           <div id="sisi-nama" class="font-semibold text-sm truncate text-white"></div>
           <div id="sisi-peranan" class="text-[12px] truncate text-white/60"></div>
         </div>
+        <button class="icon-btn" data-aksi="tukar-kl" aria-label="Tukar kata laluan" title="Tukar kata laluan"><i class="fa-solid fa-key"></i></button>
         <button class="icon-btn" data-aksi="logout" aria-label="Log keluar" title="Log keluar"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
       </div>
       <p class="text-[10.5px] text-white/40 mt-3 px-1 leading-snug">&copy; <span class="tahun-semasa">2026</span> Unit Pembangunan Ekonomi Pertubuhan Peladang, LPP Negeri Terengganu<br><span class="versi-app"></span></p>
@@ -715,6 +723,7 @@
         </div>
         <div class="hidden md:flex flex-col items-end text-right shrink-0 kepala-meta leading-relaxed" id="atas-kemaskini"></div>
         <span id="atas-avatar" class="lg:hidden w-9 h-9 rounded-full bg-brandsoft text-brandstrong font-bold text-sm flex items-center justify-center"></span>
+        <button class="lg:hidden icon-btn" data-aksi="tukar-kl" aria-label="Tukar kata laluan" title="Tukar kata laluan"><i class="fa-solid fa-key"></i></button>
         <button class="lg:hidden icon-btn" data-aksi="logout" aria-label="Log keluar"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
       </div>
     </header>
@@ -1098,7 +1107,8 @@
           <div id="senarai-menunggu" class="mt-4 grid grid-cols-[minmax(0,1fr)] gap-3"></div>
         </div>
         <div class="card min-w-0">
-          <div class="px-5 pt-5 pb-3"><h2 class="font-display font-bold text-lg">Semua Pengguna</h2></div>
+          <div class="px-5 pt-5 pb-3"><h2 class="font-display font-bold text-lg">Semua Pengguna</h2>
+            <p id="nota-kl" class="text-[13px] text-muted mt-1" hidden><i class="fa-solid fa-shield-halved"></i> Lajur kata laluan hanya dipaparkan kepada Super Admin. Klik ikon mata untuk melihat, dan <b>Tetapkan</b> untuk memberi kata laluan baharu. Jangan paparkan skrin ini di hadapan orang lain.</p></div>
           <div class="overflow-x-auto"><table class="tbl" id="jadual-pengguna"></table></div>
         </div>
         <div class="card p-5 flex flex-wrap items-center justify-between gap-3">
@@ -1131,6 +1141,44 @@
 <datalist id="senarai-baka"><option value="COBB"></option><option value="ROSS"></option><option value="LH COBB"></option><option value="HL ROSS"></option><option value="CAB AA"></option></datalist>
 
 <!-- Modal pengesahan -->
+<!-- Tukar / tetapkan semula kata laluan -->
+<div id="modal-kl" class="fixed inset-0 z-[90] modal-bg flex items-end sm:items-center justify-center p-4" hidden>
+  <form id="form-kl" class="card w-full max-w-md p-6 masuk space-y-4" role="dialog" aria-modal="true" aria-labelledby="kl-tajuk" novalidate>
+    <div class="flex items-start gap-3">
+      <span class="w-11 h-11 rounded-full bg-brandsoft text-brandstrong flex items-center justify-center text-lg shrink-0"><i class="fa-solid fa-key"></i></span>
+      <div class="min-w-0"><h3 id="kl-tajuk" class="font-display font-bold text-lg">Tukar Kata Laluan</h3><p id="kl-sub" class="text-sm text-muted"></p></div>
+    </div>
+    <div id="kl-lama-blok">
+      <div class="field">
+        <label for="kl-lama">Kata laluan semasa</label>
+        <div class="relative">
+          <input id="kl-lama" class="input pr-12" type="password" autocomplete="current-password" required>
+          <button type="button" class="icon-btn absolute right-1.5 top-1/2 -translate-y-1/2 w-10 h-10" data-toggle-pw="kl-lama" aria-label="Papar kata laluan" aria-pressed="false" title="Papar / sembunyi"><i class="fa-regular fa-eye"></i></button>
+        </div>
+      </div>
+    </div>
+      <div class="field">
+        <label for="kl-baru">Kata laluan baharu</label>
+        <div class="relative">
+          <input id="kl-baru" class="input pr-12" type="password" autocomplete="new-password" required>
+          <button type="button" class="icon-btn absolute right-1.5 top-1/2 -translate-y-1/2 w-10 h-10" data-toggle-pw="kl-baru" aria-label="Papar kata laluan" aria-pressed="false" title="Papar / sembunyi"><i class="fa-regular fa-eye"></i></button>
+        </div><p class="hint">Sekurang-kurangnya 8 aksara. Jangan guna kata laluan emel rasmi anda.</p>
+      </div>
+      <div class="field">
+        <label for="kl-sahkan">Sahkan kata laluan baharu</label>
+        <div class="relative">
+          <input id="kl-sahkan" class="input pr-12" type="password" autocomplete="new-password" required>
+          <button type="button" class="icon-btn absolute right-1.5 top-1/2 -translate-y-1/2 w-10 h-10" data-toggle-pw="kl-sahkan" aria-label="Papar kata laluan" aria-pressed="false" title="Papar / sembunyi"><i class="fa-regular fa-eye"></i></button>
+        </div>
+      </div>
+    <p id="kl-ralat" class="err" role="alert" hidden></p>
+    <div class="flex gap-2 pt-1">
+      <button type="button" class="btn btn-ghost flex-1" id="kl-batal">Batal</button>
+      <button type="submit" class="btn btn-primary flex-1" id="kl-simpan"><i class="fa-solid fa-floppy-disk"></i> Simpan</button>
+    </div>
+  </form>
+</div>
+
 <div id="modal" class="fixed inset-0 z-[90] modal-bg flex items-end sm:items-center justify-center p-4" hidden>
   <div class="card w-full max-w-sm p-6 masuk" role="dialog" aria-modal="true" aria-labelledby="modal-tajuk">
     <div id="modal-ikon" class="w-11 h-11 rounded-full bg-losssoft text-loss flex items-center justify-center text-lg"><i class="fa-solid fa-triangle-exclamation"></i></div>
@@ -1159,9 +1207,11 @@ const DATA_ASAL = {"PPK Dungun":{"awalan":"asal","emel":"pegawai.dungun@lpp.gov.
 /* ---------- 2. Pemalar & utiliti ---------- */
 const KUNCI = { pengguna: 'lppAyam.v2.pengguna', rekod: 'lppAyam.v2.rekod', sesi: 'lppAyam.v2.sesi', versi: 'lppAyam.v2.versiData',
   ingat: 'lppAyam.v2.ingatLogMasuk', peruntukan: 'lppAyam.v2.peruntukan', sasaran: 'lppAyam.v2.sasaran', versiProjek: 'lppAyam.v2.versiProjek', ulasan: 'lppAyam.v2.ulasanProjek' };
-const PERANAN = { admin: 'Admin', pengguna: 'Pengguna', pemerhati: 'Pemerhati' };
+const PERANAN = { superadmin: 'Super Admin', admin: 'Admin', pengguna: 'Pengguna', pemerhati: 'Pemerhati' };
+/** Akaun Super Admin (tetap): satu-satunya akaun yang boleh melihat kata laluan semua pengguna */
+const EMEL_SUPER = 'admin@lpp.gov.my';
 /** Versi aplikasi (dipaparkan di halaman log masuk & bar sisi untuk semakan) */
-const VERSI_APP = 'Versi 31 · 17/10/2026';
+const VERSI_APP = 'Versi 32 · 17/10/2026';
 /* Data asal Maklumat Projek daripada "DATABASE MAKLUMAT DAN SASARAN PROJEK TERNAKAN AYAM DAGING" (17/10/2026) */
 const PROJEK_ASAL = {"pr":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2015,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":220000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2016,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":20000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":3275000.0,"lokasi":"Kg. Bukit Anak Dara, Kemaman","kapasiti":60000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":300000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2024","nilai":3300000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":82000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PENGUKUHAN KETERJAMINAN MAKANAN 2024","nilai":1226000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":82000},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Peladan, Hulu Terengganu","kapasiti":15000},{"ppk":"PPK Bukit Diman","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Batu Bertindan, Hulu Terengganu","kapasiti":30000},{"ppk":"PPK Jerangau","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Padang Ping, Dungun","kapasiti":30000},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Telaga Papan, Kuala Terengganu","kapasiti":30000}],"sa":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2021,"pendapatan":1400000.0,"untung":25000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2022,"pendapatan":2600000.0,"untung":100000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2023,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2024,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2025,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2026,"pendapatan":970000.0,"untung":70000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"pendapatan":400000.0,"untung":25000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"pendapatan":1800000.0,"untung":120000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2023,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2024,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2025,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2026,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2023,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2024,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2025,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2026,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2026,"pendapatan":838000.0,"untung":30000.0}]};
 const VERSI_PROJEK = 3;   // v2: lokasi projek · v3: kapasiti projek (ekor / pusingan)
@@ -1262,16 +1312,20 @@ const semuaRekod = () => baca(KUNCI.rekod, []);
 const semuaPengguna = () => baca(KUNCI.pengguna, []);
 
 /* ---------- 3b. Hak akses mengikut peranan ----------
+   Super Admin : semua fungsi Admin + lihat & tetapkan semula kata laluan semua pengguna (admin@lpp.gov.my)
    Admin     : lihat semua rekod, tambah, sunting & padam mana-mana rekod, urus pengguna
    Pengguna  : lihat, tambah & sunting rekod PPK sendiri sahaja (tidak boleh lihat PPK lain)
    Pemerhati : lihat & cetak papan pemuka dan jadual rekod semua pengguna (baca sahaja) */
 const peranan = () => keadaan.pengguna?.peranan || 'pemerhati';
+/** Super Admin & Admin berkongsi semua hak pentadbiran */
+const adalahAdmin = () => ['superadmin', 'admin'].includes(peranan());
 const boleh = {
-  input: () => peranan() === 'admin' || (peranan() === 'pengguna' && adalahPPK(keadaan.pengguna?.ppk)),
-  lihatSemua: () => ['admin', 'pemerhati'].includes(peranan()),
-  sunting: (r) => peranan() === 'admin' || (peranan() === 'pengguna' && samaPPK(r.ppk, keadaan.pengguna.ppk)),
-  padam: () => peranan() === 'admin',
-  urusPengguna: () => peranan() === 'admin'
+  input: () => adalahAdmin() || (peranan() === 'pengguna' && adalahPPK(keadaan.pengguna?.ppk)),
+  lihatSemua: () => ['superadmin', 'admin', 'pemerhati'].includes(peranan()),
+  sunting: (r) => adalahAdmin() || (peranan() === 'pengguna' && samaPPK(r.ppk, keadaan.pengguna.ppk)),
+  padam: () => adalahAdmin(),
+  urusPengguna: () => adalahAdmin(),
+  lihatKataLaluan: () => peranan() === 'superadmin'
 };
 /** Rekod yang boleh dilihat oleh pengguna semasa */
 const rekodDilihat = () => boleh.lihatSemua() ? semuaRekod() : semuaRekod().filter(r => samaPPK(r.ppk, keadaan.pengguna?.ppk));
@@ -1280,7 +1334,7 @@ const namaPengguna = (emel) => semuaPengguna().find(u => u.emel === emel)?.nama 
 
 /* ---------- 4. Data permulaan ---------- */
 const PENGGUNA_ASAL = [
-  { nama: 'Admin Sistem', emel: 'admin@lpp.gov.my', jawatan: 'Pentadbir Sistem', ppk: UNIT_LPP, peranan: 'admin', status: 'aktif', kl: 'Admin@123' },
+  { nama: 'Admin Sistem', emel: 'admin@lpp.gov.my', jawatan: 'Super Admin Sistem', ppk: UNIT_LPP, peranan: 'superadmin', status: 'aktif', kl: 'Admin@123' },
   { nama: 'Pegawai PPK Dungun', emel: 'pegawai.dungun@lpp.gov.my', jawatan: 'Pegawai Projek', ppk: 'PPK Dungun', peranan: 'pengguna', status: 'aktif', kl: 'Dungun@123' },
   { nama: 'Pegawai PPK Bukit Diman', emel: 'pegawai.bukitdiman@lpp.gov.my', jawatan: 'Pegawai Projek', ppk: 'PPK Bukit Diman', peranan: 'pengguna', status: 'aktif', kl: 'BukitDiman@123' },
   { nama: 'Pegawai PPK Kijal', emel: 'pegawai.kijal@lpp.gov.my', jawatan: 'Pegawai Projek', ppk: 'PPK Kijal', peranan: 'pengguna', status: 'aktif', kl: 'Kijal@123' },
@@ -1329,14 +1383,22 @@ function sediakanProjekAsal(paksa = false) {
 }
 async function sediakanDataAsal(paksa = false) {
   const kini = new Date().toISOString();
-  const binaPengguna = async (u) => { const { kl, ...data } = u; return { ...data, hash: await cincang(kl), tarikh: kini }; };
+  const binaPengguna = async (u) => ({ ...u, hash: await cincang(u.kl), tarikh: kini });   // kl disimpan untuk paparan Super Admin
   if (paksa || !baca(KUNCI.pengguna, null)) {
     simpan(KUNCI.pengguna, await Promise.all(PENGGUNA_ASAL.map(binaPengguna)));
   } else {
     // Migrasi: tambah akaun demo baharu yang belum wujud (tanpa menyentuh akaun sedia ada)
     const senarai = semuaPengguna();
     const tiada = PENGGUNA_ASAL.filter(u => !senarai.some(x => x.emel === u.emel));
-    if (tiada.length) simpan(KUNCI.pengguna, [...senarai, ...await Promise.all(tiada.map(binaPengguna))]);
+    let berubahU = false;
+    for (const u of senarai) {
+      // Migrasi: admin@lpp.gov.my menjadi Super Admin
+      if (u.emel === EMEL_SUPER && u.peranan !== 'superadmin') { u.peranan = 'superadmin'; berubahU = true; }
+      // Migrasi: isi kata laluan akaun asal jika belum direkod & cincangan masih sepadan (belum ditukar)
+      const asal = PENGGUNA_ASAL.find(a => a.emel === u.emel);
+      if (asal && !u.kl && u.hash === await cincang(asal.kl)) { u.kl = asal.kl; berubahU = true; }
+    }
+    if (tiada.length || berubahU) simpan(KUNCI.pengguna, [...senarai, ...await Promise.all(tiada.map(binaPengguna))]);
   }
   sediakanProjekAsal(paksa);
   if (paksa || !baca(KUNCI.rekod, null)) {
@@ -1434,6 +1496,7 @@ async function kendaliLogin(e) {
   if (!p || p.hash !== await cincang(kl)) return tunjuk('Emel atau kata laluan tidak tepat.');
   if (p.status === 'menunggu') return tunjuk('Akaun ini masih menunggu pengesahan Admin Sistem.');
   if (p.status === 'ditolak') return tunjuk('Pendaftaran akaun ini telah ditolak. Hubungi Admin Sistem.');
+  if (p.kl !== kl) { const s = semuaPengguna(); const x = s.find(u => u.emel === p.emel); if (x) { x.kl = kl; simpan(KUNCI.pengguna, s); } p.kl = kl; }
   keadaan.pengguna = p;
   try { sessionStorage.setItem(KUNCI.sesi, p.emel); } catch (e2) { memori[KUNCI.sesi] = p.emel; }
   ingatAkaun(emel, kl, $('#login-ingat').checked);
@@ -1461,7 +1524,7 @@ async function kendaliDaftar(e) {
   if (kl !== sah) return tunjuk('Pengesahan kata laluan tidak sepadan.');
   const senarai = semuaPengguna();
   const perananDipilih = $('input[name="daftar-peranan"]:checked')?.value || 'pengguna';
-  senarai.push({ nama, emel, jawatan: $('#daftar-jawatan').value.trim(), ppk: ppkPilih, peranan: PERANAN[perananDipilih] ? perananDipilih : 'pengguna', status: 'menunggu', hash: await cincang(kl), tarikh: new Date().toISOString() });
+  senarai.push({ nama, emel, jawatan: $('#daftar-jawatan').value.trim(), ppk: ppkPilih, peranan: PERANAN[perananDipilih] && perananDipilih !== 'superadmin' ? perananDipilih : 'pengguna', status: 'menunggu', kl, hash: await cincang(kl), tarikh: new Date().toISOString() });
   simpan(KUNCI.pengguna, senarai);
   $('#form-daftar').reset();
   $('#form-daftar').hidden = true;
@@ -1470,6 +1533,7 @@ async function kendaliDaftar(e) {
 }
 
 function logKeluar() {
+  tutupTukarKL();
   tutupLembarData();
   keadaan.pengguna = null;
   try { sessionStorage.removeItem(KUNCI.sesi); } catch (e) {} delete memori[KUNCI.sesi];
@@ -1487,10 +1551,10 @@ const KUMPULAN_MENU = [
 const MENU = [
   { id: 'dashboard', kumpulan: 'pantau', label: 'Dashboard Eksekutif', pendek: 'Dashboard', ikon: 'fa-chart-pie', sub: () => boleh.lihatSemua() ? 'Ringkasan prestasi pusingan · semua pengguna' : 'Ringkasan prestasi pusingan yang anda rekod' },
   { id: 'laporan', kumpulan: 'pantau', label: 'Laporan Prestasi Projek', pendek: 'Laporan', ikon: 'fa-file-contract', sub: () => 'Prestasi pelaburan, trend & penilaian setiap projek' },
-  { id: 'projek', kumpulan: 'data', label: 'Profil & Sasaran Projek', pendek: 'Projek', ikon: 'fa-folder-open', ringkas: 'Tetapan: peruntukan & sasaran tahunan', sub: () => 'Peruntukan diterima & sasaran tahunan', peranan: ['admin', 'pengguna'] },
-  { id: 'input', kumpulan: 'data', label: 'Kemasukan Data', pendek: 'Data', ikon: 'fa-pen-to-square', ringkas: 'Rekod kos & hasil setiap pusingan', sub: () => 'Rekod kos & hasil pusingan', peranan: ['admin', 'pengguna'] },
+  { id: 'projek', kumpulan: 'data', label: 'Profil & Sasaran Projek', pendek: 'Projek', ikon: 'fa-folder-open', ringkas: 'Tetapan: peruntukan & sasaran tahunan', sub: () => 'Peruntukan diterima & sasaran tahunan', peranan: ['superadmin', 'admin', 'pengguna'] },
+  { id: 'input', kumpulan: 'data', label: 'Kemasukan Data', pendek: 'Data', ikon: 'fa-pen-to-square', ringkas: 'Rekod kos & hasil setiap pusingan', sub: () => 'Rekod kos & hasil pusingan', peranan: ['superadmin', 'admin', 'pengguna'] },
   { id: 'rekod', kumpulan: 'data', label: 'Jadual Rekod', pendek: 'Rekod', ikon: 'fa-table-list', ringkas: 'Semak & sunting rekod pusingan', sub: () => boleh.lihatSemua() ? 'Sejarah pusingan semua pengguna' : 'Pusingan yang anda masukkan' },
-  { id: 'pengguna', kumpulan: 'tadbir', label: 'Pengesahan Pengguna', pendek: 'Pengguna', ikon: 'fa-user-check', sub: () => 'Urus akaun, peranan & pendaftaran', peranan: ['admin'] }
+  { id: 'pengguna', kumpulan: 'tadbir', label: 'Pengesahan Pengguna', pendek: 'Pengguna', ikon: 'fa-user-check', sub: () => peranan() === 'superadmin' ? 'Urus akaun, peranan, pendaftaran & kata laluan' : 'Urus akaun, peranan & pendaftaran', peranan: ['superadmin', 'admin'] }
 ];
 const menuDibenar = (m) => !m.peranan || m.peranan.includes(peranan());
 function binaNavigasi() {
@@ -2011,7 +2075,7 @@ const semuaPeruntukan = () => baca(KUNCI.peruntukan, []);
 const semuaSasaran = () => baca(KUNCI.sasaran, []);
 /** Senarai yang boleh dilihat: Admin & Pemerhati semua PPK, Pengguna PPK sendiri */
 const dilihatPPK = (senarai) => boleh.lihatSemua() ? senarai : senarai.filter(x => samaPPK(x.ppk, keadaan.pengguna?.ppk));
-const bolehUbahProjek = (x) => peranan() === 'admin' || (peranan() === 'pengguna' && samaPPK(x.ppk, keadaan.pengguna.ppk));
+const bolehUbahProjek = (x) => adalahAdmin() || (peranan() === 'pengguna' && samaPPK(x.ppk, keadaan.pengguna.ppk));
 const suntingProjek = { peruntukan: null, sasaran: null };
 
 function pilihanPPKProjek() {
@@ -2405,7 +2469,7 @@ function renderLaporan() {
   const status = STATUS_LP[statusKeseluruhan];
   const terkini = rek.at(-1);
   const ulasan = semuaUlasan()[p.kunci] || {};
-  const bolehUlas = p.semua ? peranan() === 'admin' : bolehUbahProjek({ ppk: p.ppk });
+  const bolehUlas = p.semua ? adalahAdmin() : bolehUbahProjek({ ppk: p.ppk });
 
   // 1. Profil projek
   const ppkTerlibat = [...new Set([...data.rek.map(r => r.ppk), ...prSemua.map(x => x.ppk)])].sort();
@@ -2637,12 +2701,50 @@ function binaCartaLaporan(tahunan, rek) {
 /** Simpan ulasan pegawai & tindakan cadangan bagi projek semasa */
 function simpanUlasan() {
   const p = (keadaan.senaraiProjek || []).find(x => x.kunci === keadaan.laporan?.kunci);
-  if (!p || !(p.semua ? peranan() === 'admin' : bolehUbahProjek({ ppk: p.ppk }))) return toast('Anda tidak dibenarkan mengubah ulasan projek ini.', 'ralat');
+  if (!p || !(p.semua ? adalahAdmin() : bolehUbahProjek({ ppk: p.ppk }))) return toast('Anda tidak dibenarkan mengubah ulasan projek ini.', 'ralat');
   const semua = semuaUlasan();
   semua[p.kunci] = { ppk: p.ppk, jenisReban: p.reban, ulasan: $('#lp-ulasan').value.trim(), tindakan: $('#lp-tindakan').value.trim(), olehEmel: keadaan.pengguna.emel, masa: new Date().toISOString() };
   simpan(KUNCI.ulasan, semua);
   renderLaporan();
   toast('Ulasan projek disimpan.', 'ok');
+}
+
+/* ---------- 13b. Kata laluan: tukar sendiri (semua peranan) & tetapkan semula (Super Admin) ---------- */
+function bukaTukarKL(emelSasaran) {
+  const diri = !emelSasaran || emelSasaran === keadaan.pengguna.emel;
+  if (!diri && !boleh.lihatKataLaluan()) return;
+  const u = semuaPengguna().find(x => x.emel === (diri ? keadaan.pengguna.emel : emelSasaran)); if (!u) return;
+  keadaan.klSasaran = u.emel;
+  $('#form-kl').reset(); $('#kl-ralat').hidden = true;
+  ['kl-lama', 'kl-baru', 'kl-sahkan'].forEach(id => { $('#' + id).type = 'password'; const b = $(`[data-toggle-pw="${id}"]`); if (b) { b.setAttribute('aria-pressed', 'false'); b.setAttribute('aria-label', 'Papar kata laluan'); b.innerHTML = '<i class="fa-regular fa-eye"></i>'; } });
+  $('#kl-tajuk').textContent = diri ? 'Tukar Kata Laluan' : 'Tetapkan Semula Kata Laluan';
+  $('#kl-sub').textContent = diri ? `${u.nama} · ${u.emel}` : `Bagi ${u.nama} (${u.emel}). Maklumkan kata laluan baharu kepada pengguna ini.`;
+  $('#kl-lama-blok').hidden = !diri;
+  $('#modal-kl').hidden = false;
+  (diri ? $('#kl-lama') : $('#kl-baru')).focus();
+}
+function tutupTukarKL() { $('#modal-kl').hidden = true; keadaan.klSasaran = null; }
+async function simpanKL(e) {
+  e.preventDefault();
+  const emel = keadaan.klSasaran; if (!emel || !keadaan.pengguna) return;
+  const diri = emel === keadaan.pengguna.emel;
+  const ralat = $('#kl-ralat'); const tunjuk = (m) => { ralat.textContent = m; ralat.hidden = false; };
+  ralat.hidden = true;
+  const senarai = semuaPengguna(); const u = senarai.find(x => x.emel === emel); if (!u) return;
+  const lama = $('#kl-lama').value, baru = $('#kl-baru').value, sah = $('#kl-sahkan').value;
+  if (diri && u.hash !== await cincang(lama)) return tunjuk('Kata laluan semasa tidak tepat.');
+  if (!diri && !boleh.lihatKataLaluan()) return tunjuk('Hanya Super Admin boleh menetapkan semula kata laluan pengguna lain.');
+  if (baru.length < 8) return tunjuk('Kata laluan baharu mesti sekurang-kurangnya 8 aksara.');
+  if (baru !== sah) return tunjuk('Pengesahan kata laluan baharu tidak sepadan.');
+  if (diri && baru === lama) return tunjuk('Kata laluan baharu mesti berbeza daripada kata laluan semasa.');
+  u.hash = await cincang(baru); u.kl = baru; u.klDikemaskini = new Date().toISOString(); u.klDikemaskiniOleh = keadaan.pengguna.emel;
+  simpan(KUNCI.pengguna, senarai);
+  if (diri) keadaan.pengguna = u;
+  // Kemas kini akaun yang diingati pada peranti ini (jika ada)
+  const ingat = akaunDiingat(); const a = ingat.find(x => x.emel === emel); if (a) { a.kl = baru; simpan(KUNCI.ingat, ingat); }
+  tutupTukarKL();
+  if (keadaan.seksyen === 'pengguna') renderPengguna();
+  toast(diri ? 'Kata laluan anda telah ditukar.' : `Kata laluan ${u.nama} telah ditetapkan semula.`, 'ok');
 }
 
 /* ---------- 13. Pengesahan pengguna (Admin) ---------- */
@@ -2657,29 +2759,39 @@ function renderPengguna() {
       <div class="flex gap-2 w-full sm:w-auto"><button class="btn btn-ghost btn-sm flex-1" data-tolak="${escapeHTML(u.emel)}"><i class="fa-solid fa-xmark"></i> Tolak</button><button class="btn btn-primary btn-sm flex-1" data-sahkan="${escapeHTML(u.emel)}"><i class="fa-solid fa-check"></i> Sahkan</button></div>
     </div>`).join('') : '<p class="text-sm text-muted">Tiada pendaftaran menunggu pengesahan.</p>';
   const cip = { aktif: '<span class="chip chip-gain">Aktif</span>', menunggu: '<span class="chip chip-warn">Menunggu</span>', ditolak: '<span class="chip chip-loss">Ditolak</span>' };
-  $('#jadual-pengguna').innerHTML = `<thead><tr><th>Nama</th><th>Emel</th><th>PPK / Unit</th><th>Peranan</th><th>Status</th><th>Didaftar</th><th></th></tr></thead><tbody>${senarai.map(u => `
-    <tr><td class="font-semibold">${escapeHTML(u.nama)}</td><td>${escapeHTML(u.emel)}</td><td>${u.emel === keadaan.pengguna.emel ? escapeHTML(u.ppk || '—') : `<select class="input !min-h-0 !py-1 !w-auto text-[13px]" data-tukar-ppk="${escapeHTML(u.emel)}" aria-label="PPK ${escapeHTML(u.nama)}">${[...new Set([...PPK_CADANGAN, UNIT_LPP, u.ppk].filter(Boolean))].map(p => `<option ${samaPPK(p, u.ppk) ? 'selected' : ''}>${escapeHTML(p)}</option>`).join('')}</select>`}</td><td>${u.emel === keadaan.pengguna.emel ? PERANAN[u.peranan] : `<select class="input !min-h-0 !py-1 !w-auto text-[13px]" data-tukar-peranan="${escapeHTML(u.emel)}" aria-label="Peranan ${escapeHTML(u.nama)}">${Object.entries(PERANAN).map(([k, v]) => `<option value="${k}" ${u.peranan === k ? 'selected' : ''}>${v}</option>`).join('')}</select>`}</td><td>${cip[u.status] || ''}</td>
+  const superV = boleh.lihatKataLaluan();
+  // Akaun Super Admin dilindungi: peranan, PPK & status tidak boleh diubah oleh Admin
+  const kunci = (u) => u.emel === keadaan.pengguna.emel || u.peranan === 'superadmin';
+  const opsPeranan = Object.entries(PERANAN).filter(([k]) => k !== 'superadmin');
+  const selKL = (u) => {
+    if (!u.kl) return '<span class="text-[12px] text-muted" style="white-space:normal">Belum direkod · dikemas kini apabila pengguna log masuk</span>';
+    return `<span class="inline-flex items-center gap-1"><code class="kl-nilai num" data-kl-untuk="${escapeHTML(u.emel)}">••••••••</code><button type="button" class="icon-btn w-8 h-8" data-lihat-kl="${escapeHTML(u.emel)}" aria-label="Papar kata laluan ${escapeHTML(u.nama)}" aria-pressed="false" title="Papar / sembunyi"><i class="fa-regular fa-eye"></i></button></span>`;
+  };
+  $('#nota-kl').hidden = !superV;
+  $('#jadual-pengguna').innerHTML = `<thead><tr><th>Nama</th><th>Emel</th><th>PPK / Unit</th><th>Peranan</th>${superV ? '<th>Kata Laluan</th>' : ''}<th>Status</th><th>Didaftar</th><th></th></tr></thead><tbody>${senarai.map(u => `
+    <tr><td class="font-semibold">${escapeHTML(u.nama)}</td><td>${escapeHTML(u.emel)}</td><td>${kunci(u) ? escapeHTML(u.ppk || '—') : `<select class="input !min-h-0 !py-1 !w-auto text-[13px]" data-tukar-ppk="${escapeHTML(u.emel)}" aria-label="PPK ${escapeHTML(u.nama)}">${[...new Set([...PPK_CADANGAN, UNIT_LPP, u.ppk].filter(Boolean))].map(p => `<option ${samaPPK(p, u.ppk) ? 'selected' : ''}>${escapeHTML(p)}</option>`).join('')}</select>`}</td><td>${kunci(u) ? (u.peranan === 'superadmin' ? '<span class="chip chip-gain"><i class="fa-solid fa-crown"></i> Super Admin</span>' : PERANAN[u.peranan]) : `<select class="input !min-h-0 !py-1 !w-auto text-[13px]" data-tukar-peranan="${escapeHTML(u.emel)}" aria-label="Peranan ${escapeHTML(u.nama)}">${opsPeranan.map(([k, v]) => `<option value="${k}" ${u.peranan === k ? 'selected' : ''}>${v}</option>`).join('')}</select>`}</td>
+    ${superV ? `<td>${selKL(u)}</td>` : ''}<td>${cip[u.status] || ''}</td>
     <td class="num">${tarikhMS((u.tarikh || '').slice(0, 10))}</td>
-    <td class="r">${u.emel === keadaan.pengguna.emel ? '<span class="text-[12px] text-muted">Anda</span>' : u.status === 'ditolak' ? `<button class="btn btn-ghost btn-sm" data-sahkan="${escapeHTML(u.emel)}">Aktifkan</button>` : u.status === 'aktif' ? `<button class="btn btn-ghost btn-sm" data-tolak="${escapeHTML(u.emel)}">Nyahaktif</button>` : ''}</td></tr>`).join('')}</tbody>`;
+    <td class="r sel-aksi"><div class="flex flex-wrap gap-1.5 justify-end">${superV ? `<button class="btn btn-ghost btn-sm" data-reset-kl="${escapeHTML(u.emel)}" title="${u.emel === keadaan.pengguna.emel ? 'Tukar kata laluan anda' : 'Tetapkan semula kata laluan'}"><i class="fa-solid fa-key"></i> ${u.emel === keadaan.pengguna.emel ? 'Tukar' : 'Tetapkan'}</button>` : ''}${u.emel === keadaan.pengguna.emel ? '<span class="text-[12px] text-muted self-center">Anda</span>' : u.peranan === 'superadmin' ? '' : u.status === 'ditolak' ? `<button class="btn btn-ghost btn-sm" data-sahkan="${escapeHTML(u.emel)}">Aktifkan</button>` : u.status === 'aktif' ? `<button class="btn btn-ghost btn-sm" data-tolak="${escapeHTML(u.emel)}">Nyahaktif</button>` : ''}</div></td></tr>`).join('')}</tbody>`;
 }
 function tukarPPKPengguna(emel, ppkBaru) {
   if (!boleh.urusPengguna()) return;
   const senarai = semuaPengguna();
-  const u = senarai.find(x => x.emel === emel); if (!u || u.emel === keadaan.pengguna.emel) return;
+  const u = senarai.find(x => x.emel === emel); if (!u || u.emel === keadaan.pengguna.emel || u.peranan === 'superadmin') return;
   u.ppk = ppkBaru; simpan(KUNCI.pengguna, senarai);
   renderPengguna(); toast(`${u.nama} kini di bawah ${ppkBaru}.`, 'ok');
 }
 function tukarPeranan(emel, perananBaru) {
-  if (!boleh.urusPengguna() || !PERANAN[perananBaru]) return;
+  if (!boleh.urusPengguna() || !PERANAN[perananBaru] || perananBaru === 'superadmin') return;
   const senarai = semuaPengguna();
-  const u = senarai.find(x => x.emel === emel); if (!u || u.emel === keadaan.pengguna.emel) return;
+  const u = senarai.find(x => x.emel === emel); if (!u || u.emel === keadaan.pengguna.emel || u.peranan === 'superadmin') return;
   u.peranan = perananBaru; simpan(KUNCI.pengguna, senarai);
   renderPengguna(); toast(`${u.nama} kini ${PERANAN[perananBaru]}.`, 'ok');
 }
 function tukarStatusPengguna(emel, status) {
   if (!boleh.urusPengguna()) return;
   const senarai = semuaPengguna();
-  const u = senarai.find(x => x.emel === emel); if (!u) return;
+  const u = senarai.find(x => x.emel === emel); if (!u || u.peranan === 'superadmin') return;
   u.status = status; u.disahkanOleh = keadaan.pengguna.emel;
   simpan(KUNCI.pengguna, senarai);
   binaNavigasi(); renderPengguna();
@@ -2840,13 +2952,26 @@ function pasangPeristiwa() {
     const ep = e.target.closest('[data-tukar-ppk]'); if (ep) tukarPPKPengguna(ep.dataset.tukarPpk, ep.value);
   });
   $('#modal-batal').addEventListener('click', tutupModal);
+  $('#form-kl').addEventListener('submit', simpanKL);
+  $('#kl-batal').addEventListener('click', tutupTukarKL);
+  $('#modal-kl').addEventListener('click', (e) => { if (e.target.id === 'modal-kl') tutupTukarKL(); });
   $('#modal-ok').addEventListener('click', () => { const cb = keadaan.padamCallback; tutupModal(); cb && cb(); });
   $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') tutupModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key !== 'Escape') return; if (!$('#modal').hidden) tutupModal(); else tutupLembarData(true); });
+  document.addEventListener('keydown', (e) => { if (e.key !== 'Escape') return; if (!$('#modal-kl').hidden) tutupTukarKL(); else if (!$('#modal').hidden) tutupModal(); else tutupLembarData(true); });
   $('#lembar-latar').addEventListener('click', () => tutupLembarData(true));
 
   // Delegasi klik untuk elemen yang dijana secara dinamik
   document.addEventListener('click', (e) => {
+    const lk = e.target.closest('[data-lihat-kl]');
+    if (lk) {
+      if (!boleh.lihatKataLaluan()) return;
+      const sel = $(`[data-kl-untuk="${CSS.escape(lk.dataset.lihatKl)}"]`), u = semuaPengguna().find(x => x.emel === lk.dataset.lihatKl);
+      const papar = lk.getAttribute('aria-pressed') !== 'true';
+      if (sel && u) { sel.textContent = papar ? u.kl : '••••••••'; lk.setAttribute('aria-pressed', String(papar)); lk.innerHTML = `<i class="fa-regular ${papar ? 'fa-eye-slash' : 'fa-eye'}"></i>`; }
+      return;
+    }
+    const rk = e.target.closest('[data-reset-kl]');
+    if (rk) { bukaTukarKL(rk.dataset.resetKl); return; }
     const tb = e.target.closest('[data-tab-butiran]');
     if (tb) { tukarTabButiran(tb.dataset.tabButiran); return; }
     const ps = e.target.closest('[data-papar-semua]');
@@ -2866,9 +2991,10 @@ function pasangPeristiwa() {
     else if (el.dataset.padam) padamRekod(el.dataset.padam);
     else if (el.dataset.sahkan) tukarStatusPengguna(el.dataset.sahkan, 'aktif');
     else if (el.dataset.tolak) tukarStatusPengguna(el.dataset.tolak, 'ditolak');
-    else if (el.dataset.togglePw) { const i = $('#' + el.dataset.togglePw); i.type = i.type === 'password' ? 'text' : 'password'; }
+    else if (el.dataset.togglePw) { const i = $('#' + el.dataset.togglePw); const papar = i.type === 'password'; i.type = papar ? 'text' : 'password'; el.setAttribute('aria-pressed', String(papar)); el.setAttribute('aria-label', papar ? 'Sembunyi kata laluan' : 'Papar kata laluan'); el.innerHTML = `<i class="fa-regular ${papar ? 'fa-eye-slash' : 'fa-eye'}"></i>`; }
     else switch (el.dataset.aksi) {
       case 'logout': logKeluar(); break;
+      case 'tukar-kl': bukaTukarKL(); break;
       case 'ke-input': if (boleh.input()) { resetBorang(); tukarSeksyen('input'); } break;
       case 'ke-projek': if (boleh.input()) tukarSeksyen('projek'); break;
       case 'ke-rekod': $('#r-tahun').value = $('#f-tahun').value; $('#r-ppk').value = $('#f-ppk').value; $('#r-reban').value = $('#f-reban').value; tukarSeksyen('rekod'); break;
