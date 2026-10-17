@@ -306,6 +306,7 @@
   .lp-dl dd { font-weight: 600; margin-top: 3px; overflow-wrap: anywhere; }
   .lp-dl .lp-dl-lebar { grid-column: 1 / -1; }
   .lp-status { border-top: 4px solid var(--status); }
+  .kad-utama .nilai-rugi { color: #FFB4AB; }   /* rugi dalam kad hijau gelap */
   .lp-penemuan li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
   .lp-teks { min-height: 132px; resize: vertical; line-height: 1.5; }
   .teks-cetak { white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -320,7 +321,7 @@
     :root, :root:not([data-theme="light"]), :root[data-theme="dark"] {
       --bg: #fff; --surface: #fff; --surface-2: #f2f2f2; --ink: #000; --muted: #333; --line: #9a9a9a;
       --brand: #0A3A23; --brand-strong: #0A3A23; --brand-soft: #fff; --on-brand: #000; --gold-ink: #8A6A12;
-      --gain: #000; --gain-soft: #fff; --loss: #000; --loss-soft: #fff; --warn: #000; --warn-soft: #fff; --shadow: none;
+      --gain: #13803B; --gain-soft: #DDF3E3; --loss: #B42318; --loss-soft: #FDE7E4; --warn: #A15C07; --warn-soft: #FDF0D5; --shadow: none;
       color-scheme: light;
     }
     html, body { background: #fff !important; color: #000 !important; height: auto; font-size: 11pt; }
@@ -357,7 +358,6 @@
     #kaki-cetak { display: none !important; }   /* hak cipta & nombor muka surat dicetak pada margin bawah setiap halaman */
     .tbl { font-size: 8pt; }
     .tbl th, .tbl td { padding: 3px 5px !important; }
-    .chip svg { display: none; }
     /* Susunan padat untuk cetakan: 4 kad sebaris, carta bersebelahan */
     #sek-dashboard > * + * { margin-top: 3.5mm !important; }
     #kad-ringkasan, #kotak-sasaran { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 3mm !important; }
@@ -370,9 +370,23 @@
     #kad-ringkasan .text-\[clamp\(24px\,2vw\,34px\)\], #kotak-sasaran .text-\[clamp\(24px\,1\.9vw\,32px\)\] { font-size: 15pt !important; }
     .chart-box { height: 260px !important; }
     .tbl { font-size: 9pt; }
-    .tbl th, .tbl td { border: 1px solid #9a9a9a !important; color: #000 !important; background: #fff !important; padding: 5px 6px; }
+    .tbl th, .tbl td { border: 1px solid #9a9a9a !important; color: #000; background: #fff !important; padding: 5px 6px; }
+    /* Cetakan berwarna: nombor rugi merah; untung kekal hitam */
+    .text-loss, .tbl .text-loss, .tbl td.text-loss, .kad-utama .nilai-rugi { color: var(--loss) !important; }
+    .text-gain, .tbl .text-gain, .tbl td.text-gain { color: #000 !important; }
     .tbl tfoot td { background: #eee !important; }
-    .chip { border: 1px solid #000; background: #fff !important; color: #000 !important; }
+    /* Cip status diwarnakan mengikut status (Hijau / Kuning / Merah) */
+    .chip { border: 1px solid currentColor; }
+    .chip-gain { background: var(--gain-soft) !important; color: var(--gain) !important; }
+    .chip-warn { background: var(--warn-soft) !important; color: var(--warn) !important; }
+    .chip-loss { background: var(--loss-soft) !important; color: var(--loss) !important; }
+    .chip-neutral { background: #f2f2f2 !important; color: #333 !important; border-color: #9a9a9a; }
+    .chip svg { width: .85em; }
+    /* Kotak (kad) diwarnakan mengikut status */
+    .card.kotak-status.kotak-gain { background: var(--gain-soft) !important; border: 1.5px solid var(--gain) !important; }
+    .card.kotak-status.kotak-warn { background: var(--warn-soft) !important; border: 1.5px solid var(--warn) !important; }
+    .card.kotak-status.kotak-loss { background: var(--loss-soft) !important; border: 1.5px solid var(--loss) !important; }
+    .kotak-status .bg-surface2 { background: rgba(255,255,255,.7) !important; }
     /* Laporan Prestasi Projek */
     #lp-kandungan > * + * { margin-top: 3.5mm !important; }
     #sek-laporan .card.p-5 { padding: 3.5mm 4mm !important; }
@@ -390,7 +404,7 @@
     .lp-dl { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 2.5mm 5mm !important; font-size: 9pt; }
     .lp-penemuan { font-size: 9pt !important; margin-top: 2mm !important; }
     .lp-penemuan li + li { margin-top: 1.5mm !important; }
-    .lp-status { border-top: 1.5px solid #0A3A23 !important; }
+    .lp-status { border-top: 4px solid var(--status) !important; }
     .lp-teks-papar { display: block !important; min-height: 22mm; border: 1px solid #9a9a9a; border-radius: 4px; padding: 2.5mm 3mm; font-size: 9pt; }
     .lp-ulasan, .lp-pengesahan-blok { break-inside: avoid; }
     .print-only.lp-pengesahan-blok { display: block !important; }
@@ -844,7 +858,7 @@
               <form id="form-peruntukan" class="grid grid-cols-2 md:grid-cols-4 gap-4" novalidate>
                 <div class="field col-span-2 md:col-span-2"><label for="pr-ppk">PPK</label><select id="pr-ppk" class="input" required></select></div>
                 <div class="field col-span-1 md:col-span-1"><label for="pr-reban">Jenis Reban</label><select id="pr-reban" class="input" required><option value="terbuka">Reban Terbuka</option><option value="tertutup">Reban Tertutup</option></select></div>
-                <div class="field col-span-1 md:col-span-1"><label for="pr-tahun">Tahun</label><select id="pr-tahun" class="input" required></select></div>
+                <div class="field col-span-1 md:col-span-1"><label for="pr-tahun">Tahun Peruntukan</label><input id="pr-tahun" class="input num" type="number" inputmode="numeric" min="1980" step="1" placeholder="cth. 2025" required><p class="hint">Isi tahun, cth. 2015</p></div>
                 <div class="field col-span-2 md:col-span-4"><label for="pr-program">Nama Program</label><input id="pr-program" class="input" type="text" placeholder="cth. Program Pembangunan Reban Ayam Pedaging" required></div>
                 <div class="field col-span-2 md:col-span-2"><label for="pr-lokasi">Lokasi Projek</label><input id="pr-lokasi" class="input" type="text" placeholder="cth. Kg. Besol, Dungun" required></div>
                 <div class="field col-span-1 md:col-span-1"><label for="pr-kapasiti">Kapasiti Projek</label><input id="pr-kapasiti" class="input num text-right" type="number" inputmode="numeric" min="1" step="1" placeholder="0" required><p class="hint">ekor / pusingan</p></div>
@@ -1562,11 +1576,11 @@ function renderDashboard() {
         <span class="eyebrow ${utama ? 'opacity-85' : 'text-muted'}">${label}</span>
         <span class="w-8 h-8 rounded-lg flex items-center justify-center ${utama ? 'bg-white/15' : 'bg-surface2 text-muted'}"><i class="fa-solid ${ikon}"></i></span>
       </div>
-      <div class="num font-display font-extrabold text-[clamp(24px,2vw,34px)] leading-tight mt-3 ${!utama && tanda < 0 ? 'text-loss' : ''}">${nilai}</div>
+      <div class="num font-display font-extrabold text-[clamp(24px,2vw,34px)] leading-tight mt-3 ${tanda < 0 ? (utama ? 'nilai-rugi' : 'text-loss') : ''}">${nilai}</div>
       <div class="text-[12.5px] mt-1 ${utama ? 'opacity-85' : 'text-muted'}">${nota}</div>
     </div>`;
   $('#kad-ringkasan').innerHTML =
-    kad(`Jumlah Untung Bersih ${tahun}`, rm(jumUntung), 'fa-sack-dollar', `${ada.length} pusingan · ${bilRugi ? bilRugi + ' pusingan rugi' : 'tiada pusingan rugi'}`, true) +
+    kad(`Jumlah Untung Bersih ${tahun}`, rm(jumUntung), 'fa-sack-dollar', `${ada.length} pusingan · ${bilRugi ? bilRugi + ' pusingan rugi' : 'tiada pusingan rugi'}`, true, jumUntung) +
     kad('Jumlah Kos', rm(jumKos), 'fa-receipt', jumPend ? `${peratus(jumKos / jumPend)} daripada pendapatan` : 'Tiada data') +
     kad('Purata Untung / Pusingan', rm(purata), 'fa-scale-balanced',
       beza == null ? `Tiada data ${tahun - 1} untuk perbandingan` : `<span class="${beza >= 0 ? 'text-gain' : 'text-loss'} font-semibold">${beza >= 0 ? '▲' : '▼'} ${peratus(Math.abs(beza))}</span> berbanding purata ${tahun - 1}`, false, purata) +
@@ -1946,7 +1960,9 @@ function isiBorangProjek() {
   const opsyen = ppkList.map(p => `<option>${escapeHTML(p)}</option>`).join('');
   ['#pr-ppk', '#sa-ppk'].forEach(s => { const el = $(s), v = el.value; el.innerHTML = opsyen; el.value = ppkList.includes(v) ? v : ppkList[0] || ''; el.disabled = peranan() === 'pengguna'; });
   const thnSemasa = new Date().getFullYear(), thn = []; for (let y = thnSemasa + 2; y >= 2018; y--) thn.push(y);
-  ['#pr-tahun', '#sa-tahun'].forEach(s => { const el = $(s), v = el.value; el.innerHTML = thn.map(y => `<option value="${y}">${y}</option>`).join(''); el.value = v || String(thnSemasa); });
+  ['#sa-tahun'].forEach(s => { const el = $(s), v = el.value; el.innerHTML = thn.map(y => `<option value="${y}">${y}</option>`).join(''); el.value = v || String(thnSemasa); });
+  // Tahun peruntukan: diisi sendiri (peruntukan lama seperti 2015 juga boleh direkod)
+  const prT = $('#pr-tahun'); prT.max = String(thnSemasa + 5); if (!prT.value) prT.value = String(thnSemasa);
   const tapis = $('#mp-ppk-tapis'), vt = tapis.value;
   tapis.innerHTML = boleh.lihatSemua() ? '<option value="">Semua PPK</option>' + ppkList.map(p => `<option>${escapeHTML(p)}</option>`).join('') : `<option>${escapeHTML(keadaan.pengguna.ppk)}</option>`;
   tapis.value = [...tapis.options].some(o => o.value === vt) ? vt : tapis.options[0].value;
@@ -2004,7 +2020,8 @@ function simpanPeruntukan(e) {
   if (!boleh.input()) return;
   const ralat = $('#pr-ralat'); ralat.hidden = true;
   const x = { ppk: $('#pr-ppk').value, jenisReban: $('#pr-reban').value, tahun: +$('#pr-tahun').value, program: $('#pr-program').value.trim(), lokasi: $('#pr-lokasi').value.trim(), kapasiti: Math.round(nombor($('#pr-kapasiti').value)), nilai: nombor($('#pr-nilai').value) };
-  const salah = !x.ppk ? 'Pilih PPK.' : !x.program ? 'Masukkan nama program.' : !x.lokasi ? 'Masukkan lokasi projek.' : !(x.kapasiti > 0) ? 'Masukkan kapasiti projek (bilangan ekor bagi setiap pusingan).' : !(x.nilai > 0) ? 'Masukkan nilai peruntukan yang diterima.' :
+  const thnMaks = new Date().getFullYear() + 5;
+  const salah = !x.ppk ? 'Pilih PPK.' : !(Number.isInteger(x.tahun) && x.tahun >= 1980 && x.tahun <= thnMaks) ? `Isi tahun peruntukan yang sah (1980 – ${thnMaks}).` : !x.program ? 'Masukkan nama program.' : !x.lokasi ? 'Masukkan lokasi projek.' : !(x.kapasiti > 0) ? 'Masukkan kapasiti projek (bilangan ekor bagi setiap pusingan).' : !(x.nilai > 0) ? 'Masukkan nilai peruntukan yang diterima.' :
     (peranan() === 'pengguna' && !samaPPK(x.ppk, keadaan.pengguna.ppk)) ? `Anda hanya boleh mengisi data untuk ${keadaan.pengguna.ppk}.` : '';
   if (salah) { ralat.textContent = salah; ralat.hidden = false; return; }
   const senarai = semuaPeruntukan();
@@ -2077,7 +2094,7 @@ function renderSasaranDashboard(tahun, ppk, reban, kadTambahan = '') {
     const label = p >= 1 ? 'Capai sasaran' : p >= 0.8 ? 'Hampir capai' : 'Di bawah sasaran';
     const lebar = Math.max(0, Math.min(100, p * 100));
     const baki = S - A;
-    return `<div class="card p-5">
+    return `<div class="card p-5 kotak-status kotak-${kelas}">
       <div class="flex items-center justify-between"><span class="eyebrow text-muted">${tajuk} ${tahun}</span><span class="chip chip-${kelas}">${label}</span></div>
       <div class="num font-display font-extrabold text-[clamp(24px,1.9vw,32px)] leading-tight mt-3 ${A < 0 ? 'text-loss' : ''}">${rm(A)}</div>
       <div class="text-[12.5px] text-muted">daripada sasaran <b class="text-ink num">${rm(S)}</b></div>
@@ -2105,6 +2122,8 @@ function renderSasaranDashboard(tahun, ppk, reban, kadTambahan = '') {
 /* ---------- 12c. Laporan Prestasi Projek ----------
    Satu projek = satu PPK + satu jenis reban. Laporan merangkumi sepanjang hayat projek (julat tahun boleh dipilih):
    1 Profil · 2 Prestasi Pelaburan · 3 Trend Tahunan · 4 Prestasi Teknikal · 5 Kos & Margin · 6 Penilaian & Tindakan · 7 Pengesahan (cetakan) */
+/** RM dengan warna merah jika negatif (rugi) */
+const rmW = (n) => n < 0 ? `<span class="text-loss font-semibold">${rm(n)}</span>` : rm(n);
 const kunciProjek = (ppk, reban) => normPPK(ppk) + '|' + reban;
 const semuaUlasan = () => baca(KUNCI.ulasan, {});
 /** Penanda aras dalaman kad skor (boleh dilaraskan oleh Unit Pembangunan Ekonomi PP) */
@@ -2269,7 +2288,7 @@ function renderLaporan() {
   }
   if (tahunAda.length >= 2) {
     const s = tahunAda.slice().sort((a, b) => b.A.untung - a.A.untung);
-    pen.push({ nada: 'neutral', teks: `Untung tertinggi pada <b>${s[0].y}</b> (${rm(s[0].A.untung)}, ${s[0].rs.length} pusingan); terendah pada <b>${s.at(-1).y}</b> (${rm(s.at(-1).A.untung)}, ${s.at(-1).rs.length} pusingan).` });
+    pen.push({ nada: 'neutral', teks: `Untung tertinggi pada <b>${s[0].y}</b> (${rmW(s[0].A.untung)}, ${s[0].rs.length} pusingan); terendah pada <b>${s.at(-1).y}</b> (${rmW(s.at(-1).A.untung)}, ${s.at(-1).rs.length} pusingan).` });
     const ber = tahunAda.filter(t => isFinite(t.A.kosKg));
     if (ber.length >= 2) {
       const a = ber[0], b = ber.at(-1), dk = (b.A.kosKg - a.A.kosKg) / a.A.kosKg, dh = (b.A.hargaKg - a.A.hargaKg) / a.A.hargaKg;
@@ -2294,11 +2313,12 @@ function renderLaporan() {
 
   // ---- Penyusun HTML ----
   const tajuk = (no, t, ket) => `<div class="lapisan"><h2>${no} · ${t}</h2><span class="garis"></span><p>${ket}</p></div>`;
-  const kad = (label, nilai, ikon, nota, utama = false, negatif = false) => `
-    <div class="card p-5 ${utama ? 'kad-utama border-transparent' : ''} min-w-0">
+  const KOTAK_ST = { hijau: 'kotak-status kotak-gain', kuning: 'kotak-status kotak-warn', merah: 'kotak-status kotak-loss' };
+  const kad = (label, nilai, ikon, nota, utama = false, negatif = false, st = '') => `
+    <div class="card p-5 ${utama ? 'kad-utama border-transparent' : ''} ${KOTAK_ST[st] || ''} min-w-0">
       <div class="flex items-center justify-between gap-2"><span class="eyebrow ${utama ? '' : 'text-muted'}">${label}</span>
         <span class="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center ${utama ? 'bg-white/15' : 'bg-surface2 text-muted'}"><i class="fa-solid ${ikon}"></i></span></div>
-      <div class="num font-display font-extrabold text-[clamp(22px,1.7vw,30px)] leading-tight mt-3 ${!utama && negatif ? 'text-loss' : ''}">${nilai}</div>
+      <div class="num font-display font-extrabold text-[clamp(22px,1.7vw,30px)] leading-tight mt-3 ${negatif ? (utama ? 'nilai-rugi' : 'text-loss') : ''}">${nilai}</div>
       <div class="text-[12.5px] mt-1 ${utama ? 'opacity-85' : 'text-muted'}">${nota}</div>
     </div>`;
   const legenda = (item) => `<div class="flex flex-wrap gap-3 text-[12px] text-muted" aria-hidden="true">${item.map(([l, w, garis]) => `<span class="inline-flex items-center gap-1.5"><span class="${garis ? 'w-4 h-[3px] rounded' : 'w-3 h-3 rounded-sm'}" style="background:${w}${garis === 'putus' ? ';background:repeating-linear-gradient(90deg,' + w + ' 0 4px,transparent 4px 7px)' : ''}"></span>${l}</span>`).join('')}</div>`;
@@ -2339,12 +2359,12 @@ function renderLaporan() {
   html += tajuk('2', 'Prestasi Pelaburan', 'Pulangan peruntukan, tempoh pulang modal & penggunaan kapasiti') + `
     <div id="lp-kpi" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6 gap-4 xl:gap-5">
       ${kad('Jumlah Peruntukan', jumPr ? rm(jumPr) : '—', 'fa-hand-holding-dollar', pr.length ? `${pr.length} peruntukan · ${pr[0].tahun}${pr.length > 1 ? '–' + pr.at(-1).tahun : ''}` : 'Tiada peruntukan direkod')}
-      ${kad('Untung Bersih Terkumpul', rm(T.untung), 'fa-sack-dollar', `${T.n} pusingan · ${tempoh}`, true)}
-      ${kad('Pulangan atas Peruntukan', isFinite(pulangan) ? peratus(pulangan) : '—', 'fa-percent', isFinite(pulanganTahunan) ? `${peratus(pulanganTahunan)} setahun secara purata` : 'Perlu peruntukan & rekod pusingan', false, pulangan < 0)}
+      ${kad('Untung Bersih Terkumpul', rm(T.untung), 'fa-sack-dollar', `${T.n} pusingan · ${tempoh}`, true, T.untung < 0)}
+      ${kad('Pulangan atas Peruntukan', isFinite(pulangan) ? peratus(pulangan) : '—', 'fa-percent', isFinite(pulanganTahunan) ? `${peratus(pulanganTahunan)} setahun secara purata` : 'Perlu peruntukan & rekod pusingan', false, pulangan < 0, nilaiStatus(pulanganTahunan, PENANDA.pulangan))}
       ${kad('Anggaran Pulang Modal', T.n && jumPr && T.untung >= jumPr ? 'Telah pulih' : isFinite(pulangModal) ? f1(pulangModal) + ' tahun' : '—', 'fa-hourglass-half',
-        !jumPr || !T.n ? 'Perlu peruntukan & rekod pusingan' : T.untung >= jumPr ? 'Untung terkumpul ≥ peruntukan' : isFinite(pulangModal) ? `Baki ~${bakiTahun.toFixed(1)} tahun pada ${rmRingkas(untungTahunan)}/tahun` : 'Tidak dapat dianggar (untung purata ≤ 0)')}
-      ${kad('Penggunaan Kapasiti', peratus(gunaKap), 'fa-warehouse', isFinite(purataMasuk) && kap ? `Purata ${fmtNom.format(purataMasuk)} daripada ${fmtNom.format(kap)} ekor` : 'Perlu kapasiti & rekod pusingan')}
-      ${kad('Purata Untung / Pusingan', T.n ? rm(T.untung / T.n) : '—', 'fa-scale-balanced', T.n ? `Margin ${peratus(T.margin)} · ${T.rugi} pusingan rugi` : 'Tiada rekod pusingan', false, T.untung < 0)}
+        !jumPr || !T.n ? 'Perlu peruntukan & rekod pusingan' : T.untung >= jumPr ? 'Untung terkumpul ≥ peruntukan' : isFinite(pulangModal) ? `Baki ~${bakiTahun.toFixed(1)} tahun pada ${rmRingkas(untungTahunan)}/tahun` : 'Tidak dapat dianggar (untung purata ≤ 0)', false, false, T.n && jumPr ? nilaiStatus(pulanganTahunan, PENANDA.pulangan) : '')}
+      ${kad('Penggunaan Kapasiti', peratus(gunaKap), 'fa-warehouse', isFinite(purataMasuk) && kap ? `Purata ${fmtNom.format(purataMasuk)} daripada ${fmtNom.format(kap)} ekor` : 'Perlu kapasiti & rekod pusingan', false, false, nilaiStatus(gunaKap, PENANDA.kapasiti))}
+      ${kad('Purata Untung / Pusingan', T.n ? rm(T.untung / T.n) : '—', 'fa-scale-balanced', T.n ? `Margin ${peratus(T.margin)} · ${T.rugi} pusingan rugi` : 'Tiada rekod pusingan', false, T.untung < 0, nilaiStatus(T.margin, PENANDA.margin))}
     </div>
     <p class="text-[12px] text-muted">Andaian: semua peruntukan dikira sebagai pelaburan modal projek. Tempoh pulang modal = jumlah peruntukan ÷ purata untung bersih setahun (${tahunAda.length || 0} tahun beroperasi dalam tempoh). Penggunaan kapasiti = anak ayam masuk ÷ kapasiti berkuat kuasa pada tahun pusingan.</p>`;
 
@@ -2596,7 +2616,7 @@ function kadBPI(rekodTahun, tahun) {
   const kat = kategoriBPI(R.bpi);
   if (!R.bil) return `<div class="card p-5"><div class="flex items-center justify-between"><span class="eyebrow text-muted">Prestasi Teknikal (BPI) ${tahun}</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid fa-gauge-high"></i></span></div><p class="text-sm text-muted mt-3">BPI belum dapat dikira. Lengkapkan ayam dijual, berat, makanan (kg) dan umur jualan.</p></div>`;
   const susunan = ['Sangat Baik', 'Baik', 'Sederhana', 'Lemah'];
-  return `<div class="card p-5">
+  return `<div class="card p-5 kotak-status ${kat ? kat.kelas.replace('chip-', 'kotak-') : ''}">
     <div class="flex items-center justify-between"><span class="eyebrow text-muted">Prestasi Teknikal (BPI) ${tahun}</span>${kat ? `<span class="chip ${kat.kelas}">${kat.label}</span>` : ''}</div>
     <div class="num font-display font-extrabold text-[clamp(24px,1.9vw,32px)] leading-tight mt-3">${R.bpi.toFixed(1)}</div>
     <div class="text-[12.5px] text-muted">purata BPI · FCR ${isFinite(R.fcr) ? R.fcr.toFixed(3) : '—'} · kematian ${peratus(R.mati)}</div>
