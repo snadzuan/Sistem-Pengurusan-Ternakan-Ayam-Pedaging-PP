@@ -507,22 +507,6 @@
   #view-auth .btn-primary:hover { background: var(--b360-cta-hover); }
   #view-auth .b360-hidden-on-focus:focus-visible { outline: 2px solid var(--b360-gold); }
 
-  /* Akaun demo (dilipat) */
-  .b360-demo { border: 1px dashed var(--line); border-radius: 14px; overflow: hidden; }
-  .b360-demo > summary { list-style: none; cursor: pointer; min-height: 46px; padding: 0 14px; display: flex; align-items: center; gap: 10px; background: var(--surface-2); font-size: 13.5px; font-weight: 600; color: var(--ink); }
-  .b360-demo > summary::-webkit-details-marker { display: none; }
-  .b360-demo > summary .chev { transition: transform .2s; color: var(--muted); }
-  .b360-demo[open] > summary .chev { transform: rotate(180deg); }
-  .b360-demo-row { width: 100%; display: grid; grid-template-columns: 78px minmax(0,1fr) auto; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; text-align: left; }
-  .b360-demo-row:hover { background: var(--surface-2); }
-  .b360-demo-row .peranan { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-  .b360-demo-row .emel { font-size: 13px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .b360-demo-row .kl { font-family: var(--font-mono); font-size: 11.5px; color: var(--brand-strong); }
-  @media (max-width: 639px) {
-    .b360-demo-row { grid-template-columns: minmax(0,1fr) auto; }
-    .b360-demo-row .emel { grid-column: 1 / -1; grid-row: 2; white-space: normal; overflow-wrap: anywhere; }
-  }
-  @media (prefers-reduced-motion: reduce) { .b360-demo > summary .chev { transition: none; } }
 </style>
 
 </head>
@@ -610,25 +594,6 @@
           <p id="login-ralat" class="err" role="alert" hidden></p>
           <button class="btn btn-primary w-full" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Log Masuk</button>
 
-          <!-- ===== AKAUN DEMO (SEMENTARA) — buang keseluruhan blok ini apabila sistem digunakan secara rasmi ===== -->
-          <details class="b360-demo">
-            <summary>
-              <i class="fa-solid fa-key" aria-hidden="true" style="color:var(--muted)"></i>
-              <span class="flex-1">Akaun demo (simulasi)</span>
-              <span class="text-[11px] text-muted" style="font-family:var(--font-mono)">6 peranan</span>
-              <i class="fa-solid fa-chevron-down chev" aria-hidden="true"></i>
-            </summary>
-            <div class="flex flex-col gap-0.5 p-1.5" style="background:var(--surface)">
-              <button type="button" class="b360-demo-row" data-demo="admin@lpp.gov.my|Admin@123"><span class="peranan">Admin</span><span class="emel">admin@lpp.gov.my</span><span class="kl">Admin@123</span></button>
-              <button type="button" class="b360-demo-row" data-demo="pegawai.dungun@lpp.gov.my|Dungun@123"><span class="peranan">Dungun</span><span class="emel">pegawai.dungun@lpp.gov.my</span><span class="kl">Dungun@123</span></button>
-              <button type="button" class="b360-demo-row" data-demo="pegawai.bukitdiman@lpp.gov.my|BukitDiman@123"><span class="peranan">Bkt Diman</span><span class="emel">pegawai.bukitdiman@lpp.gov.my</span><span class="kl">BukitDiman@123</span></button>
-              <button type="button" class="b360-demo-row" data-demo="pegawai.kijal@lpp.gov.my|Kijal@123"><span class="peranan">Kijal</span><span class="emel">pegawai.kijal@lpp.gov.my</span><span class="kl">Kijal@123</span></button>
-              <button type="button" class="b360-demo-row" data-demo="pegawai.kualaterengganu@lpp.gov.my|KualaTerengganu@123"><span class="peranan">K. Tganu</span><span class="emel">pegawai.kualaterengganu@lpp.gov.my</span><span class="kl">KualaTerengganu@123</span></button>
-              <button type="button" class="b360-demo-row" data-demo="pemerhati@lpp.gov.my|Pemerhati@123"><span class="peranan">Pemerhati</span><span class="emel">pemerhati@lpp.gov.my</span><span class="kl">Pemerhati@123</span></button>
-              <p class="px-2.5 pt-1.5 pb-1 text-[12px] text-muted">Klik satu baris untuk mengisi borang log masuk.</p>
-            </div>
-          </details>
-          <!-- ===== TAMAT AKAUN DEMO ===== -->
         </form>
 
         <!-- Borang Pendaftaran -->
@@ -1196,7 +1161,7 @@ const KUNCI = { pengguna: 'lppAyam.v2.pengguna', rekod: 'lppAyam.v2.rekod', sesi
   ingat: 'lppAyam.v2.ingatLogMasuk', peruntukan: 'lppAyam.v2.peruntukan', sasaran: 'lppAyam.v2.sasaran', versiProjek: 'lppAyam.v2.versiProjek', ulasan: 'lppAyam.v2.ulasanProjek' };
 const PERANAN = { admin: 'Admin', pengguna: 'Pengguna', pemerhati: 'Pemerhati' };
 /** Versi aplikasi (dipaparkan di halaman log masuk & bar sisi untuk semakan) */
-const VERSI_APP = 'Versi 30 · 17/10/2026';
+const VERSI_APP = 'Versi 31 · 17/10/2026';
 /* Data asal Maklumat Projek daripada "DATABASE MAKLUMAT DAN SASARAN PROJEK TERNAKAN AYAM DAGING" (17/10/2026) */
 const PROJEK_ASAL = {"pr":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2015,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":220000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2016,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":20000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":3275000.0,"lokasi":"Kg. Bukit Anak Dara, Kemaman","kapasiti":60000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":300000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2024","nilai":3300000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":82000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PENGUKUHAN KETERJAMINAN MAKANAN 2024","nilai":1226000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":82000},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Peladan, Hulu Terengganu","kapasiti":15000},{"ppk":"PPK Bukit Diman","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Batu Bertindan, Hulu Terengganu","kapasiti":30000},{"ppk":"PPK Jerangau","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Padang Ping, Dungun","kapasiti":30000},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Telaga Papan, Kuala Terengganu","kapasiti":30000}],"sa":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2021,"pendapatan":1400000.0,"untung":25000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2022,"pendapatan":2600000.0,"untung":100000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2023,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2024,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2025,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2026,"pendapatan":970000.0,"untung":70000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"pendapatan":400000.0,"untung":25000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"pendapatan":1800000.0,"untung":120000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2023,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2024,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2025,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2026,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2023,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2024,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2025,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2026,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2026,"pendapatan":838000.0,"untung":30000.0}]};
 const VERSI_PROJEK = 3;   // v2: lokasi projek · v3: kapasiti projek (ekor / pusingan)
@@ -2894,14 +2859,13 @@ function pasangPeristiwa() {
       else if (ep.dataset.padamSa) padamItemProjek('sasaran', ep.dataset.padamSa);
       return;
     }
-    const el = e.target.closest('[data-nav],[data-aksi],[data-sunting],[data-padam],[data-sahkan],[data-tolak],[data-demo],[data-toggle-pw]');
+    const el = e.target.closest('[data-nav],[data-aksi],[data-sunting],[data-padam],[data-sahkan],[data-tolak],[data-toggle-pw]');
     if (!el) return;
     if (el.dataset.nav) { e.preventDefault(); tukarSeksyen(el.dataset.nav); }
     else if (el.dataset.sunting) suntingRekod(el.dataset.sunting);
     else if (el.dataset.padam) padamRekod(el.dataset.padam);
     else if (el.dataset.sahkan) tukarStatusPengguna(el.dataset.sahkan, 'aktif');
     else if (el.dataset.tolak) tukarStatusPengguna(el.dataset.tolak, 'ditolak');
-    else if (el.dataset.demo) { const [em, kl] = el.dataset.demo.split('|'); $('#login-emel').value = em; $('#login-katalaluan').value = kl; $('#login-ralat').hidden = true; }
     else if (el.dataset.togglePw) { const i = $('#' + el.dataset.togglePw); i.type = i.type === 'password' ? 'text' : 'password'; }
     else switch (el.dataset.aksi) {
       case 'logout': logKeluar(); break;
