@@ -266,6 +266,34 @@
   .sisi-b360 .icon-btn:hover { color: #fff; background: rgba(255,255,255,.10); }
   .sisi-b360 :focus-visible { outline-color: var(--b360-gold); }
   .sisi-label { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+
+  /* ===== Navigasi berkumpulan: Pemantauan · Pengurusan Data · Pentadbiran ===== */
+  .sisi-kumpulan + .sisi-kumpulan { margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.08); }
+  .sisi-kumpulan .sisi-label { display: flex; align-items: center; gap: 8px; padding: 0 12px 6px; }
+  .sisi-kumpulan .sisi-label .bil { margin-left: auto; font-size: 9.5px; color: rgba(255,255,255,.35); letter-spacing: .08em; }
+  .sisi-kumpulan.kump-data .nav-link .langkah { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; color: rgba(255,255,255,.38); width: 14px; text-align: right; }
+  .sisi-kumpulan.kump-data .nav-link[aria-current="page"] .langkah { color: var(--b360-gold); }
+  /* Tab bawah: pemisah halus antara kumpulan */
+  .tab-link.mula-kumpulan::after { content: ""; position: absolute; left: 0; top: 12px; bottom: 12px; width: 1px; background: var(--line); }
+  .tab-link .kaki-kump { font-size: 9px; line-height: 1; margin-top: -1px; color: var(--muted); }
+  .tab-link[aria-expanded="true"] { color: var(--brand); }
+  /* Lembaran menu Pengurusan Data (telefon & tablet) */
+  .lembar-latar { position: fixed; inset: 0; z-index: 45; background: rgba(5,15,10,.45); }
+  .lembar-data { position: fixed; left: 0; right: 0; z-index: 46; bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+    padding: 8px max(12px, env(safe-area-inset-right, 0px)) 12px max(12px, env(safe-area-inset-left, 0px)); }
+  .lembar-data .kad-lembar { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 -10px 40px -12px rgba(5,15,10,.35); padding: 14px 10px 10px; max-width: 560px; margin: 0 auto; }
+  .lembar-data .kepala { display: flex; align-items: center; gap: 10px; padding: 0 8px 10px; }
+  .lembar-data .kepala::before { content: ""; width: 18px; height: 3px; border-radius: 2px; background: var(--b360-gold); }
+  .lembar-data .kepala span { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .item-lembar { display: grid; grid-template-columns: 40px minmax(0,1fr) auto; align-items: center; gap: 12px; padding: 10px 8px; border-radius: 12px; color: var(--ink); min-height: 56px; }
+  .item-lembar:hover { background: var(--surface-2); }
+  .item-lembar[aria-current="page"] { background: var(--brand-soft); }
+  .item-lembar .ikon { width: 40px; height: 40px; border-radius: 11px; display: inline-flex; align-items: center; justify-content: center; background: var(--surface-2); color: var(--brand-strong); }
+  .item-lembar[aria-current="page"] .ikon { background: var(--b360-forest); color: var(--b360-gold); }
+  .item-lembar b { display: block; font-size: 14.5px; font-weight: 700; }
+  .item-lembar small { display: block; font-size: 12px; color: var(--muted); line-height: 1.35; }
+  .item-lembar .langkah { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+  @media (min-width: 1024px) { .lembar-latar, .lembar-data { display: none !important; } }
   .sisi-kad-pengguna { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.10); border-radius: 12px; }
   /* Kepala halaman: jalur emas nipis */
   .app-top::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--b360-gold) 0%, rgba(226,190,85,.35) 30%, transparent 60%); }
@@ -361,7 +389,7 @@
     /* Susunan padat untuk cetakan: 4 kad sebaris, carta bersebelahan */
     #sek-dashboard > * + * { margin-top: 3.5mm !important; }
     #kad-ringkasan, #kotak-sasaran { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: 3mm !important; }
-    #petunjuk-prestasi { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+    #petunjuk-prestasi { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
     .grid-carta { grid-template-columns: 3fr 2fr !important; gap: 3mm !important; }
     .chart-box { height: 175px !important; margin-top: 2mm !important; }
     #kotak-kedudukan ol { gap: 2.2mm !important; }
@@ -392,7 +420,7 @@
     #sek-laporan .card.p-5 { padding: 3.5mm 4mm !important; }
     #lp-kpi { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; gap: 3mm !important; }
     #lp-kpi .text-\[clamp\(22px\,1\.7vw\,30px\)\] { font-size: 13pt !important; }
-    #lp-teknikal { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; padding: 3mm 4mm !important; }
+    #lp-teknikal { grid-template-columns: repeat(7, minmax(0, 1fr)) !important; padding: 3mm 4mm !important; }
     #lp-teknikal > :last-child { grid-column: 1 / -1 !important; }
     .grid-carta-2 { grid-template-columns: 1fr 1fr !important; gap: 3mm !important; }
     .lp-grid-a { grid-template-columns: 2fr 3fr !important; gap: 3mm !important; }
@@ -679,6 +707,7 @@
       <p class="mt-2 text-center text-[11px] leading-relaxed tracking-wide text-muted uppercase">
         &copy; <span id="tahun-hakcipta">2026</span> Hak Cipta Terpelihara :<br>
         <span class="font-semibold text-ink">Unit Pembangunan Ekonomi Pertubuhan Peladang<br>Lembaga Pertubuhan Peladang Negeri Terengganu</span>
+        <br><span class="versi-app normal-case tracking-normal"></span>
       </p>
     </div>
   </section>
@@ -696,8 +725,7 @@
         <span class="text-[11.5px] leading-snug text-white/70">Lembaga Pertubuhan Peladang<br>Negeri Terengganu</span>
       </div>
     </div>
-    <div class="sisi-label mt-7 px-3">Menu utama</div>
-    <nav class="mt-2 flex flex-col gap-1" aria-label="Navigasi utama" id="nav-sisi"></nav>
+    <nav class="mt-7 flex flex-col" aria-label="Navigasi utama" id="nav-sisi"></nav>
     <div class="mt-auto">
       <div class="sisi-kad-pengguna p-3 flex items-center gap-3">
         <span id="sisi-avatar" class="w-9 h-9 rounded-full font-bold text-sm flex items-center justify-center shrink-0" style="background:var(--b360-gold);color:var(--b360-forest)"></span>
@@ -707,7 +735,7 @@
         </div>
         <button class="icon-btn" data-aksi="logout" aria-label="Log keluar" title="Log keluar"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
       </div>
-      <p class="text-[10.5px] text-white/40 mt-3 px-1 leading-snug">&copy; <span class="tahun-semasa">2026</span> Unit Pembangunan Ekonomi Pertubuhan Peladang, LPP Negeri Terengganu</p>
+      <p class="text-[10.5px] text-white/40 mt-3 px-1 leading-snug">&copy; <span class="tahun-semasa">2026</span> Unit Pembangunan Ekonomi Pertubuhan Peladang, LPP Negeri Terengganu<br><span class="versi-app"></span></p>
     </div>
   </aside>
 
@@ -769,7 +797,7 @@
         <!-- ===== LAPISAN 1: RINGKASAN EKSEKUTIF ===== -->
         <div class="lapisan"><h2>Ringkasan Eksekutif</h2><span class="garis"></span><p id="lapisan1-skop"></p></div>
         <div class="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-4 xl:gap-5" id="kad-ringkasan"></div>
-        <div class="card px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-4" id="petunjuk-prestasi"></div>
+        <div class="card px-5 py-4 grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-4" id="petunjuk-prestasi"></div>
         <!-- Pendapatan vs Sasaran, Keuntungan vs Sasaran, Prestasi BPI & Peruntukan Diterima -->
         <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-4 xl:gap-5" id="kotak-sasaran"></div>
 
@@ -1044,6 +1072,10 @@
             <label for="lp-hingga">Hingga tahun</label>
             <select id="lp-hingga" class="input !w-auto min-w-[104px]"></select>
           </div>
+          <div class="field">
+            <label for="lp-pusingan">Pusingan</label>
+            <select id="lp-pusingan" class="input !w-auto min-w-[150px]"><option value="">Semua Pusingan</option><option value="1">Pusingan 1</option><option value="2">Pusingan 2</option><option value="3">Pusingan 3</option><option value="4">Pusingan 4</option><option value="5">Pusingan 5</option><option value="6">Pusingan 6</option></select>
+          </div>
           <span class="chip chip-neutral skop-data mb-3"></span>
           <div class="ml-auto flex gap-2">
             <button class="btn btn-primary" data-aksi="cetak" data-bahagian="laporan"><i class="fa-solid fa-print"></i> Cetak Laporan Projek</button>
@@ -1122,6 +1154,11 @@
 
   <!-- Navigasi bawah (telefon) -->
   <nav class="bottom-nav lg:hidden fixed bottom-0 inset-x-0 z-40 bg-surface border-t border-line flex" aria-label="Navigasi utama" id="nav-bawah"></nav>
+  <!-- Lembaran menu Pengurusan Data (telefon & tablet) -->
+  <div class="lembar-latar lg:hidden" id="lembar-latar" hidden></div>
+  <div class="lembar-data lg:hidden" id="lembar-data" role="dialog" aria-modal="true" aria-label="Pengurusan Data" hidden>
+    <div class="kad-lembar"><div class="kepala"><span>Pengurusan Data</span></div><div id="lembar-senarai" class="flex flex-col gap-0.5"></div></div>
+  </div>
 </div>
 
 <!-- Senarai cadangan PPK -->
@@ -1158,6 +1195,8 @@ const DATA_ASAL = {"PPK Dungun":{"awalan":"asal","emel":"pegawai.dungun@lpp.gov.
 const KUNCI = { pengguna: 'lppAyam.v2.pengguna', rekod: 'lppAyam.v2.rekod', sesi: 'lppAyam.v2.sesi', versi: 'lppAyam.v2.versiData',
   ingat: 'lppAyam.v2.ingatLogMasuk', peruntukan: 'lppAyam.v2.peruntukan', sasaran: 'lppAyam.v2.sasaran', versiProjek: 'lppAyam.v2.versiProjek', ulasan: 'lppAyam.v2.ulasanProjek' };
 const PERANAN = { admin: 'Admin', pengguna: 'Pengguna', pemerhati: 'Pemerhati' };
+/** Versi aplikasi (dipaparkan di halaman log masuk & bar sisi untuk semakan) */
+const VERSI_APP = 'Versi 30 · 17/10/2026';
 /* Data asal Maklumat Projek daripada "DATABASE MAKLUMAT DAN SASARAN PROJEK TERNAKAN AYAM DAGING" (17/10/2026) */
 const PROJEK_ASAL = {"pr":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2015,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":220000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2016,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":20000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":3275000.0,"lokasi":"Kg. Bukit Anak Dara, Kemaman","kapasiti":60000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":300000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2024","nilai":3300000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":82000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PENGUKUHAN KETERJAMINAN MAKANAN 2024","nilai":1226000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":82000},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Peladan, Hulu Terengganu","kapasiti":15000},{"ppk":"PPK Bukit Diman","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Batu Bertindan, Hulu Terengganu","kapasiti":30000},{"ppk":"PPK Jerangau","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Padang Ping, Dungun","kapasiti":30000},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Telaga Papan, Kuala Terengganu","kapasiti":30000}],"sa":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2021,"pendapatan":1400000.0,"untung":25000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2022,"pendapatan":2600000.0,"untung":100000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2023,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2024,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2025,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2026,"pendapatan":970000.0,"untung":70000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"pendapatan":400000.0,"untung":25000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"pendapatan":1800000.0,"untung":120000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2023,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2024,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2025,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2026,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2023,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2024,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2025,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2026,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2026,"pendapatan":838000.0,"untung":30000.0}]};
 const VERSI_PROJEK = 3;   // v2: lokasi projek · v3: kapasiti projek (ekor / pusingan)
@@ -1173,6 +1212,8 @@ const cipReban = (j) => j ? `<span class="chip chip-neutral"><i class="fa-solid 
 const padanReban = (r, j) => !j || r.jenisReban === j;
 const DOMAIN_EMEL = /^[a-z0-9._%+-]+@lpp\.gov\.my$/i;
 const PPK_CADANGAN = ['PPK Bukit Diman', 'PPK Dungun', 'PPK Jerangau', 'PPK Kijal', 'PPK Kemaman', 'PPK Kuala Terengganu', 'PPK Marang'];
+/** PPK yang mempunyai projek ternakan ayam pedaging — sentiasa dipaparkan dalam pilihan PPK */
+const PPK_PROJEK = ['PPK Bukit Diman', 'PPK Dungun', 'PPK Jerangau', 'PPK Kijal', 'PPK Kuala Terengganu'];
 const UNIT_LPP = 'LPP Negeri Terengganu';
 /** Bandingkan nama PPK tanpa mengira huruf besar/kecil dan ruang berlebihan */
 const normPPK = (s) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
@@ -1399,6 +1440,7 @@ function paparApp() {
   binaNavigasi();
   // Kosongkan penapis daripada sesi sebelumnya supaya skop PPK ikut akaun yang baru log masuk
   ['#f-ppk', '#r-ppk', '#f-reban', '#r-reban', '#r-status', '#mp-ppk-tapis'].forEach(s => { $(s).value = ''; });
+  $('#f-tahun').value = ''; $('#f-tahun').dataset.semua = '';
   suntingProjek.peruntukan = null; suntingProjek.sasaran = null; keadaan.laporan = null;
   isiPilihanPenapis();
   tukarSeksyen('dashboard');
@@ -1463,6 +1505,7 @@ async function kendaliDaftar(e) {
 }
 
 function logKeluar() {
+  tutupLembarData();
   keadaan.pengguna = null;
   try { sessionStorage.removeItem(KUNCI.sesi); } catch (e) {} delete memori[KUNCI.sesi];
   Object.values(keadaan.carta).forEach(c => c && c.destroy()); keadaan.carta = {};
@@ -1471,28 +1514,70 @@ function logKeluar() {
 }
 
 /* ---------- 7. Navigasi dalam aplikasi ---------- */
+const KUMPULAN_MENU = [
+  { id: 'pantau', label: 'Pemantauan' },
+  { id: 'data', label: 'Pengurusan Data' },
+  { id: 'tadbir', label: 'Pentadbiran' }
+];
 const MENU = [
-  { id: 'dashboard', label: 'Dashboard Eksekutif', pendek: 'Dashboard', ikon: 'fa-chart-pie', sub: () => boleh.lihatSemua() ? 'Ringkasan prestasi pusingan · semua pengguna' : 'Ringkasan prestasi pusingan yang anda rekod' },
-  { id: 'laporan', label: 'Laporan Prestasi Projek', pendek: 'Laporan', ikon: 'fa-file-contract', sub: () => 'Prestasi pelaburan, trend & penilaian setiap projek' },
-  { id: 'projek', label: 'Maklumat Projek', pendek: 'Projek', ikon: 'fa-folder-open', sub: () => 'Peruntukan diterima & sasaran tahunan', peranan: ['admin', 'pengguna'] },
-  { id: 'input', label: 'Kemasukan Data', pendek: 'Data', ikon: 'fa-pen-to-square', sub: () => 'Rekod kos & hasil pusingan', peranan: ['admin', 'pengguna'] },
-  { id: 'rekod', label: 'Jadual Rekod', pendek: 'Rekod', ikon: 'fa-table-list', sub: () => boleh.lihatSemua() ? 'Sejarah pusingan semua pengguna' : 'Pusingan yang anda masukkan' },
-  { id: 'pengguna', label: 'Pengesahan Pengguna', pendek: 'Pengguna', ikon: 'fa-user-check', sub: () => 'Urus akaun, peranan & pendaftaran', peranan: ['admin'] }
+  { id: 'dashboard', kumpulan: 'pantau', label: 'Dashboard Eksekutif', pendek: 'Dashboard', ikon: 'fa-chart-pie', sub: () => boleh.lihatSemua() ? 'Ringkasan prestasi pusingan · semua pengguna' : 'Ringkasan prestasi pusingan yang anda rekod' },
+  { id: 'laporan', kumpulan: 'pantau', label: 'Laporan Prestasi Projek', pendek: 'Laporan', ikon: 'fa-file-contract', sub: () => 'Prestasi pelaburan, trend & penilaian setiap projek' },
+  { id: 'projek', kumpulan: 'data', label: 'Profil & Sasaran Projek', pendek: 'Projek', ikon: 'fa-folder-open', ringkas: 'Tetapan: peruntukan & sasaran tahunan', sub: () => 'Peruntukan diterima & sasaran tahunan', peranan: ['admin', 'pengguna'] },
+  { id: 'input', kumpulan: 'data', label: 'Kemasukan Data', pendek: 'Data', ikon: 'fa-pen-to-square', ringkas: 'Rekod kos & hasil setiap pusingan', sub: () => 'Rekod kos & hasil pusingan', peranan: ['admin', 'pengguna'] },
+  { id: 'rekod', kumpulan: 'data', label: 'Jadual Rekod', pendek: 'Rekod', ikon: 'fa-table-list', ringkas: 'Semak & sunting rekod pusingan', sub: () => boleh.lihatSemua() ? 'Sejarah pusingan semua pengguna' : 'Pusingan yang anda masukkan' },
+  { id: 'pengguna', kumpulan: 'tadbir', label: 'Pengesahan Pengguna', pendek: 'Pengguna', ikon: 'fa-user-check', sub: () => 'Urus akaun, peranan & pendaftaran', peranan: ['admin'] }
 ];
 const menuDibenar = (m) => !m.peranan || m.peranan.includes(peranan());
 function binaNavigasi() {
   const menunggu = semuaPengguna().filter(u => u.status === 'menunggu').length;
+  const lencana = (m, cls = '') => m.id === 'pengguna' && menunggu ? `<span class="badge ${cls}">${menunggu}</span>` : '';
   const item = MENU.filter(menuDibenar);
-  $('#nav-sisi').innerHTML = item.map(m => `
-    <a href="#${m.id}" class="nav-link" data-nav="${m.id}"><i class="fa-solid ${m.ikon}"></i><span class="flex-1">${m.label}</span>${m.id === 'pengguna' && menunggu ? `<span class="badge">${menunggu}</span>` : ''}</a>`).join('');
-  $('#nav-bawah').innerHTML = item.map(m => `
-    <a href="#${m.id}" class="tab-link" data-nav="${m.id}"><span class="relative"><i class="fa-solid ${m.ikon}"></i>${m.id === 'pengguna' && menunggu ? `<span class="badge absolute -top-2 -right-3">${menunggu}</span>` : ''}</span>${m.pendek}</a>`).join('');
+  // Bar sisi (desktop & laptop): menu dikumpul mengikut fungsi
+  $('#nav-sisi').innerHTML = KUMPULAN_MENU.map(k => {
+    const ahli = item.filter(m => m.kumpulan === k.id);
+    if (!ahli.length) return '';
+    const urutan = k.id === 'data' && ahli.length > 1;
+    return `<div class="sisi-kumpulan kump-${k.id}" role="group" aria-labelledby="kump-${k.id}">
+      <div class="sisi-label" id="kump-${k.id}">${k.label}${urutan ? '<span class="bil">ALIRAN KERJA</span>' : ''}</div>
+      <div class="flex flex-col gap-1">${ahli.map((m, i) => `
+        <a href="#${m.id}" class="nav-link" data-nav="${m.id}"><i class="fa-solid ${m.ikon}"></i><span class="flex-1">${m.label}</span>${lencana(m)}${urutan ? `<span class="langkah" aria-hidden="true">${i + 1}</span>` : ''}</a>`).join('')}
+      </div></div>`;
+  }).join('');
+  // Navigasi bawah (telefon & tablet): Pengurusan Data dihimpun dalam satu tab yang membuka lembaran
+  const dataItem = item.filter(m => m.kumpulan === 'data');
+  const tab = [];
+  item.filter(m => m.kumpulan === 'pantau').forEach(m => tab.push(`<a href="#${m.id}" class="tab-link" data-nav="${m.id}"><span class="relative"><i class="fa-solid ${m.ikon}"></i></span>${m.pendek}</a>`));
+  if (dataItem.length === 1) {
+    const m = dataItem[0];
+    tab.push(`<a href="#${m.id}" class="tab-link mula-kumpulan" data-nav="${m.id}"><span class="relative"><i class="fa-solid ${m.ikon}"></i></span>${m.pendek}</a>`);
+  } else if (dataItem.length) {
+    tab.push(`<button type="button" class="tab-link mula-kumpulan" id="tab-kump-data" aria-haspopup="dialog" aria-expanded="false" aria-controls="lembar-data"><span class="relative"><i class="fa-solid fa-database"></i></span>Data<span class="kaki-kump" aria-hidden="true">${dataItem.length} menu</span></button>`);
+  }
+  item.filter(m => m.kumpulan === 'tadbir').forEach(m => tab.push(`<a href="#${m.id}" class="tab-link mula-kumpulan" data-nav="${m.id}"><span class="relative"><i class="fa-solid ${m.ikon}"></i>${lencana(m, 'absolute -top-2 -right-3')}</span>${m.pendek}</a>`));
+  $('#nav-bawah').innerHTML = tab.join('');
+  $('#lembar-senarai').innerHTML = dataItem.map((m, i) => `
+    <a href="#${m.id}" class="item-lembar" data-nav="${m.id}"><span class="ikon"><i class="fa-solid ${m.ikon}"></i></span><span class="min-w-0"><b>${m.label}</b><small>${m.ringkas || m.sub()}</small></span><span class="langkah" aria-hidden="true">${i + 1}</span></a>`).join('');
+  const tb = $('#tab-kump-data');
+  if (tb) tb.addEventListener('click', () => ($('#lembar-data').hidden ? bukaLembarData() : tutupLembarData()));
   tandaNavAktif();
+}
+function bukaLembarData() {
+  $('#lembar-data').hidden = false; $('#lembar-latar').hidden = false;
+  const tb = $('#tab-kump-data'); if (tb) tb.setAttribute('aria-expanded', 'true');
+  const a = $('#lembar-senarai [aria-current="page"]') || $('#lembar-senarai a'); if (a) a.focus();
+}
+function tutupLembarData(fokus) {
+  if ($('#lembar-data').hidden) return;
+  $('#lembar-data').hidden = true; $('#lembar-latar').hidden = true;
+  const tb = $('#tab-kump-data'); if (tb) { tb.setAttribute('aria-expanded', 'false'); if (fokus) tb.focus(); }
 }
 function tandaNavAktif() {
   $$('[data-nav]').forEach(a => a.dataset.nav === keadaan.seksyen ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  const tb = $('#tab-kump-data');
+  if (tb) { const m = MENU.find(x => x.id === keadaan.seksyen); m && m.kumpulan === 'data' ? tb.setAttribute('aria-current', 'page') : tb.removeAttribute('aria-current'); }
 }
 function tukarSeksyen(id) {
+  tutupLembarData();
   const menu = MENU.find(m => m.id === id);
   if (!menu || !menuDibenar(menu)) id = 'dashboard';
   if (keadaan.seksyen === 'input' && id !== 'input' && keadaan.suntingId) resetBorang();
@@ -1525,13 +1610,19 @@ function senaraiPPK() {
 function isiPilihanPenapis() {
   const thn = senaraiTahun();
   const thnSemasa = new Date().getFullYear();
-  const ppkRekod = [...new Set(rekodDilihat().map(r => r.ppk))].sort();
+  // PPK berekod + PPK projek (peruntukan / sasaran) + PPK_PROJEK, tanpa pendua nama
+  const ppkRekod = [];
+  [...PPK_PROJEK, ...rekodDilihat().map(r => r.ppk), ...semuaPeruntukan().map(x => x.ppk), ...semuaSasaran().map(x => x.ppk)].forEach(n => { if (n && !ppkRekod.some(x => samaPPK(x, n))) ppkRekod.push(n); });
+  ppkRekod.sort();
   const kunciPPK = !boleh.lihatSemua();
   const pilihPPK = kunciPPK
     ? `<option value="${escapeHTML(keadaan.pengguna?.ppk || '')}">${escapeHTML(keadaan.pengguna?.ppk || '—')}</option>`
     : '<option value="">Semua PPK</option>' + ppkRekod.map(p => `<option>${escapeHTML(p)}</option>`).join('');
   const simpanNilai = (el, html, lalai) => { const v = el.value; el.innerHTML = html; el.value = [...el.options].some(o => o.value === v) && v !== '' ? v : lalai; };
-  simpanNilai($('#f-tahun'), thn.map(t => `<option value="${t}">${t}</option>`).join(''), String(thn.includes(thnSemasa) ? thnSemasa : thn[0]));
+  // Dashboard: "Semua tahun" (nilai kosong) dikekalkan hanya jika dipilih sendiri oleh pengguna
+  const fT = $('#f-tahun'), vfT = fT.value;
+  fT.innerHTML = '<option value="">Semua tahun</option>' + thn.map(t => `<option value="${t}">${t}</option>`).join('');
+  fT.value = vfT === '' ? (fT.dataset.semua === '1' ? '' : String(thn.includes(thnSemasa) ? thnSemasa : thn[0])) : ([...fT.options].some(o => o.value === vfT) ? vfT : String(thn.includes(thnSemasa) ? thnSemasa : thn[0]));
   simpanNilai($('#f-ppk'), pilihPPK, kunciPPK ? (keadaan.pengguna?.ppk || '') : '');
   simpanNilai($('#r-tahun'), '<option value="">Semua tahun</option>' + thn.map(t => `<option value="${t}">${t}</option>`).join(''), '');
   simpanNilai($('#r-ppk'), pilihPPK, kunciPPK ? (keadaan.pengguna?.ppk || '') : '');
@@ -1546,11 +1637,12 @@ function isiPilihanPenapis() {
 
 /* ---------- 9. Papan Pemuka ---------- */
 function renderDashboard() {
-  const tahun = +$('#f-tahun').value;
+  const tahun = +$('#f-tahun').value;   // 0 = semua tahun
+  const lbl = tahun || 'Semua Tahun';
   const ppk = $('#f-ppk').value;
   const reban = $('#f-reban').value;
   const rekodPPK = rekodDilihat().filter(r => (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban));
-  const rekodTahun = rekodPPK.filter(r => +r.tahun === tahun);
+  const rekodTahun = rekodPPK.filter(r => !tahun || +r.tahun === tahun);
 
   // Agregat mengikut pusingan 1–6 (jumlahkan semua PPK jika "Semua PPK")
   const ikutPusingan = [1, 2, 3, 4, 5, 6].map(p => {
@@ -1558,7 +1650,9 @@ function renderDashboard() {
     if (!rs.length) return null;
     return rs.reduce((a, r) => { const k = kira(r); a.kos += k.jumlahKos; a.pendapatan += k.jumlahPendapatan; a.untung += k.untung; return a; }, { kos: 0, pendapatan: 0, untung: 0 });
   });
-  const ada = ikutPusingan.filter(Boolean);
+  const slot = {};
+  rekodTahun.forEach(r => { const k = kira(r), s = (slot[r.tahun + '-' + r.pusingan] = slot[r.tahun + '-' + r.pusingan] || { kos: 0, pendapatan: 0, untung: 0 }); s.kos += k.jumlahKos; s.pendapatan += k.jumlahPendapatan; s.untung += k.untung; });
+  const ada = Object.values(slot);
   const jumKos = ada.reduce((a, x) => a + x.kos, 0);
   const jumPend = ada.reduce((a, x) => a + x.pendapatan, 0);
   const jumUntung = jumPend - jumKos;
@@ -1566,7 +1660,7 @@ function renderDashboard() {
   const bilRugi = ada.filter(x => x.untung < 0).length;
 
   // Perbandingan dengan tahun sebelum (pusingan yang sama bilangan tidak dipaksa — perbandingan purata)
-  const rekodLepas = rekodPPK.filter(r => +r.tahun === tahun - 1);
+  const rekodLepas = tahun ? rekodPPK.filter(r => +r.tahun === tahun - 1) : [];
   const purataLepas = rekodLepas.length ? rekodLepas.reduce((a, r) => a + kira(r).untung, 0) / new Set(rekodLepas.map(r => r.pusingan)).size : null;
   const beza = purataLepas != null && purataLepas !== 0 ? (purata - purataLepas) / Math.abs(purataLepas) : null;
 
@@ -1580,10 +1674,10 @@ function renderDashboard() {
       <div class="text-[12.5px] mt-1 ${utama ? 'opacity-85' : 'text-muted'}">${nota}</div>
     </div>`;
   $('#kad-ringkasan').innerHTML =
-    kad(`Jumlah Untung Bersih ${tahun}`, rm(jumUntung), 'fa-sack-dollar', `${ada.length} pusingan · ${bilRugi ? bilRugi + ' pusingan rugi' : 'tiada pusingan rugi'}`, true, jumUntung) +
+    kad(`Jumlah Untung Bersih ${tahun || '(Semua Tahun)'}`, rm(jumUntung), 'fa-sack-dollar', `${ada.length} pusingan · ${bilRugi ? bilRugi + ' pusingan rugi' : 'tiada pusingan rugi'}`, true, jumUntung) +
     kad('Jumlah Kos', rm(jumKos), 'fa-receipt', jumPend ? `${peratus(jumKos / jumPend)} daripada pendapatan` : 'Tiada data') +
     kad('Purata Untung / Pusingan', rm(purata), 'fa-scale-balanced',
-      beza == null ? `Tiada data ${tahun - 1} untuk perbandingan` : `<span class="${beza >= 0 ? 'text-gain' : 'text-loss'} font-semibold">${beza >= 0 ? '▲' : '▼'} ${peratus(Math.abs(beza))}</span> berbanding purata ${tahun - 1}`, false, purata) +
+      !tahun ? `${new Set(rekodTahun.map(r => r.tahun)).size} tahun beroperasi` : beza == null ? `Tiada data ${tahun - 1} untuk perbandingan` : `<span class="${beza >= 0 ? 'text-gain' : 'text-loss'} font-semibold">${beza >= 0 ? '▲' : '▼'} ${peratus(Math.abs(beza))}</span> berbanding purata ${tahun - 1}`, false, purata) +
     kad('Jumlah Pendapatan', rm(jumPend), 'fa-coins', 'Hasil jualan ayam');
 
   // Petunjuk prestasi operasi (daripada medan pilihan)
@@ -1593,53 +1687,57 @@ function renderDashboard() {
   const jual = rekodTahun.reduce((a, r) => a + nombor(r.ayamDijual), 0);
   const berat = rekodTahun.reduce((a, r) => a + nombor(r.beratKg), 0);
   const mini = (label, nilai, nota) => `<div class="min-w-0"><div class="text-[12px] text-muted">${label}</div><div class="num font-display font-bold text-xl xl:text-2xl">${nilai}</div><div class="text-[12px] text-muted truncate">${nota}</div></div>`;
+  const bpiTahun = ringkasBPI(rekodTahun).bpi, katBPI = kategoriBPI(bpiTahun);
   $('#petunjuk-prestasi').innerHTML =
-    mini('Anak ayam masuk', fmtNom.format(anak), 'ekor DOC') +
+    mini('Jumlah ayam dijual', jual ? fmtNom.format(jual) : '—', anak ? `daripada ${fmtNom.format(anak)} DOC` : 'tiada data jualan ekor') +
     mini('Kadar hidup', anak && jual ? peratus(jual / anak) : (anak ? peratus((anak - mati) / anak) : '—'), mati ? fmtNom.format(mati) + ' ekor mati' : 'tiada data kematian') +
-    mini('Kos / ekor dijual', jual ? rm(jumKos / jual) : '—', jual ? fmtNom.format(jual) + ' ekor dijual' : 'tiada data jualan ekor') +
-    mini('Harga purata / kg', berat ? rm(jumPend / berat) : '—', berat ? fmtNom.format(berat) + ' kg dijual' : 'tiada data berat');
+    mini('Purata berat / ekor', jual && berat ? (berat / jual).toFixed(2) + ' kg' : '—', berat ? fmtNom.format(berat) + ' kg dijual' : 'tiada data berat') +
+    mini('Purata jualan / kg (RM)', berat ? rm(jumPend / berat) : '—', 'pendapatan ÷ berat hidup') +
+    mini('Purata kos / kg (RM)', berat ? rm(jumKos / berat) : '—', berat ? `margin / kg <span class="${jumUntung < 0 ? 'text-loss font-semibold' : ''}">${rm(jumUntung / berat)}</span>` : 'tiada data berat') +
+    mini('Purata BPI', isFinite(bpiTahun) ? bpiTahun.toFixed(1) : '—', katBPI ? katBPI.label : 'data tidak lengkap');
 
   const labelSkop = `${ppk || 'Semua PPK'} · ${reban ? 'Reban ' + labelReban(reban) : 'Semua jenis reban'}`;
-  $('#carta1-sub').textContent = `Tahun ${tahun} · ${labelSkop}`;
-  $('#carta2-sub').textContent = `${labelSkop} · tahun ${tahun} diserlahkan`;
+  $('#carta1-sub').textContent = `${tahun ? 'Tahun ' + tahun : 'Semua tahun (jumlah mengikut pusingan)'} · ${labelSkop}`;
+  $('#carta2-sub').textContent = tahun ? `${labelSkop} · tahun ${tahun} diserlahkan` : `${labelSkop} · semua tahun`;
   binaCartaPusingan(ikutPusingan);
   binaCartaTahunan(rekodPPK, tahun);
 
   renderAnalisa(rekodTahun, tahun, ppk, reban);
   renderSasaranDashboard(tahun, ppk, reban, kadBPI(rekodTahun, tahun));
   renderKedudukan(tahun, ppk, reban);
-  $('#lapisan1-skop').textContent = `Tahun ${tahun} · ${labelSkop}`;
+  $('#lapisan1-skop').textContent = `${tahun ? 'Tahun ' + tahun : 'Semua tahun'} · ${labelSkop}`;
   kemaskiniKepala();
   sesuaikanButiran();
 
   // Jadual pusingan tahun dipilih
-  $('#jadual-tahun-label').textContent = tahun;
-  const baris = rekodTahun.slice().sort((a, b) => a.pusingan - b.pusingan || a.ppk.localeCompare(b.ppk));
+  $('#jadual-tahun-label').textContent = lbl;
+  const baris = rekodTahun.slice().sort((a, b) => a.tahun - b.tahun || a.pusingan - b.pusingan || a.ppk.localeCompare(b.ppk));
   $('#jadual-dashboard').innerHTML = baris.length ? `
     <thead><tr><th>Pusingan</th>${ppk ? '' : '<th>PPK</th>'}${reban ? '' : '<th>Jenis Reban</th>'}<th>Tarikh Masuk</th><th class="r">Anak Ayam</th><th class="r">Kos Anak Ayam</th><th class="r">Kos Makanan</th><th class="r">Kos Ubat</th><th class="r">Kos Pelbagai</th><th class="r">Jumlah Kos</th><th class="r">Pendapatan</th><th class="r">Untung/Rugi</th><th>Status</th></tr></thead>
     <tbody>${baris.map(r => { const k = kira(r); return `<tr>
-      <td class="font-semibold">P${r.pusingan}</td>${ppk ? '' : `<td>${escapeHTML(r.ppk)}</td>`}${reban ? '' : `<td>${cipReban(r.jenisReban)}</td>`}<td class="num">${tarikhMS(r.tarikhMasuk)}</td>
+      <td class="font-semibold">${tahun ? '' : r.tahun + ' '}P${r.pusingan}</td>${ppk ? '' : `<td>${escapeHTML(r.ppk)}</td>`}${reban ? '' : `<td>${cipReban(r.jenisReban)}</td>`}<td class="num">${tarikhMS(r.tarikhMasuk)}</td>
       <td class="r">${fmtNom.format(r.anakAyam)}</td><td class="r">${fmtRM.format(r.kosAnakAyam)}</td><td class="r">${fmtRM.format(r.kosMakanan)}</td><td class="r">${fmtRM.format(r.kosUbat)}</td><td class="r">${fmtRM.format(r.kosPelbagai)}</td>
       <td class="r font-semibold">${fmtRM.format(k.jumlahKos)}</td><td class="r">${fmtRM.format(k.jumlahPendapatan)}</td>
       <td class="r font-bold ${k.untung < 0 ? 'text-loss' : 'text-gain'}">${k.untung < 0 ? '−' : ''}${fmtRM.format(Math.abs(k.untung))}</td>
       <td>${cipStatus(k)}</td></tr>`; }).join('')}</tbody>
-    <tfoot><tr><td colspan="${3 + (ppk ? 0 : 1) + (reban ? 0 : 1)}">Jumlah ${tahun}</td>
+    <tfoot><tr><td colspan="${3 + (ppk ? 0 : 1) + (reban ? 0 : 1)}">Jumlah ${lbl}</td>
       <td class="r">${fmtRM.format(baris.reduce((a, r) => a + nombor(r.kosAnakAyam), 0))}</td><td class="r">${fmtRM.format(baris.reduce((a, r) => a + nombor(r.kosMakanan), 0))}</td>
       <td class="r">${fmtRM.format(baris.reduce((a, r) => a + nombor(r.kosUbat), 0))}</td><td class="r">${fmtRM.format(baris.reduce((a, r) => a + nombor(r.kosPelbagai), 0))}</td>
       <td class="r">${fmtRM.format(jumKos)}</td><td class="r">${fmtRM.format(jumPend)}</td><td class="r ${jumUntung < 0 ? 'text-loss' : 'text-gain'}">${jumUntung < 0 ? '−' : ''}${fmtRM.format(Math.abs(jumUntung))}</td><td></td></tr></tfoot>`
-    : `<tbody><tr><td class="text-center text-muted py-10" style="white-space:normal">Tiada rekod bagi tahun ${tahun}. <button class="text-brandstrong font-semibold underline perlu-input" data-aksi="ke-input">Tambah rekod pusingan</button></td></tr></tbody>`;
+    : `<tbody><tr><td class="text-center text-muted py-10" style="white-space:normal">Tiada rekod bagi ${tahun ? 'tahun ' + tahun : 'mana-mana tahun'}. <button class="text-brandstrong font-semibold underline perlu-input" data-aksi="ke-input">Tambah rekod pusingan</button></td></tr></tbody>`;
 }
 
 /** Kotak Analisa Prestasi Pusingan di Papan Pemuka (salinan analisa daripada Pengiraan Automatik) */
 function renderAnalisa(rekodTahun, tahun, ppk, reban) {
-  $('#analisa-tahun-label').textContent = tahun;
-  const baris = rekodTahun.slice().sort((a, b) => a.pusingan - b.pusingan || a.ppk.localeCompare(b.ppk));
+  const lbl = tahun || 'Semua Tahun';
+  $('#analisa-tahun-label').textContent = lbl;
+  const baris = rekodTahun.slice().sort((a, b) => a.tahun - b.tahun || a.pusingan - b.pusingan || a.ppk.localeCompare(b.ppk));
   const f2 = (n, akhiran = '') => isFinite(n) ? n.toFixed(2) + akhiran : '—';
   const rmS = (n) => isFinite(n) ? rm(n) : '—';
   const cipBPI = (bpi) => { const k = kategoriBPI(bpi); return k ? `<span class="chip ${k.kelas}">${k.label}</span>` : '<span class="text-muted text-[12px]">Data tidak lengkap</span>'; };
   if (!baris.length) {
     $('#analisa-ringkasan').innerHTML = '';
-    $('#jadual-analisa').innerHTML = `<tbody><tr><td class="text-center text-muted py-10" style="white-space:normal">Tiada rekod bagi tahun ${tahun}.</td></tr></tbody>`;
+    $('#jadual-analisa').innerHTML = `<tbody><tr><td class="text-center text-muted py-10" style="white-space:normal">Tiada rekod bagi ${tahun ? 'tahun ' + tahun : 'mana-mana tahun'}.</td></tr></tbody>`;
     return;
   }
   // Agregat tahunan dikira semula daripada jumlah (bukan purata nisbah)
@@ -1655,7 +1753,7 @@ function renderAnalisa(rekodTahun, tahun, ppk, reban) {
   const katPurata = kategoriBPI(bpiPurata);
   $('#analisa-ringkasan').innerHTML = `
     <div class="rounded-xl border border-line px-3 py-2 text-right">
-      <div class="text-[11px] text-muted uppercase tracking-wider font-semibold">Purata BPI ${tahun}</div>
+      <div class="text-[11px] text-muted uppercase tracking-wider font-semibold">Purata BPI ${lbl}</div>
       <div class="flex items-center gap-2 justify-end"><span class="num font-display font-extrabold text-xl">${isFinite(bpiPurata) ? bpiPurata.toFixed(1) : '—'}</span>${katPurata ? `<span class="chip ${katPurata.kelas}">${katPurata.label}</span>` : ''}</div>
     </div>
     <div class="flex flex-wrap gap-1.5 max-w-[260px]">${['Sangat Baik', 'Baik', 'Sederhana', 'Lemah'].map(l => {
@@ -1668,14 +1766,14 @@ function renderAnalisa(rekodTahun, tahun, ppk, reban) {
       <th class="r">Harga DOC / ekor</th><th class="r">Berat / ekor (kg)</th><th class="r">Margin / ekor</th><th class="r">Kos / kg</th>
       <th class="r">% Hidup</th><th class="r">% Mati</th><th class="r">FCR</th><th class="r">Margin</th><th class="r">BPI</th><th>Prestasi BPI</th></tr></thead>
     <tbody>${baris.map(r => { const k = kira(r); return `<tr>
-      <td class="font-semibold">P${r.pusingan}</td>${lajurPPK ? `<td>${escapeHTML(r.ppk)}</td>` : ''}${lajurReban ? `<td>${labelReban(r.jenisReban)}</td>` : ''}
+      <td class="font-semibold">${tahun ? '' : r.tahun + ' '}P${r.pusingan}</td>${lajurPPK ? `<td>${escapeHTML(r.ppk)}</td>` : ''}${lajurReban ? `<td>${labelReban(r.jenisReban)}</td>` : ''}
       <td>${escapeHTML(r.baka || '—')}</td><td class="r">${nombor(r.umurJual) > 0 ? +nombor(r.umurJual).toFixed(1) : '—'}</td>
       <td class="r">${rmS(k.hargaDOC)}</td><td class="r">${f2(k.beratPurata)}</td>
       <td class="r ${k.marginSeekor < 0 ? 'text-loss font-semibold' : ''}">${rmS(k.marginSeekor)}</td><td class="r">${rmS(k.kosKg)}</td>
       <td class="r">${peratus(k.kadarHidup)}</td><td class="r ${k.kadarMati > 0.06 ? 'text-loss font-semibold' : ''}">${peratus(k.kadarMati)}</td>
       <td class="r">${isFinite(k.fcr) ? k.fcr.toFixed(3) : '—'}</td><td class="r ${k.margin < 0 ? 'text-loss font-semibold' : ''}">${peratus(k.margin)}</td>
       <td class="r font-bold">${isFinite(k.bpi) ? k.bpi.toFixed(1) : '—'}</td><td>${cipBPI(k.bpi)}</td></tr>`; }).join('')}</tbody>
-    <tfoot><tr><td colspan="${1 + (lajurPPK ? 1 : 0) + (lajurReban ? 1 : 0) + 1}">Keseluruhan ${tahun} (${baris.length} pusingan)</td>
+    <tfoot><tr><td colspan="${1 + (lajurPPK ? 1 : 0) + (lajurReban ? 1 : 0) + 1}">Keseluruhan ${lbl} (${baris.length} pusingan)</td>
       <td class="r">${S.umurN ? +(S.umurW / S.umurN).toFixed(1) : '—'}</td>
       <td class="r">${rmS(S.anak ? S.kosDOC / S.anak : NaN)}</td><td class="r">${f2(S.jual ? S.berat / S.jual : NaN)}</td>
       <td class="r">${rmS(S.jual ? S.untung / S.jual : NaN)}</td><td class="r">${rmS(S.berat ? S.kos / S.berat : NaN)}</td>
@@ -1753,7 +1851,7 @@ function binaCartaTahunan(rekod, tahunPilih) {
     data: {
       labels: thn.map(String),
       datasets: [{ label: 'Untung bersih', data: nilai, borderRadius: 6, maxBarThickness: 46,
-        backgroundColor: thn.map((t, i) => nilai[i] < 0 ? token('--loss') : t === tahunPilih ? token('--brand') : token('--brand-mid')),
+        backgroundColor: thn.map((t, i) => nilai[i] < 0 ? token('--loss') : !tahunPilih || t === tahunPilih ? token('--brand') : token('--brand-mid')),
         borderColor: thn.map(t => t === tahunPilih ? token('--brand-strong') : 'transparent'), borderWidth: 1.5 }]
     },
     options: pil
@@ -2077,25 +2175,25 @@ function padamItemProjek(jenis, id) {
 
 /** Papan pemuka: Pendapatan vs Sasaran, Keuntungan vs Sasaran, Peruntukan Diterima */
 function renderSasaranDashboard(tahun, ppk, reban, kadTambahan = '') {
-  const sasaran = dilihatPPK(semuaSasaran()).filter(x => +x.tahun === tahun && (!ppk || samaPPK(x.ppk, ppk)) && padanReban(x, reban));
+  const sasaran = dilihatPPK(semuaSasaran()).filter(x => (!tahun || +x.tahun === tahun) && (!ppk || samaPPK(x.ppk, ppk)) && padanReban(x, reban));
   const ada = (f) => sasaran.some(x => x[f] !== '' && x[f] != null);
   const jum = (f) => sasaran.reduce((a, x) => a + nombor(x[f]), 0);
   // Pencapaian sebenar hanya bagi PPK yang ada sasaran, supaya perbandingan setara
   // Pencapaian sebenar dikira hanya bagi pasangan PPK + jenis reban yang mempunyai sasaran
   const pasanganSasaran = (f) => sasaran.filter(x => x[f] !== '' && x[f] != null);
-  const sebenar = (f) => rekodDilihat().filter(r => +r.tahun === tahun && pasanganSasaran(f).some(x => samaPPK(x.ppk, r.ppk) && x.jenisReban === r.jenisReban))
+  const sebenar = (f) => rekodDilihat().filter(r => (!tahun || +r.tahun === tahun) && pasanganSasaran(f).some(x => samaPPK(x.ppk, r.ppk) && x.jenisReban === r.jenisReban && +x.tahun === +r.tahun))
     .reduce((a, r) => { const k = kira(r); return a + (f === 'pendapatan' ? k.jumlahPendapatan : k.untung); }, 0);
   const pautan = boleh.input() ? '<button class="btn btn-ghost btn-sm mt-3 perlu-input no-print" data-aksi="ke-projek"><i class="fa-solid fa-bullseye"></i> Tetapkan sasaran</button>' : '';
   const kadSasaran = (tajuk, f, ikon) => {
-    if (!ada(f)) return `<div class="card p-5"><div class="flex items-center justify-between"><span class="eyebrow text-muted">${tajuk} ${tahun}</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid ${ikon}"></i></span></div>
-      <p class="text-sm text-muted mt-3">Sasaran ${tahun} belum ditetapkan${ppk ? ' bagi ' + escapeHTML(ppk) : ''}.</p>${pautan}</div>`;
+    if (!ada(f)) return `<div class="card p-5"><div class="flex items-center justify-between"><span class="eyebrow text-muted">${tajuk} ${tahun || '(Semua Tahun)'}</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid ${ikon}"></i></span></div>
+      <p class="text-sm text-muted mt-3">Sasaran ${tahun || ''} belum ditetapkan${ppk ? ' bagi ' + escapeHTML(ppk) : ''}.</p>${pautan}</div>`;
     const S = jum(f), A = sebenar(f), p = S ? A / S : NaN;
     const kelas = p >= 1 ? 'gain' : p >= 0.8 ? 'warn' : 'loss';
     const label = p >= 1 ? 'Capai sasaran' : p >= 0.8 ? 'Hampir capai' : 'Di bawah sasaran';
     const lebar = Math.max(0, Math.min(100, p * 100));
     const baki = S - A;
     return `<div class="card p-5 kotak-status kotak-${kelas}">
-      <div class="flex items-center justify-between"><span class="eyebrow text-muted">${tajuk} ${tahun}</span><span class="chip chip-${kelas}">${label}</span></div>
+      <div class="flex items-center justify-between"><span class="eyebrow text-muted">${tajuk} ${tahun || '(Semua Tahun)'}</span><span class="chip chip-${kelas}">${label}</span></div>
       <div class="num font-display font-extrabold text-[clamp(24px,1.9vw,32px)] leading-tight mt-3 ${A < 0 ? 'text-loss' : ''}">${rm(A)}</div>
       <div class="text-[12.5px] text-muted">daripada sasaran <b class="text-ink num">${rm(S)}</b></div>
       <div class="mt-3 h-2.5 rounded-full bg-surface2 overflow-hidden" role="progressbar" aria-valuenow="${(p * 100).toFixed(0)}" aria-valuemin="0" aria-valuemax="100"><div class="h-full rounded-full" style="width:${lebar}%;background:var(--${kelas})"></div></div>
@@ -2110,9 +2208,9 @@ function renderSasaranDashboard(tahun, ppk, reban, kadTambahan = '') {
   const kadPr = pr.length ? `<div class="card p-5">
       <div class="flex items-center justify-between"><span class="eyebrow text-muted">Peruntukan Diterima</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid fa-hand-holding-dollar"></i></span></div>
       <div class="num font-display font-extrabold text-[clamp(24px,1.9vw,32px)] leading-tight mt-3">${rm(jumPr)}</div>
-      <div class="text-[12.5px] text-muted">terkumpul · ${rm(prTahun)} pada ${tahun}</div>
+      <div class="text-[12.5px] text-muted">terkumpul${tahun ? ` · ${rm(prTahun)} pada ${tahun}` : ` · ${pr.length} peruntukan`}</div>
       <ul class="mt-3 space-y-1.5 text-[12.5px] no-print">${pr.slice(0, 4).map(x => `<li class="flex justify-between gap-3"><span class="min-w-0 truncate"><span class="num text-muted">${x.tahun}</span> · ${escapeHTML(x.program)} <span class="text-muted">(${[ppk ? '' : escapeHTML(x.ppk), reban ? '' : labelReban(x.jenisReban)].filter(Boolean).join(', ') || labelReban(x.jenisReban)})</span></span><span class="num font-semibold shrink-0">${rmRingkas(nombor(x.nilai))}</span></li>`).join('')}</ul>
-      ${pr.length > 4 ? `<div class="text-[12px] text-muted mt-1 no-print">+${pr.length - 4} lagi di Maklumat Projek</div>` : ''}
+      ${pr.length > 4 ? `<div class="text-[12px] text-muted mt-1 no-print">+${pr.length - 4} lagi di Profil &amp; Sasaran Projek</div>` : ''}
       <div class="mt-3 pt-3 border-t border-line text-[12.5px] flex justify-between gap-2"><span class="text-muted">Untung bersih terkumpul berbanding peruntukan</span><span class="num font-semibold ${untungTerkumpul < 0 ? 'text-loss' : 'text-gain'}">${jumPr ? (untungTerkumpul / jumPr * 100).toFixed(1) + '%' : '—'}</span></div>
     </div>` : `<div class="card p-5"><div class="flex items-center justify-between"><span class="eyebrow text-muted">Peruntukan Diterima</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid fa-hand-holding-dollar"></i></span></div>
       <p class="text-sm text-muted mt-3">Belum ada peruntukan direkod${ppk ? ' bagi ' + escapeHTML(ppk) : ''}.</p>${boleh.input() ? '<button class="btn btn-ghost btn-sm mt-3 perlu-input no-print" data-aksi="ke-projek"><i class="fa-solid fa-plus"></i> Rekod peruntukan</button>' : ''}</div>`;
@@ -2146,6 +2244,10 @@ const nilaiStatus = (v, p, rendahLebihBaik = false) => !isFinite(v) ? 'tiada'
   : (v >= p.hijau ? 'hijau' : v >= p.kuning ? 'kuning' : 'merah');
 const cipStatusLP = (s, teks) => { const x = STATUS_LP[s]; return `<span class="chip ${x.kelas}"><i class="fa-solid ${x.ikon}"></i> ${teks || x.label}</span>`; };
 
+const KUNCI_SEMUA = '__semua__';
+/** Padanan rekod / peruntukan / sasaran dengan projek dipilih (projek gabungan "Semua PPK" padan semua) */
+const padanProjek = (x, p) => p.semua ? true : samaPPK(x.ppk, p.ppk) && x.jenisReban === p.reban;
+const labelRek = (r, p) => (p.semua ? r.ppk.replace(/^PPK\s+/i, '') + ' ' : '') + `${r.tahun} P${r.pusingan}`;
 /** Senarai projek yang boleh dilihat (gabungan rekod, peruntukan & sasaran) */
 function senaraiProjek() {
   const m = new Map();
@@ -2153,8 +2255,11 @@ function senaraiProjek() {
   rekodDilihat().forEach(r => tambah(r.ppk, r.jenisReban));
   dilihatPPK(semuaPeruntukan()).forEach(x => tambah(x.ppk, x.jenisReban));
   dilihatPPK(semuaSasaran()).forEach(x => tambah(x.ppk, x.jenisReban));
-  return [...m.values()].map(p => ({ ...p, bil: rekodDilihat().filter(r => samaPPK(r.ppk, p.ppk) && r.jenisReban === p.reban).length }))
+  const projek = [...m.values()].map(p => ({ ...p, bil: rekodDilihat().filter(r => samaPPK(r.ppk, p.ppk) && r.jenisReban === p.reban).length }))
     .sort((a, b) => a.ppk.localeCompare(b.ppk) || a.reban.localeCompare(b.reban));
+  // Pilihan gabungan di atas senarai: Semua PPK (Admin & Pemerhati) atau semua projek PPK sendiri (Pengguna)
+  if (projek.length > 1) projek.unshift({ kunci: KUNCI_SEMUA, semua: true, ppk: boleh.lihatSemua() ? 'Semua PPK' : `Semua projek ${keadaan.pengguna?.ppk || ''}`.trim(), reban: '', bil: rekodDilihat().length });
+  return projek;
 }
 /** Kapasiti (ekor / pusingan) yang berkuat kuasa pada tahun tertentu: peruntukan terkini setakat tahun itu */
 function kapasitiPada(pr, tahun) {
@@ -2185,18 +2290,18 @@ function isiPilihanLaporan() {
   keadaan.senaraiProjek = senarai;
   const el = $('#lp-projek');
   el.innerHTML = senarai.length
-    ? senarai.map(p => `<option value="${escapeHTML(p.kunci)}">${escapeHTML(p.ppk)} · Reban ${labelReban(p.reban)}${p.bil ? ` (${p.bil} pusingan)` : ' (tiada rekod pusingan)'}</option>`).join('')
+    ? senarai.map(p => `<option value="${escapeHTML(p.kunci)}">${escapeHTML(p.ppk)}${p.semua ? ` · semua jenis reban (${p.bil} pusingan)` : ` · Reban ${labelReban(p.reban)}${p.bil ? ` (${p.bil} pusingan)` : ' (tiada rekod pusingan)'}`}</option>`).join('')
     : '<option value="">Tiada projek</option>';
   let L = keadaan.laporan;
   if (!L || !senarai.some(p => p.kunci === L.kunci)) {
-    const pilih = senarai.slice().sort((a, b) => b.bil - a.bil)[0];
-    L = keadaan.laporan = { kunci: pilih?.kunci || '', dari: null, hingga: null };
+    const pilih = senarai.filter(x => !x.semua).sort((a, b) => b.bil - a.bil)[0] || senarai[0];
+    L = keadaan.laporan = { kunci: pilih?.kunci || '', dari: null, hingga: null, pusingan: L?.pusingan || '' };
   }
   el.value = L.kunci;
   const p = senarai.find(x => x.kunci === L.kunci);
   if (!p) return null;
-  const rek = rekodDilihat().filter(r => samaPPK(r.ppk, p.ppk) && r.jenisReban === p.reban);
-  const pr = dilihatPPK(semuaPeruntukan()).filter(x => samaPPK(x.ppk, p.ppk) && x.jenisReban === p.reban);
+  const rek = rekodDilihat().filter(r => padanProjek(r, p));
+  const pr = dilihatPPK(semuaPeruntukan()).filter(x => padanProjek(x, p));
   const thnRek = rek.map(r => +r.tahun), thnSemua = [...thnRek, ...pr.map(x => +x.tahun)];
   const thnSemasa = new Date().getFullYear();
   const min = Math.min(...(thnSemua.length ? thnSemua : [thnSemasa])), maks = Math.max(thnSemasa, ...thnSemua);
@@ -2206,7 +2311,7 @@ function isiPilihanLaporan() {
   if (L.dari == null || !thn.includes(L.dari)) L.dari = thnRek.length ? Math.min(...thnRek) : min;
   if (L.hingga == null || !thn.includes(L.hingga)) L.hingga = thnRek.length ? Math.max(...thnRek) : thnSemasa;
   if (L.dari > L.hingga) [L.dari, L.hingga] = [L.hingga, L.dari];
-  $('#lp-dari').value = String(L.dari); $('#lp-hingga').value = String(L.hingga);
+  $('#lp-dari').value = String(L.dari); $('#lp-hingga').value = String(L.hingga); $('#lp-pusingan').value = L.pusingan || '';
   return { p, rek, pr };
 }
 
@@ -2215,39 +2320,46 @@ function renderLaporan() {
   ['lpPendapatan', 'lpUntung', 'lpBPI', 'lpFCR', 'lpStruktur', 'lpKosKg'].forEach(k => { keadaan.carta[k]?.destroy(); delete keadaan.carta[k]; });
   const data = isiPilihanLaporan();
   const kotak = $('#lp-kandungan');
-  if (!data) { kotak.innerHTML = '<div class="card p-8 text-center text-muted">Tiada projek untuk dilaporkan. Rekod peruntukan di Maklumat Projek atau masukkan rekod pusingan terlebih dahulu.</div>'; return; }
+  if (!data) { kotak.innerHTML = '<div class="card p-8 text-center text-muted">Tiada projek untuk dilaporkan. Rekod peruntukan di Profil &amp; Sasaran Projek atau masukkan rekod pusingan terlebih dahulu.</div>'; return; }
   const { p, pr: prSemua } = data;
   const { dari, hingga } = keadaan.laporan;
-  const rek = data.rek.filter(r => +r.tahun >= dari && +r.tahun <= hingga).sort((a, b) => a.tahun - b.tahun || a.pusingan - b.pusingan);
+  const pus = +keadaan.laporan.pusingan || 0;   // 0 = semua pusingan
+  const rek = data.rek.filter(r => +r.tahun >= dari && +r.tahun <= hingga && (!pus || +r.pusingan === pus)).sort((a, b) => a.tahun - b.tahun || a.pusingan - b.pusingan);
   const pr = prSemua.filter(x => +x.tahun <= hingga).sort((a, b) => a.tahun - b.tahun);
-  const sasaranProjek = dilihatPPK(semuaSasaran()).filter(x => samaPPK(x.ppk, p.ppk) && x.jenisReban === p.reban);
+  const sasaranProjek = dilihatPPK(semuaSasaran()).filter(x => padanProjek(x, p));
+  // Kapasiti ikut projek asal setiap rekod (PPK + jenis reban); bagi Semua PPK kapasiti dijumlahkan
+  const prIkut = (ppk, reban) => prSemua.filter(x => samaPPK(x.ppk, ppk) && x.jenisReban === reban);
+  const kapRekod = (r) => kapasitiPada(prIkut(r.ppk, r.jenisReban), +r.tahun);
+  const kapGabung = (y) => { const m = new Map(); prSemua.forEach(x => m.set(kunciProjek(x.ppk, x.jenisReban), [x.ppk, x.jenisReban])); return [...m.values()].reduce((a, [pp, rb]) => a + (prIkut(pp, rb).some(x => +x.tahun <= y) ? kapasitiPada(prIkut(pp, rb), y) : 0), 0); };
   const T = agregatLaporan(rek);
   const jumPr = pr.reduce((a, x) => a + nombor(x.nilai), 0);
-  const kap = kapasitiPada(prSemua, hingga);
+  const kap = p.semua ? kapGabung(hingga) : kapasitiPada(prSemua, hingga);
   const lokasi = [...new Set(prSemua.map(x => (x.lokasi || '').trim()).filter(Boolean))];
-  const tempoh = dari === hingga ? String(dari) : `${dari}–${hingga}`;
+  const tempoh = (dari === hingga ? String(dari) : `${dari}–${hingga}`) + (pus ? ` · Pusingan ${pus}` : '');
   const f1 = (n, d = 1) => isFinite(n) ? n.toFixed(d) : '—';
 
   // ---- Data tahunan ----
   const tahunSenarai = []; for (let y = dari; y <= hingga; y++) tahunSenarai.push(y);
   const tahunan = tahunSenarai.map(y => {
     const rs = rek.filter(r => +r.tahun === y);
-    const sa = sasaranProjek.find(x => +x.tahun === y);
+    // Sasaran tahunan: dijumlahkan bagi semua projek (penting untuk pilihan Semua PPK)
+    const saY = sasaranProjek.filter(x => +x.tahun === y);
+    const jumSa = (f) => { const a = saY.filter(x => x[f] !== '' && x[f] != null); return a.length ? a.reduce((s, x) => s + nombor(x[f]), 0) : null; };
     const A = agregatLaporan(rs);
-    const kapY = kapasitiPada(prSemua, y);
-    return { y, rs, A, kapY, guna: rs.length && kapY ? (A.anak / rs.length) / kapY : NaN,
-      saPend: sa && sa.pendapatan !== '' && sa.pendapatan != null ? nombor(sa.pendapatan) : null,
-      saUntung: sa && sa.untung !== '' && sa.untung != null ? nombor(sa.untung) : null };
+    const kapY = p.semua ? kapGabung(y) : kapasitiPada(prSemua, y);
+    const nisbah = rs.map(r => { const k = kapRekod(r); return k ? nombor(r.anakAyam) / k : NaN; }).filter(isFinite);
+    return { y, rs, A, kapY, guna: nisbah.length ? nisbah.reduce((a, b) => a + b, 0) / nisbah.length : NaN,
+      saPend: pus ? null : jumSa('pendapatan'), saUntung: pus ? null : jumSa('untung') };
   }).filter(t => t.rs.length || t.saPend != null || t.saUntung != null);
   const tahunAda = tahunan.filter(t => t.rs.length);
 
   // ---- Petunjuk pelaburan ----
-  const gunaKap = (() => { let a = 0, w = 0; rek.forEach(r => { const k = kapasitiPada(prSemua, +r.tahun); if (k) { a += nombor(r.anakAyam) / k; w++; } }); return w ? a / w : NaN; })();
+  const gunaKap = (() => { let a = 0, w = 0; rek.forEach(r => { const k = kapRekod(r); if (k) { a += nombor(r.anakAyam) / k; w++; } }); return w ? a / w : NaN; })();
   const purataMasuk = T.n ? T.anak / T.n : NaN;
   const untungTahunan = tahunAda.length ? T.untung / tahunAda.length : NaN;   // purata untung setahun beroperasi
-  const pulangan = jumPr && T.n ? T.untung / jumPr : NaN;
-  const pulanganTahunan = jumPr && isFinite(untungTahunan) ? untungTahunan / jumPr : NaN;
-  const pulangModal = jumPr && untungTahunan > 0 ? jumPr / untungTahunan : NaN;
+  const pulangan = jumPr && T.n && !pus ? T.untung / jumPr : NaN;
+  const pulanganTahunan = jumPr && isFinite(untungTahunan) && !pus ? untungTahunan / jumPr : NaN;
+  const pulangModal = jumPr && untungTahunan > 0 && !pus ? jumPr / untungTahunan : NaN;
   const bakiModal = jumPr - T.untung;
   const bakiTahun = untungTahunan > 0 && bakiModal > 0 ? bakiModal / untungTahunan : 0;
 
@@ -2278,7 +2390,7 @@ function renderLaporan() {
   if (T.n) {
     const rugi = rek.filter(r => kira(r).untung < 0);
     pen.push(rugi.length
-      ? { nada: 'risiko', teks: `<b>${rugi.length} daripada ${T.n} pusingan</b> mencatat kerugian (${rugi.map(r => `${r.tahun} P${r.pusingan}`).join(', ')}).` }
+      ? { nada: 'risiko', teks: `<b>${rugi.length} daripada ${T.n} pusingan</b> mencatat kerugian (${rugi.slice(0, 12).map(r => labelRek(r, p)).join(', ')}${rugi.length > 12 ? `, +${rugi.length - 12} lagi` : ''}).` }
       : { nada: 'baik', teks: `Tiada pusingan rugi sepanjang ${tempoh} (${T.n} pusingan).` });
   }
   if (T.bilBPI) {
@@ -2297,14 +2409,14 @@ function renderLaporan() {
   }
   if (isFinite(gunaKap) && kap) {
     pen.push(gunaKap < PENANDA.kapasiti.hijau
-      ? { nada: 'perhatian', teks: `Purata kemasukan <b>${fmtNom.format(purataMasuk)} ekor/pusingan</b> — kira-kira ${peratus(1 - gunaKap)} kapasiti projek belum digunakan.` }
+      ? { nada: 'perhatian', teks: p.semua ? `Purata penggunaan kapasiti <b>${peratus(gunaKap)}</b> setiap pusingan — kira-kira ${peratus(1 - gunaKap)} kapasiti projek beroperasi belum digunakan.` : `Purata kemasukan <b>${fmtNom.format(purataMasuk)} ekor/pusingan</b> — kira-kira ${peratus(1 - gunaKap)} kapasiti projek belum digunakan.` }
       : { nada: 'baik', teks: `Kapasiti projek digunakan pada tahap tinggi (${peratus(gunaKap)}).` });
   }
   if (tahunSaPend.length) {
     const capai = tahunSaPend.filter(t => t.A.pend >= t.saPend).length;
     pen.push({ nada: capai === tahunSaPend.length ? 'baik' : capai ? 'perhatian' : 'risiko', teks: `Sasaran pendapatan dicapai dalam <b>${capai} daripada ${tahunSaPend.length} tahun</b> yang mempunyai sasaran.` });
   }
-  if (jumPr && T.n) {
+  if (jumPr && T.n && !pus) {
     pen.push(T.untung >= jumPr ? { nada: 'baik', teks: `Untung terkumpul telah melepasi jumlah peruntukan — modal dianggap telah pulih.` }
       : untungTahunan > 0 ? { nada: pulanganTahunan >= PENANDA.pulangan.kuning ? 'neutral' : 'risiko', teks: `Pada purata ${rm(untungTahunan)} setahun, baki peruntukan ${rm(bakiModal)} dijangka pulih dalam kira-kira <b>${bakiTahun.toFixed(1)} tahun</b> lagi.` }
       : { nada: 'risiko', teks: 'Untung terkumpul negatif — peruntukan belum menunjukkan pulangan.' });
@@ -2328,29 +2440,37 @@ function renderLaporan() {
   const status = STATUS_LP[statusKeseluruhan];
   const terkini = rek.at(-1);
   const ulasan = semuaUlasan()[p.kunci] || {};
-  const bolehUlas = bolehUbahProjek({ ppk: p.ppk });
+  const bolehUlas = p.semua ? peranan() === 'admin' : bolehUbahProjek({ ppk: p.ppk });
 
   // 1. Profil projek
-  let html = tajuk('1', 'Profil Projek', `${escapeHTML(p.ppk)} · Reban ${labelReban(p.reban)} · tempoh laporan ${tempoh}`) + `
-    <div class="lp-grid-a grid grid-cols-1 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-4 xl:gap-5 items-start">
+  const ppkTerlibat = [...new Set([...data.rek.map(r => r.ppk), ...prSemua.map(x => x.ppk)])].sort();
+  const bilProjek = new Set([...data.rek.map(r => kunciProjek(r.ppk, r.jenisReban)), ...prSemua.map(x => kunciProjek(x.ppk, x.jenisReban))]).size;
+  const rebanTerlibat = [...new Set([...data.rek.map(r => r.jenisReban), ...prSemua.map(x => x.jenisReban)])].filter(Boolean).sort();
+  let html = tajuk('1', 'Profil Projek', `${escapeHTML(p.ppk)}${p.semua ? '' : ' · Reban ' + labelReban(p.reban)} · tempoh laporan ${tempoh}`) + `
+    <div class="${p.semua ? 'grid grid-cols-1' : 'lp-grid-a grid grid-cols-1 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]'} gap-4 xl:gap-5 items-start">
       <div class="card p-5 min-w-0">
         <dl class="lp-dl">
+          ${p.semua ? `<div class="lp-dl-lebar"><dt>PPK terlibat (${ppkTerlibat.length})</dt><dd>${ppkTerlibat.map(escapeHTML).join(' · ') || '—'}</dd></div>
+          <div><dt>Bilangan projek</dt><dd class="num">${bilProjek} projek</dd></div>
+          <div><dt>Sistem reban</dt><dd class="flex flex-wrap gap-1.5">${rebanTerlibat.map(cipReban).join('')}</dd></div>
+          <div class="lp-dl-lebar"><dt>Lokasi projek</dt><dd>${lokasi.length} lokasi</dd></div>
+          <div><dt>Jumlah kapasiti</dt><dd class="num">${kap ? fmtNom.format(kap) + ' ekor / pusingan' : '—'}</dd></div>` : `
           <div><dt>PPK</dt><dd>${escapeHTML(p.ppk)}</dd></div>
           <div><dt>Sistem reban</dt><dd>${cipReban(p.reban)}</dd></div>
           <div class="lp-dl-lebar"><dt>Lokasi projek</dt><dd>${lokasi.length ? lokasi.map(escapeHTML).join('<br>') : '—'}</dd></div>
-          <div><dt>Kapasiti projek</dt><dd class="num">${kap ? fmtNom.format(kap) + ' ekor / pusingan' : '—'}</dd></div>
+          <div><dt>Kapasiti projek</dt><dd class="num">${kap ? fmtNom.format(kap) + ' ekor / pusingan' : '—'}</dd></div>`}
           <div><dt>Mula beroperasi</dt><dd class="num">${data.rek.length ? tarikhMS(data.rek.map(r => r.tarikhMasuk).filter(Boolean).sort()[0]) : 'Belum beroperasi'}</dd></div>
-          <div><dt>Pusingan terkini</dt><dd class="num">${terkini ? `${terkini.tahun} P${terkini.pusingan} · ${tarikhMS(terkini.tarikhMasuk)}` : '—'}</dd></div>
+          <div><dt>Pusingan terkini</dt><dd class="num">${terkini ? `${labelRek(terkini, p)} · ${tarikhMS(terkini.tarikhMasuk)}` : '—'}</dd></div>
           <div><dt>Pusingan dalam tempoh</dt><dd class="num">${T.n} pusingan · ${tahunAda.length} tahun</dd></div>
           <div><dt>Status keseluruhan</dt><dd>${cipStatusLP(statusKeseluruhan, status.label + ' · ' + status.ket)}</dd></div>
         </dl>
       </div>
       <div class="card min-w-0">
-        <div class="px-5 pt-5 pb-3"><h2 class="font-display font-bold text-lg">Peruntukan Diterima</h2><p class="text-[13px] text-muted">Semua peruntukan projek sehingga ${hingga}</p></div>
+        <div class="px-5 pt-5 pb-3"><h2 class="font-display font-bold text-lg">Peruntukan Diterima</h2><p class="text-[13px] text-muted">Semua peruntukan ${p.semua ? 'bagi semua projek' : 'projek'} sehingga ${hingga}</p></div>
         <div class="overflow-x-auto"><table class="tbl">${pr.length ? `
-          <thead><tr><th>Tahun</th><th>Program</th><th>Lokasi</th><th class="r">Kapasiti (ekor)</th><th class="r">Nilai (RM)</th></tr></thead>
-          <tbody>${pr.map(x => `<tr><td class="num">${x.tahun}</td><td class="sel-tajuk">${escapeHTML(x.program)}</td><td>${escapeHTML(x.lokasi || '—')}</td><td class="r">${nombor(x.kapasiti) ? fmtNom.format(x.kapasiti) : '—'}</td><td class="r font-semibold">${fmtRM.format(nombor(x.nilai))}</td></tr>`).join('')}</tbody>
-          <tfoot><tr><td colspan="4">Jumlah peruntukan (${pr.length})</td><td class="r">${fmtRM.format(jumPr)}</td></tr></tfoot>`
+          <thead><tr><th>Tahun</th>${p.semua ? '<th>PPK</th><th>Reban</th>' : ''}<th>Program</th>${p.semua ? '' : '<th>Lokasi</th>'}<th class="r">Kapasiti (ekor)</th><th class="r">Nilai (RM)</th></tr></thead>
+          <tbody>${pr.map(x => `<tr><td class="num">${x.tahun}</td>${p.semua ? `<td>${escapeHTML(x.ppk)}</td><td>${labelReban(x.jenisReban)}</td>` : ''}<td class="sel-tajuk">${escapeHTML(x.program)}</td>${p.semua ? '' : `<td>${escapeHTML(x.lokasi || '—')}</td>`}<td class="r">${nombor(x.kapasiti) ? fmtNom.format(x.kapasiti) : '—'}</td><td class="r font-semibold">${fmtRM.format(nombor(x.nilai))}</td></tr>`).join('')}</tbody>
+          <tfoot><tr><td colspan="${p.semua ? 5 : 4}">Jumlah peruntukan (${pr.length})</td><td class="r">${fmtRM.format(jumPr)}</td></tr></tfoot>`
           : `<tbody><tr><td class="text-center text-muted py-8" style="white-space:normal">Tiada peruntukan direkod sehingga ${hingga}.</td></tr></tbody>`}</table></div>
       </div>
     </div>`;
@@ -2360,13 +2480,13 @@ function renderLaporan() {
     <div id="lp-kpi" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6 gap-4 xl:gap-5">
       ${kad('Jumlah Peruntukan', jumPr ? rm(jumPr) : '—', 'fa-hand-holding-dollar', pr.length ? `${pr.length} peruntukan · ${pr[0].tahun}${pr.length > 1 ? '–' + pr.at(-1).tahun : ''}` : 'Tiada peruntukan direkod')}
       ${kad('Untung Bersih Terkumpul', rm(T.untung), 'fa-sack-dollar', `${T.n} pusingan · ${tempoh}`, true, T.untung < 0)}
-      ${kad('Pulangan atas Peruntukan', isFinite(pulangan) ? peratus(pulangan) : '—', 'fa-percent', isFinite(pulanganTahunan) ? `${peratus(pulanganTahunan)} setahun secara purata` : 'Perlu peruntukan & rekod pusingan', false, pulangan < 0, nilaiStatus(pulanganTahunan, PENANDA.pulangan))}
-      ${kad('Anggaran Pulang Modal', T.n && jumPr && T.untung >= jumPr ? 'Telah pulih' : isFinite(pulangModal) ? f1(pulangModal) + ' tahun' : '—', 'fa-hourglass-half',
-        !jumPr || !T.n ? 'Perlu peruntukan & rekod pusingan' : T.untung >= jumPr ? 'Untung terkumpul ≥ peruntukan' : isFinite(pulangModal) ? `Baki ~${bakiTahun.toFixed(1)} tahun pada ${rmRingkas(untungTahunan)}/tahun` : 'Tidak dapat dianggar (untung purata ≤ 0)', false, false, T.n && jumPr ? nilaiStatus(pulanganTahunan, PENANDA.pulangan) : '')}
-      ${kad('Penggunaan Kapasiti', peratus(gunaKap), 'fa-warehouse', isFinite(purataMasuk) && kap ? `Purata ${fmtNom.format(purataMasuk)} daripada ${fmtNom.format(kap)} ekor` : 'Perlu kapasiti & rekod pusingan', false, false, nilaiStatus(gunaKap, PENANDA.kapasiti))}
+      ${kad('Pulangan atas Peruntukan', isFinite(pulangan) ? peratus(pulangan) : '—', 'fa-percent', isFinite(pulanganTahunan) ? `${peratus(pulanganTahunan)} setahun secara purata` : pus ? 'Tidak berkenaan bagi satu pusingan' : 'Perlu peruntukan & rekod pusingan', false, pulangan < 0, nilaiStatus(pulanganTahunan, PENANDA.pulangan))}
+      ${kad('Anggaran Pulang Modal', pus ? '—' : T.n && jumPr && T.untung >= jumPr ? 'Telah pulih' : isFinite(pulangModal) ? f1(pulangModal) + ' tahun' : '—', 'fa-hourglass-half',
+        pus ? 'Tidak berkenaan bagi satu pusingan' : !jumPr || !T.n ? 'Perlu peruntukan & rekod pusingan' : T.untung >= jumPr ? 'Untung terkumpul ≥ peruntukan' : isFinite(pulangModal) ? `Baki ~${bakiTahun.toFixed(1)} tahun pada ${rmRingkas(untungTahunan)}/tahun` : 'Tidak dapat dianggar (untung purata ≤ 0)', false, false, T.n && jumPr ? nilaiStatus(pulanganTahunan, PENANDA.pulangan) : '')}
+      ${kad('Penggunaan Kapasiti', peratus(gunaKap), 'fa-warehouse', p.semua && isFinite(gunaKap) ? `Purata setiap pusingan · jumlah kapasiti ${fmtNom.format(kap)} ekor` : isFinite(purataMasuk) && kap ? `Purata ${fmtNom.format(purataMasuk)} daripada ${fmtNom.format(kap)} ekor` : 'Perlu kapasiti & rekod pusingan', false, false, nilaiStatus(gunaKap, PENANDA.kapasiti))}
       ${kad('Purata Untung / Pusingan', T.n ? rm(T.untung / T.n) : '—', 'fa-scale-balanced', T.n ? `Margin ${peratus(T.margin)} · ${T.rugi} pusingan rugi` : 'Tiada rekod pusingan', false, T.untung < 0, nilaiStatus(T.margin, PENANDA.margin))}
     </div>
-    <p class="text-[12px] text-muted">Andaian: semua peruntukan dikira sebagai pelaburan modal projek. Tempoh pulang modal = jumlah peruntukan ÷ purata untung bersih setahun (${tahunAda.length || 0} tahun beroperasi dalam tempoh). Penggunaan kapasiti = anak ayam masuk ÷ kapasiti berkuat kuasa pada tahun pusingan.</p>`;
+    <p class="text-[12px] text-muted">Andaian: semua peruntukan dikira sebagai pelaburan modal projek. Tempoh pulang modal = jumlah peruntukan ÷ purata untung bersih setahun (${tahunAda.length || 0} tahun beroperasi dalam tempoh). Penggunaan kapasiti = anak ayam masuk ÷ kapasiti berkuat kuasa pada tahun pusingan.${p.semua ? ' <b>Semua PPK:</b> peruntukan merangkumi projek yang belum beroperasi (tiada rekod pusingan), jadi pulangan dan tempoh pulang modal mencerminkan keseluruhan pelaburan.' : ''}${pus ? ` <b>Penapis Pusingan ${pus} aktif:</b> angka merangkumi Pusingan ${pus} sahaja; pulangan, tempoh pulang modal dan perbandingan sasaran tahunan tidak dikira.` : ''}</p>`;
 
   if (!T.n) {
     html += `<div class="card p-8 text-center"><i class="fa-solid fa-seedling text-2xl text-muted"></i><p class="font-semibold mt-3">Projek belum mempunyai rekod pusingan bagi ${tempoh}.</p>
@@ -2398,14 +2518,15 @@ function renderLaporan() {
     const susunan = ['Sangat Baik', 'Baik', 'Sederhana', 'Lemah'];
     const mini = (l, v, n) => `<div class="min-w-0"><div class="text-[12px] text-muted">${l}</div><div class="num font-display font-bold text-xl xl:text-2xl">${v}</div><div class="text-[12px] text-muted">${n}</div></div>`;
     html += tajuk('4', 'Prestasi Teknikal', 'Broiler Performance Index (BPI), FCR dan kadar kematian setiap pusingan') + `
-      <div class="card px-5 py-4 grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-6 gap-4" id="lp-teknikal">
+      <div class="card px-5 py-4 grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-7 gap-4" id="lp-teknikal">
         ${mini('Purata BPI', f1(T.bpi), isFinite(T.bpi) ? kategoriBPI(T.bpi).label : 'data tidak lengkap')}
         ${mini('Purata FCR', f1(T.fcr, 3), 'kg makanan / kg berat hidup')}
+        ${mini('Purata berat / ekor (kg)', T.jual && T.berat ? (T.berat / T.jual).toFixed(2) : '—', T.berat ? fmtNom.format(T.berat) + ' kg dijual' : 'tiada data berat')}
         ${mini('Kadar kematian', peratus(T.kadarMati), T.mati ? fmtNom.format(T.mati) + ' ekor' : 'tiada data')}
         ${mini('Kadar hidup', T.anak ? peratus(T.jual / T.anak) : '—', T.jual ? fmtNom.format(T.jual) + ' ekor dijual' : 'tiada data')}
-        ${mini('BPI tertinggi', terbaik ? terbaik.bpi.toFixed(1) : '—', terbaik ? `${terbaik.r.tahun} P${terbaik.r.pusingan}` : '—')}
-        ${mini('BPI terendah', terlemah ? terlemah.bpi.toFixed(1) : '—', terlemah ? `${terlemah.r.tahun} P${terlemah.r.pusingan}` : '—')}
-        <div class="col-span-2 md:col-span-3 2xl:col-span-6 flex flex-wrap items-center gap-2 pt-1 border-t border-line"><span class="text-[12px] text-muted mr-1 mt-2">Taburan kategori BPI (${T.bilBPI} pusingan):</span>${susunan.map(l => { const n = T.kat[l] || 0; const kl = kategoriBPI({ 'Sangat Baik': 400, 'Baik': 350, 'Sederhana': 300, 'Lemah': 0 }[l]).kelas; return `<span class="chip mt-2 ${n ? kl : 'chip-neutral'}">${l}: ${n}</span>`; }).join('')}</div>
+        ${mini('BPI tertinggi', terbaik ? terbaik.bpi.toFixed(1) : '—', terbaik ? labelRek(terbaik.r, p) : '—')}
+        ${mini('BPI terendah', terlemah ? terlemah.bpi.toFixed(1) : '—', terlemah ? labelRek(terlemah.r, p) : '—')}
+        <div class="col-span-full flex flex-wrap items-center gap-2 pt-1 border-t border-line"><span class="text-[12px] text-muted mr-1 mt-2">Taburan kategori BPI (${T.bilBPI} pusingan):</span>${susunan.map(l => { const n = T.kat[l] || 0; const kl = kategoriBPI({ 'Sangat Baik': 400, 'Baik': 350, 'Sederhana': 300, 'Lemah': 0 }[l]).kelas; return `<span class="chip mt-2 ${n ? kl : 'chip-neutral'}">${l}: ${n}</span>`; }).join('')}</div>
       </div>
       <div class="grid-carta-2 grid grid-cols-1 xl:grid-cols-2 gap-4 xl:gap-5">
         ${kadCarta('lp-carta-bpi', 'Trend BPI Setiap Pusingan', 'Garis putus: had kategori 300 · 350 · 400', '', 'Carta BPI setiap pusingan dengan had kategori')}
@@ -2420,10 +2541,12 @@ function renderLaporan() {
         ${kadCarta('lp-carta-koskg', 'Kos/kg vs Harga Jualan/kg', 'RM sekilogram berat hidup', legenda([['Harga jualan / kg', 'var(--brand)', true], ['Kos / kg', 'var(--cost)', true]]), 'Carta kos sekilogram berbanding harga jualan sekilogram')}
       </div>
       <div class="card min-w-0"><div class="overflow-x-auto"><table class="tbl">
-        <thead><tr><th>Komponen kos</th><th class="r">Jumlah (RM)</th><th class="r">% daripada kos</th><th class="r">RM / ekor dijual</th><th class="r">RM / kg</th></tr></thead>
-        <tbody>${komponen.map(([l, v, w]) => `<tr><td class="sel-tajuk"><span class="inline-flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-sm" style="background:${w}"></span>${l}</span></td><td class="r">${fmtRM.format(v)}</td><td class="r font-semibold">${peratus(T.kos ? v / T.kos : NaN)}</td><td class="r">${T.jual ? fmtRM.format(v / T.jual) : '—'}</td><td class="r">${T.berat ? fmtRM.format(v / T.berat) : '—'}</td></tr>`).join('')}</tbody>
-        <tfoot><tr><td>Jumlah kos</td><td class="r">${fmtRM.format(T.kos)}</td><td class="r">100.0%</td><td class="r">${T.jual ? fmtRM.format(T.kos / T.jual) : '—'}</td><td class="r">${T.berat ? fmtRM.format(T.kos / T.berat) : '—'}</td></tr>
-          <tr><td>Pendapatan · margin</td><td class="r">${fmtRM.format(T.pend)}</td><td class="r">${peratus(T.margin)}</td><td class="r">${T.jual ? fmtRM.format(T.pend / T.jual) : '—'}</td><td class="r">${T.berat ? fmtRM.format(T.pend / T.berat) : '—'}</td></tr></tfoot>
+        <thead><tr><th>Komponen kos</th><th class="r">Jumlah (RM)</th><th class="r">% daripada kos</th><th class="r">Kos / ekor (RM)</th><th class="r">Harga jualan / ekor (RM)</th><th class="r">Margin / ekor (RM)</th><th class="r">Margin / kg (RM)</th></tr></thead>
+        <tbody>${komponen.map(([l, v, w]) => `<tr><td class="sel-tajuk"><span class="inline-flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-sm" style="background:${w}"></span>${l}</span></td><td class="r">${fmtRM.format(v)}</td><td class="r font-semibold">${peratus(T.kos ? v / T.kos : NaN)}</td><td class="r">${T.jual ? fmtRM.format(v / T.jual) : '—'}</td><td class="r sel-kosong"></td><td class="r sel-kosong"></td><td class="r sel-kosong"></td></tr>`).join('')}</tbody>
+        <tfoot>${(() => { const neg = (n) => n < 0 ? 'text-loss' : ''; const fm = (n) => isFinite(n) ? (n < 0 ? '−' : '') + fmtRM.format(Math.abs(n)) : '—';
+          const hEkor = T.jual ? T.pend / T.jual : NaN, kEkor = T.jual ? T.kos / T.jual : NaN, mEkor = T.jual ? T.untung / T.jual : NaN, mKg = T.berat ? T.untung / T.berat : NaN;
+          return `<tr><td>Jumlah kos</td><td class="r">${fmtRM.format(T.kos)}</td><td class="r">100.0%</td><td class="r">${fm(kEkor)}</td><td class="r">${fm(hEkor)}</td><td class="r ${neg(mEkor)}">${fm(mEkor)}</td><td class="r ${neg(mKg)}">${fm(mKg)}</td></tr>
+          <tr><td>Pendapatan · margin</td><td class="r">${fmtRM.format(T.pend)}</td><td class="r ${neg(T.margin)}">${peratus(T.margin)}</td><td class="r" colspan="4" style="white-space:normal"><span class="text-muted font-normal">Untung bersih</span> <span class="${neg(T.untung)}">${rm(T.untung)}</span> <span class="text-muted font-normal">· ${fmtNom.format(T.jual)} ekor · ${fmtNom.format(T.berat)} kg dijual</span></td></tr>`; })()}</tfoot>
       </table></div></div>`;
   }
 
@@ -2504,7 +2627,8 @@ function binaCartaLaporan(tahunan, rek) {
       backgroundColor: tahunan.map(t => t.A.untung < 0 ? token('--loss') : token('--brand')) }
   ] }, options: pilB });
   // 4a. BPI setiap pusingan
-  const label = rek.map(r => `${r.tahun} P${r.pusingan}`);
+  const pj = (keadaan.senaraiProjek || []).find(x => x.kunci === keadaan.laporan?.kunci) || {};
+  const label = rek.map(r => labelRek(r, pj));
   const bpi = rek.map(r => { const b = kira(r).bpi; return isFinite(b) ? +b.toFixed(1) : null; });
   const warnaKat = (v) => v == null ? 'transparent' : v >= 400 ? token('--gain') : v >= 350 ? token('--brand-mid') : v >= 300 ? token('--warn') : token('--loss');
   const pilBPI = asasCarta();
@@ -2548,7 +2672,7 @@ function binaCartaLaporan(tahunan, rek) {
 /** Simpan ulasan pegawai & tindakan cadangan bagi projek semasa */
 function simpanUlasan() {
   const p = (keadaan.senaraiProjek || []).find(x => x.kunci === keadaan.laporan?.kunci);
-  if (!p || !bolehUbahProjek({ ppk: p.ppk })) return toast('Anda tidak dibenarkan mengubah ulasan projek ini.', 'ralat');
+  if (!p || !(p.semua ? peranan() === 'admin' : bolehUbahProjek({ ppk: p.ppk }))) return toast('Anda tidak dibenarkan mengubah ulasan projek ini.', 'ralat');
   const semua = semuaUlasan();
   semua[p.kunci] = { ppk: p.ppk, jenisReban: p.reban, ulasan: $('#lp-ulasan').value.trim(), tindakan: $('#lp-tindakan').value.trim(), olehEmel: keadaan.pengguna.emel, masa: new Date().toISOString() };
   simpan(KUNCI.ulasan, semua);
@@ -2614,10 +2738,10 @@ const WARNA_KAT = { 'Sangat Baik': 'var(--gain)', 'Baik': 'var(--brand-mid)', 'S
 function kadBPI(rekodTahun, tahun) {
   const R = ringkasBPI(rekodTahun);
   const kat = kategoriBPI(R.bpi);
-  if (!R.bil) return `<div class="card p-5"><div class="flex items-center justify-between"><span class="eyebrow text-muted">Prestasi Teknikal (BPI) ${tahun}</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid fa-gauge-high"></i></span></div><p class="text-sm text-muted mt-3">BPI belum dapat dikira. Lengkapkan ayam dijual, berat, makanan (kg) dan umur jualan.</p></div>`;
+  if (!R.bil) return `<div class="card p-5"><div class="flex items-center justify-between"><span class="eyebrow text-muted">Prestasi Teknikal (BPI) ${tahun || '(Semua Tahun)'}</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid fa-gauge-high"></i></span></div><p class="text-sm text-muted mt-3">BPI belum dapat dikira. Lengkapkan ayam dijual, berat, makanan (kg) dan umur jualan.</p></div>`;
   const susunan = ['Sangat Baik', 'Baik', 'Sederhana', 'Lemah'];
   return `<div class="card p-5 kotak-status ${kat ? kat.kelas.replace('chip-', 'kotak-') : ''}">
-    <div class="flex items-center justify-between"><span class="eyebrow text-muted">Prestasi Teknikal (BPI) ${tahun}</span>${kat ? `<span class="chip ${kat.kelas}">${kat.label}</span>` : ''}</div>
+    <div class="flex items-center justify-between"><span class="eyebrow text-muted">Prestasi Teknikal (BPI) ${tahun || '(Semua Tahun)'}</span>${kat ? `<span class="chip ${kat.kelas}">${kat.label}</span>` : ''}</div>
     <div class="num font-display font-extrabold text-[clamp(24px,1.9vw,32px)] leading-tight mt-3">${R.bpi.toFixed(1)}</div>
     <div class="text-[12.5px] text-muted">purata BPI · FCR ${isFinite(R.fcr) ? R.fcr.toFixed(3) : '—'} · kematian ${peratus(R.mati)}</div>
     <div class="mt-3 flex h-2.5 rounded-full overflow-hidden bg-surface2" role="img" aria-label="Taburan kategori BPI">${susunan.map(l => R.kat[l] ? `<span style="width:${R.kat[l] / R.bil * 100}%;background:${WARNA_KAT[l]}"></span>` : '').join('')}</div>
@@ -2627,13 +2751,13 @@ function kadBPI(rekodTahun, tahun) {
 /** Kedudukan prestasi PPK (hanya apabila melihat semua PPK) */
 function renderKedudukan(tahun, ppk, reban) {
   const el = $('#kotak-kedudukan');
-  const rek = rekodDilihat().filter(r => +r.tahun === tahun && padanReban(r, reban));
+  const rek = rekodDilihat().filter(r => (!tahun || +r.tahun === tahun) && padanReban(r, reban));
   const kumpulan = {};
   rek.forEach(r => { (kumpulan[r.ppk] = kumpulan[r.ppk] || []).push(r); });
   const senarai = Object.entries(kumpulan).map(([nama, rs]) => {
     const S = rs.reduce((a, r) => { const k = kira(r); a.pend += k.jumlahPendapatan; a.untung += k.untung; return a; }, { pend: 0, untung: 0 });
-    const sasaran = dilihatPPK(semuaSasaran()).filter(x => +x.tahun === tahun && samaPPK(x.ppk, nama) && padanReban(x, reban) && x.pendapatan !== '' && x.pendapatan != null);
-    const pendSasaranSebenar = rs.filter(r => sasaran.some(x => x.jenisReban === r.jenisReban)).reduce((a, r) => a + kira(r).jumlahPendapatan, 0);
+    const sasaran = dilihatPPK(semuaSasaran()).filter(x => (!tahun || +x.tahun === tahun) && samaPPK(x.ppk, nama) && padanReban(x, reban) && x.pendapatan !== '' && x.pendapatan != null);
+    const pendSasaranSebenar = rs.filter(r => sasaran.some(x => x.jenisReban === r.jenisReban && +x.tahun === +r.tahun)).reduce((a, r) => a + kira(r).jumlahPendapatan, 0);
     const jumSasaran = sasaran.reduce((a, x) => a + nombor(x.pendapatan), 0);
     return { nama, n: rs.length, ...S, margin: S.pend ? S.untung / S.pend : NaN, bpi: ringkasBPI(rs).bpi, capai: jumSasaran ? pendSasaranSebenar / jumSasaran : NaN };
   }).sort((a, b) => b.untung - a.untung);
@@ -2642,7 +2766,7 @@ function renderKedudukan(tahun, ppk, reban) {
   el.hidden = false;
   el.innerHTML = `<div class="card p-5">
     <div class="flex flex-wrap items-baseline justify-between gap-2 mb-4">
-      <div><h2 class="font-display font-bold text-lg">Kedudukan Prestasi PPK ${tahun}</h2><p class="text-[13px] text-muted">Disusun mengikut untung bersih${reban ? ' · reban ' + labelReban(reban).toLowerCase() : ''}</p></div>
+      <div><h2 class="font-display font-bold text-lg">Kedudukan Prestasi PPK ${tahun || '(Semua Tahun)'}</h2><p class="text-[13px] text-muted">Disusun mengikut untung bersih${reban ? ' · reban ' + labelReban(reban).toLowerCase() : ''}</p></div>
       <span class="text-[12px] text-muted">${senarai.length} PPK · ${rek.length} pusingan</span>
     </div>
     <ol class="grid gap-3.5">${senarai.map((x, i) => { const kat = kategoriBPI(x.bpi); return `
@@ -2685,13 +2809,13 @@ function cetakLaporan(bahagian) {
   const p = keadaan.pengguna;
   const kini = new Date().toLocaleString('ms-MY', { dateStyle: 'long', timeStyle: 'short' });
   if (bahagian === 'dashboard') {
-    $('#cetak-tajuk').textContent = `Laporan Dashboard Eksekutif Ayam Pedaging ${$('#f-tahun').value}`;
+    $('#cetak-tajuk').textContent = `Laporan Dashboard Eksekutif Ayam Pedaging ${$('#f-tahun').value || '(Semua Tahun)'}`;
     $('#cetak-meta').textContent = `PPK: ${$('#f-ppk').value || 'Semua PPK'} · Jenis reban: ${$('#f-reban').selectedOptions[0].text} · ${boleh.lihatSemua() ? 'Rekod semua pengguna' : 'Rekod ' + p.nama} · Dicetak oleh ${p.nama} (${PERANAN[p.peranan]}) · ${kini}`;
   } else if (bahagian === 'laporan') {
     const L = keadaan.laporan || {}, pj = (keadaan.senaraiProjek || []).find(x => x.kunci === L.kunci);
     const st = STATUS_LP[keadaan.laporanStatus || 'tiada'];
-    $('#cetak-tajuk').textContent = pj ? `Laporan Prestasi Projek: ${pj.ppk} (Reban ${labelReban(pj.reban)})` : 'Laporan Prestasi Projek';
-    $('#cetak-meta').textContent = `Tempoh: ${L.dari === L.hingga ? L.dari : L.dari + '–' + L.hingga} · Status keseluruhan: ${st.label} (${st.ket}) · Dicetak oleh ${p.nama} (${PERANAN[p.peranan]}) · ${kini}`;
+    $('#cetak-tajuk').textContent = pj ? `Laporan Prestasi Projek: ${pj.ppk}${pj.semua ? ' (Semua Jenis Reban)' : ` (Reban ${labelReban(pj.reban)})`}` : 'Laporan Prestasi Projek';
+    $('#cetak-meta').textContent = `Tempoh: ${L.dari === L.hingga ? L.dari : L.dari + '–' + L.hingga} · ${L.pusingan ? 'Pusingan ' + L.pusingan : 'Semua pusingan'} · Status keseluruhan: ${st.label} (${st.ket}) · Dicetak oleh ${p.nama} (${PERANAN[p.peranan]}) · ${kini}`;
   } else {
     $('#cetak-tajuk').textContent = 'Jadual Rekod Pusingan Ayam Pedaging';
     $('#cetak-meta').textContent = `Tahun: ${$('#r-tahun').value || 'Semua'} · PPK: ${$('#r-ppk').value || 'Semua PPK'} · Jenis reban: ${$('#r-reban').selectedOptions[0].text} · Status: ${$('#r-status').selectedOptions[0].text} · ${boleh.lihatSemua() ? 'Rekod semua pengguna' : 'Rekod ' + p.nama} · Dicetak oleh ${p.nama} (${PERANAN[p.peranan]}) · ${kini}`;
@@ -2731,7 +2855,8 @@ function pasangPeristiwa() {
   $('#pr-batal').addEventListener('click', () => resetBorangProjek('peruntukan'));
   $('#sa-batal').addEventListener('click', () => resetBorangProjek('sasaran'));
   $('#mp-ppk-tapis').addEventListener('change', renderProjek);
-  $('#lp-projek').addEventListener('change', (e) => { keadaan.laporan = { kunci: e.target.value, dari: null, hingga: null }; renderLaporan(); });
+  $('#lp-projek').addEventListener('change', (e) => { keadaan.laporan = { kunci: e.target.value, dari: null, hingga: null, pusingan: keadaan.laporan?.pusingan || '' }; renderLaporan(); });
+  $('#lp-pusingan').addEventListener('change', (e) => { keadaan.laporan.pusingan = e.target.value; renderLaporan(); });
   ['#lp-dari', '#lp-hingga'].forEach(s => $(s).addEventListener('change', () => { keadaan.laporan.dari = +$('#lp-dari').value; keadaan.laporan.hingga = +$('#lp-hingga').value; renderLaporan(); }));
   $('#btn-lupakan').addEventListener('click', () => { buang(KUNCI.ingat); $('#login-emel').value = ''; $('#login-katalaluan').value = ''; isiMemoriLogin(); toast('Akaun yang diingati telah dipadam daripada peranti ini.', 'info'); });
   // Pilih emel yang diingati -> isi kata laluannya
@@ -2742,6 +2867,7 @@ function pasangPeristiwa() {
   $('#in-reban').addEventListener('change', () => { if (!keadaan.suntingId) { cadangPusingan(); kemaskiniKiraan(); } });
   $('#in-pusingan').addEventListener('change', () => { keadaan.pusinganManual = true; });
   $('#btn-batal-input').addEventListener('click', () => { const sunting = !!keadaan.suntingId; resetBorang(); if (sunting) tukarSeksyen('rekod'); });
+  $('#f-tahun').addEventListener('change', (e) => { e.target.dataset.semua = e.target.value === '' ? '1' : ''; });
   ['#f-tahun', '#f-ppk', '#f-reban'].forEach(s => $(s).addEventListener('change', renderDashboard));
   ['#r-tahun', '#r-ppk', '#r-reban', '#r-status'].forEach(s => $(s).addEventListener('change', renderRekod));
   document.addEventListener('change', (e) => {
@@ -2751,7 +2877,8 @@ function pasangPeristiwa() {
   $('#modal-batal').addEventListener('click', tutupModal);
   $('#modal-ok').addEventListener('click', () => { const cb = keadaan.padamCallback; tutupModal(); cb && cb(); });
   $('#modal').addEventListener('click', (e) => { if (e.target.id === 'modal') tutupModal(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('#modal').hidden) tutupModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key !== 'Escape') return; if (!$('#modal').hidden) tutupModal(); else tutupLembarData(true); });
+  $('#lembar-latar').addEventListener('click', () => tutupLembarData(true));
 
   // Delegasi klik untuk elemen yang dijana secara dinamik
   document.addEventListener('click', (e) => {
@@ -2843,6 +2970,7 @@ try { document.fonts && document.fonts.ready.then(sesuaikanSemuaJadual); } catch
 /* ---------- 17. Mula aplikasi ---------- */
 (async function mula() {
   $('#tahun-hakcipta').textContent = new Date().getFullYear();
+  $$('.versi-app').forEach(el => { el.textContent = VERSI_APP; });
   pasangPeristiwa();
   await sediakanDataAsal();
   // Pulihkan sesi jika pengguna belum log keluar
