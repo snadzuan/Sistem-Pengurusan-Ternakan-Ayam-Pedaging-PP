@@ -262,7 +262,8 @@
         </div>
         <div class="field">
           <label for="login-emel">Emel</label>
-          <input id="login-emel" class="input" type="email" autocomplete="username" placeholder="nama@lpp.gov.my" required>
+          <input id="login-emel" class="input" type="email" autocomplete="username" list="senarai-emel-diingat" placeholder="nama@lpp.gov.my" required>
+          <datalist id="senarai-emel-diingat"></datalist>
         </div>
         <div class="field">
           <label for="login-katalaluan">Kata Laluan</label>
@@ -271,9 +272,17 @@
             <button type="button" class="icon-btn absolute right-1 top-1/2 -translate-y-1/2" data-toggle-pw="login-katalaluan" aria-label="Papar kata laluan"><i class="fa-regular fa-eye"></i></button>
           </div>
         </div>
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <label for="login-ingat" class="inline-flex items-center gap-2 text-sm cursor-pointer select-none">
+            <input id="login-ingat" type="checkbox" class="w-4 h-4" style="accent-color:var(--brand)"> Ingat emel &amp; kata laluan
+          </label>
+          <button type="button" id="btn-lupakan" class="text-[12.5px] text-muted underline underline-offset-2 hover:text-loss" hidden>Lupakan akaun diingati</button>
+        </div>
+        <p class="hint -mt-2">Disimpan dalam pelayar peranti ini sahaja. Jangan tandakan pada komputer yang dikongsi.</p>
         <p id="login-ralat" class="err" role="alert" hidden></p>
         <button class="btn btn-primary w-full" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Log Masuk</button>
 
+        <!-- ===== AKAUN DEMO (SEMENTARA) — buang keseluruhan blok ini apabila sistem digunakan secara rasmi ===== -->
         <div class="rounded-lg bg-surface2 p-3 text-[12.5px] text-muted">
           <div class="font-semibold text-ink mb-1"><i class="fa-solid fa-flask-vial mr-1"></i> Akaun demo (simulasi)</div>
           <div class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
@@ -285,6 +294,7 @@
             <span>Pemerhati</span><button type="button" class="text-left text-brandstrong font-semibold underline-offset-2 hover:underline min-w-0 [overflow-wrap:anywhere]" data-demo="pemerhati@lpp.gov.my|Pemerhati@123">pemerhati@lpp.gov.my · Pemerhati@123</button>
           </div>
         </div>
+        <!-- ===== TAMAT AKAUN DEMO ===== -->
       </form>
 
       <!-- Borang Pendaftaran -->
@@ -342,6 +352,12 @@
         <p class="text-muted text-sm">Pendaftaran <b id="daftar-berjaya-emel" class="text-ink"></b> telah diterima. Anda boleh log masuk sebaik sahaja Admin Sistem mengesahkan akaun ini.</p>
         <button id="btn-ke-login" type="button" class="btn btn-ghost w-full"><i class="fa-solid fa-arrow-left"></i> Kembali ke Log Masuk</button>
       </div>
+
+      <!-- Hak cipta -->
+      <p class="mt-6 text-center text-[11px] leading-relaxed tracking-wide text-muted uppercase">
+        &copy; <span id="tahun-hakcipta">2026</span> Hak Cipta Terpelihara<br>
+        <span class="font-semibold text-ink">Unit Pembangunan Ekonomi, Pertubuhan Peladang Negeri Terengganu</span>
+      </p>
     </div>
   </section>
 </div>
@@ -423,6 +439,9 @@
         <!-- Petunjuk prestasi tambahan -->
         <div class="card px-5 py-4 grid grid-cols-2 md:grid-cols-4 gap-4" id="petunjuk-prestasi"></div>
 
+        <!-- Pendapatan vs Sasaran, Keuntungan vs Sasaran & Peruntukan Diterima -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" id="kotak-sasaran"></div>
+
         <!-- Carta -->
         <div class="grid grid-cols-1 xl:grid-cols-5 gap-4">
           <div class="card p-5 xl:col-span-3 min-w-0">
@@ -469,6 +488,67 @@
             <button class="btn btn-ghost btn-sm no-print" data-aksi="ke-rekod">Lihat semua rekod <i class="fa-solid fa-arrow-right"></i></button>
           </div>
           <div class="overflow-x-auto"><table class="tbl" id="jadual-dashboard"></table></div>
+        </div>
+      </section>
+
+      <!-- ===================== SEKSYEN: MAKLUMAT PROJEK ===================== -->
+      <section id="sek-projek" data-seksyen="projek" class="space-y-5 max-w-[1280px]" hidden>
+        <div class="flex flex-wrap items-end gap-3">
+          <div class="field">
+            <label for="mp-ppk-tapis">PPK</label>
+            <select id="mp-ppk-tapis" class="input !w-auto min-w-[200px]"></select>
+          </div>
+          <span class="chip chip-neutral skop-data mb-3"></span>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-5 items-start">
+          <!-- 3a. Peruntukan diterima -->
+          <div class="card min-w-0">
+            <div class="p-5 sm:p-6 border-b border-line">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="w-9 h-9 rounded-lg bg-brandsoft text-brandstrong flex items-center justify-center"><i class="fa-solid fa-hand-holding-dollar"></i></span>
+                <div><h2 class="font-display font-bold text-lg leading-tight" id="pr-tajuk">Peruntukan Diterima</h2><p class="text-[13px] text-muted">Tahun, nama program dan nilai peruntukan</p></div>
+              </div>
+              <form id="form-peruntukan" class="grid grid-cols-2 md:grid-cols-4 gap-4" novalidate>
+                <div class="field col-span-2 md:col-span-2"><label for="pr-ppk">PPK</label><select id="pr-ppk" class="input" required></select></div>
+                <div class="field col-span-1 md:col-span-1"><label for="pr-reban">Jenis Reban</label><select id="pr-reban" class="input" required><option value="terbuka">Reban Terbuka</option><option value="tertutup">Reban Tertutup</option></select></div>
+                <div class="field col-span-1 md:col-span-1"><label for="pr-tahun">Tahun</label><select id="pr-tahun" class="input" required></select></div>
+                <div class="field col-span-2 md:col-span-2"><label for="pr-program">Nama Program</label><input id="pr-program" class="input" type="text" placeholder="cth. Program Pembangunan Reban Ayam Pedaging" required></div>
+                <div class="field col-span-2 md:col-span-2"><label for="pr-lokasi">Lokasi Projek</label><input id="pr-lokasi" class="input" type="text" placeholder="cth. Kg. Besol, Dungun" required></div>
+                <div class="field col-span-2 md:col-span-2"><label for="pr-nilai">Nilai Diterima</label><div class="input-rm"><span>RM</span><input id="pr-nilai" class="input" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" required></div></div>
+                <p id="pr-ralat" class="err col-span-2 md:col-span-4" role="alert" hidden></p>
+                <div class="col-span-2 md:col-span-4 flex gap-2 justify-end">
+                  <button type="button" class="btn btn-ghost" id="pr-batal" hidden><i class="fa-solid fa-xmark"></i> Batal</button>
+                  <button type="submit" class="btn btn-primary" id="pr-simpan"><i class="fa-solid fa-floppy-disk"></i> Simpan Peruntukan</button>
+                </div>
+              </form>
+            </div>
+            <div class="overflow-x-auto"><table class="tbl" id="jadual-peruntukan"></table></div>
+          </div>
+
+          <!-- 3b. Sasaran tahunan -->
+          <div class="card min-w-0">
+            <div class="p-5 sm:p-6 border-b border-line">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="w-9 h-9 rounded-lg bg-warnsoft text-warn flex items-center justify-center"><i class="fa-solid fa-bullseye"></i></span>
+                <div><h2 class="font-display font-bold text-lg leading-tight" id="sa-tajuk">Sasaran Tahunan</h2><p class="text-[13px] text-muted">Sasaran pendapatan dan keuntungan bagi setiap tahun</p></div>
+              </div>
+              <form id="form-sasaran" class="grid grid-cols-2 md:grid-cols-4 gap-4" novalidate>
+                <div class="field col-span-2 md:col-span-2"><label for="sa-ppk">PPK</label><select id="sa-ppk" class="input" required></select></div>
+                <div class="field col-span-1 md:col-span-1"><label for="sa-reban">Jenis Reban</label><select id="sa-reban" class="input" required><option value="terbuka">Reban Terbuka</option><option value="tertutup">Reban Tertutup</option></select></div>
+                <div class="field col-span-1 md:col-span-1"><label for="sa-tahun">Tahun</label><select id="sa-tahun" class="input" required></select></div>
+                <div class="field col-span-2 md:col-span-2"><label for="sa-pendapatan">Sasaran Pendapatan Tahunan</label><div class="input-rm"><span>RM</span><input id="sa-pendapatan" class="input" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00"></div></div>
+                <div class="field col-span-2 md:col-span-2"><label for="sa-untung">Sasaran Keuntungan Tahunan</label><div class="input-rm"><span>RM</span><input id="sa-untung" class="input" type="number" inputmode="decimal" step="0.01" placeholder="0.00"></div></div>
+                <p class="hint col-span-2 md:col-span-4 -mt-2">Satu sasaran bagi setiap PPK, jenis reban dan tahun. Menyimpan kombinasi yang sama akan mengemas kini sasaran sedia ada.</p>
+                <p id="sa-ralat" class="err col-span-2 md:col-span-4" role="alert" hidden></p>
+                <div class="col-span-2 md:col-span-4 flex gap-2 justify-end">
+                  <button type="button" class="btn btn-ghost" id="sa-batal" hidden><i class="fa-solid fa-xmark"></i> Batal</button>
+                  <button type="submit" class="btn btn-primary" id="sa-simpan"><i class="fa-solid fa-floppy-disk"></i> Simpan Sasaran</button>
+                </div>
+              </form>
+            </div>
+            <div class="overflow-x-auto"><table class="tbl" id="jadual-sasaran"></table></div>
+          </div>
         </div>
       </section>
 
@@ -656,7 +736,7 @@
         <div class="card p-5 flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 class="font-display font-bold text-base">Data simulasi</h2>
-            <p class="text-[13px] text-muted">Pulihkan rekod asal PPK Dungun 2021–2026 dan akaun demo. Semua perubahan dalam pelayar ini akan dipadam.</p>
+            <p class="text-[13px] text-muted">Pulihkan rekod asal daripada fail Excel dan akaun asal. Semua perubahan dalam pelayar ini, termasuk peruntukan dan sasaran, akan dipadam.</p>
           </div>
           <button class="btn btn-ghost" data-aksi="pulih-data"><i class="fa-solid fa-clock-rotate-left"></i> Pulihkan Data Asal</button>
         </div>
@@ -699,8 +779,12 @@
 const DATA_ASAL = {"PPK Dungun":{"awalan":"asal","emel":"pegawai.dungun@lpp.gov.my","rekod":[{"tahun":2021,"pusingan":1,"tarikhMasuk":"2021-07-12","anakAyam":14600,"kosAnakAyam":23360.0,"kosMakanan":112746.0,"kosUbat":520.0,"kosPelbagai":5528.97,"pendapatan":162651.21,"kematian":477,"ayamDijual":14123,"beratKg":34242.36,"pembekal":"Huat Lai Resources Bhd","catatan":"","baka":"","umurJual":35,"makananKg":54102.93},{"tahun":2021,"pusingan":2,"tarikhMasuk":"2021-09-13","anakAyam":14600,"kosAnakAyam":23360.0,"kosMakanan":106288.0,"kosUbat":250.0,"kosPelbagai":4280.15,"pendapatan":131595.49,"kematian":387,"ayamDijual":14213,"beratKg":31914.84,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":50744.6},{"tahun":2021,"pusingan":3,"tarikhMasuk":"2021-11-11","anakAyam":14600,"kosAnakAyam":23360.0,"kosMakanan":104520.0,"kosUbat":275.3,"kosPelbagai":5204.0,"pendapatan":144040.14,"kematian":601,"ayamDijual":13999,"beratKg":30324.24,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":50035.0},{"tahun":2022,"pusingan":1,"tarikhMasuk":"2022-01-04","anakAyam":28300,"kosAnakAyam":51789.0,"kosMakanan":225273.5,"kosUbat":789.6,"kosPelbagai":6110.2,"pendapatan":291722.02,"kematian":1408,"ayamDijual":26892,"beratKg":55304.0,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":94569.84},{"tahun":2022,"pusingan":2,"tarikhMasuk":"2022-03-08","anakAyam":29200,"kosAnakAyam":53436.0,"kosMakanan":235337.5,"kosUbat":1349.8,"kosPelbagai":7962.65,"pendapatan":319701.07,"kematian":1558,"ayamDijual":27642,"beratKg":60864.96,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":98250.0},{"tahun":2022,"pusingan":3,"tarikhMasuk":"2022-05-26","anakAyam":29200,"kosAnakAyam":59276.0,"kosMakanan":286158.0,"kosUbat":3594.94,"kosPelbagai":17063.35,"pendapatan":406475.73,"kematian":1570,"ayamDijual":27630,"beratKg":66049.08,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":105900.0},{"tahun":2022,"pusingan":4,"tarikhMasuk":"2022-07-28","anakAyam":29200,"kosAnakAyam":59276.0,"kosMakanan":277118.0,"kosUbat":3328.6,"kosPelbagai":6491.0,"pendapatan":367791.55,"kematian":1766,"ayamDijual":27434,"beratKg":59639.58,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":102850.0},{"tahun":2022,"pusingan":5,"tarikhMasuk":"2022-10-04","anakAyam":29000,"kosAnakAyam":58020.0,"kosMakanan":270390.0,"kosUbat":3577.1,"kosPelbagai":21418.71,"pendapatan":397532.4,"kematian":1416,"ayamDijual":27584,"beratKg":64219.42,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":100500.0},{"tahun":2023,"pusingan":1,"tarikhMasuk":"2022-12-08","anakAyam":29200,"kosAnakAyam":58400.0,"kosMakanan":283525.0,"kosUbat":0.0,"kosPelbagai":4486.78,"pendapatan":423764.31,"kematian":1287,"ayamDijual":27913,"beratKg":72438.34,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":105035.59},{"tahun":2023,"pusingan":2,"tarikhMasuk":"2023-02-13","anakAyam":43800,"kosAnakAyam":87448.0,"kosMakanan":388422.0,"kosUbat":4944.65,"kosPelbagai":19408.75,"pendapatan":564908.67,"kematian":2042,"ayamDijual":41758,"beratKg":96690.0,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":144150.0},{"tahun":2023,"pusingan":3,"tarikhMasuk":"2023-04-24","anakAyam":43800,"kosAnakAyam":86724.0,"kosMakanan":388819.0,"kosUbat":8680.65,"kosPelbagai":28903.85,"pendapatan":567674.57,"kematian":1873,"ayamDijual":41927,"beratKg":96576.84,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":144400.0},{"tahun":2023,"pusingan":4,"tarikhMasuk":"2023-06-22","anakAyam":43800,"kosAnakAyam":86724.0,"kosMakanan":372691.0,"kosUbat":5475.85,"kosPelbagai":24194.41,"pendapatan":526308.76,"kematian":2074,"ayamDijual":41726,"beratKg":89967.3,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":138150.0},{"tahun":2023,"pusingan":5,"tarikhMasuk":"2023-08-28","anakAyam":43800,"kosAnakAyam":88476.0,"kosMakanan":386984.0,"kosUbat":525.0,"kosPelbagai":21184.4,"pendapatan":579811.31,"kematian":1200,"ayamDijual":42600,"beratKg":95679.8,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":143519.7},{"tahun":2023,"pusingan":6,"tarikhMasuk":"2023-11-02","anakAyam":43800,"kosAnakAyam":88914.0,"kosMakanan":381045.0,"kosUbat":7305.5,"kosPelbagai":27428.55,"pendapatan":615363.97,"kematian":2031,"ayamDijual":41769,"beratKg":99293.2,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":141250.0},{"tahun":2024,"pusingan":1,"tarikhMasuk":"2024-01-08","anakAyam":42500,"kosAnakAyam":90525.0,"kosMakanan":366950.0,"kosUbat":10046.95,"kosPelbagai":26127.04,"pendapatan":497542.19,"kematian":1697,"ayamDijual":40803,"beratKg":85049.94,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":135229.4},{"tahun":2024,"pusingan":2,"tarikhMasuk":"2024-03-14","anakAyam":43800,"kosAnakAyam":93294.0,"kosMakanan":358262.0,"kosUbat":4253.85,"kosPelbagai":25104.1,"pendapatan":551885.77,"kematian":1093,"ayamDijual":42707,"beratKg":94339.44,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":133018.61},{"tahun":2024,"pusingan":3,"tarikhMasuk":"2024-05-21","anakAyam":41800,"kosAnakAyam":89034.0,"kosMakanan":378228.0,"kosUbat":0.0,"kosPelbagai":22004.75,"pendapatan":533545.56,"kematian":1421,"ayamDijual":40379,"beratKg":91204.36,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":140454.71},{"tahun":2024,"pusingan":4,"tarikhMasuk":"2024-07-22","anakAyam":43800,"kosAnakAyam":93294.0,"kosMakanan":403822.0,"kosUbat":2242.65,"kosPelbagai":19626.8,"pendapatan":535835.1,"kematian":1583,"ayamDijual":42217,"beratKg":91589.92,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":149291.57},{"tahun":2024,"pusingan":5,"tarikhMasuk":"2024-09-23","anakAyam":43800,"kosAnakAyam":93294.0,"kosMakanan":367320.0,"kosUbat":4632.4,"kosPelbagai":23662.35,"pendapatan":524390.7,"kematian":2358,"ayamDijual":41442,"beratKg":94484.8,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":140782.35},{"tahun":2024,"pusingan":6,"tarikhMasuk":"2024-11-28","anakAyam":43800,"kosAnakAyam":92856.0,"kosMakanan":382944.0,"kosUbat":3992.55,"kosPelbagai":23686.6,"pendapatan":530679.3,"kematian":2121,"ayamDijual":41679,"beratKg":95617.58,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":152988.13},{"tahun":2025,"pusingan":1,"tarikhMasuk":"2025-01-30","anakAyam":43000,"kosAnakAyam":91160.0,"kosMakanan":341344.0,"kosUbat":5396.25,"kosPelbagai":24323.3,"pendapatan":480302.05,"kematian":1387,"ayamDijual":41613,"beratKg":86540.9,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":42,"makananKg":136550.0},{"tahun":2025,"pusingan":2,"tarikhMasuk":"2025-04-07","anakAyam":43800,"kosAnakAyam":92856.0,"kosMakanan":361750.8,"kosUbat":0.0,"kosPelbagai":21782.95,"pendapatan":548566.87,"kematian":1752,"ayamDijual":42048,"beratKg":97938.88,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":42,"makananKg":144900.0},{"tahun":2025,"pusingan":3,"tarikhMasuk":"2025-06-12","anakAyam":43800,"kosAnakAyam":92856.0,"kosMakanan":340522.0,"kosUbat":3952.5,"kosPelbagai":21175.07,"pendapatan":514557.26,"kematian":1580,"ayamDijual":42220,"beratKg":92713.01,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":39,"makananKg":134200.0},{"tahun":2025,"pusingan":4,"tarikhMasuk":"2025-08-14","anakAyam":43783,"kosAnakAyam":92822.0,"kosMakanan":333886.8,"kosUbat":2864.7,"kosPelbagai":23007.05,"pendapatan":479179.33,"kematian":1965,"ayamDijual":41818,"beratKg":90391.5,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":40,"makananKg":145300.0},{"tahun":2025,"pusingan":5,"tarikhMasuk":"2025-10-16","anakAyam":43800,"kosAnakAyam":92856.0,"kosMakanan":326787.0,"kosUbat":6292.1,"kosPelbagai":46844.2,"pendapatan":452247.33,"kematian":2710,"ayamDijual":41090,"beratKg":84263.48,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":42,"makananKg":142150.0},{"tahun":2026,"pusingan":1,"tarikhMasuk":"2025-12-18","anakAyam":43800,"kosAnakAyam":93294.0,"kosMakanan":314496.0,"kosUbat":0.0,"kosPelbagai":20941.45,"pendapatan":506890.29,"kematian":2180,"ayamDijual":41620,"beratKg":96550.52,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"HL ROSS","umurJual":35,"makananKg":136950.0},{"tahun":2026,"pusingan":2,"tarikhMasuk":"2026-04-16","anakAyam":42000,"kosAnakAyam":104160.0,"kosMakanan":363602.5,"kosUbat":2100.0,"kosPelbagai":44940.85,"pendapatan":545683.44,"kematian":2255,"ayamDijual":39745,"beratKg":90711.44,"pembekal":"GT Poultry Sdn Bhd","catatan":"","baka":"LH COBB","umurJual":35,"makananKg":133750.0},{"tahun":2026,"pusingan":3,"tarikhMasuk":"2026-06-16","anakAyam":43800,"kosAnakAyam":108624.0,"kosMakanan":393667.0,"kosUbat":0.0,"kosPelbagai":24000.55,"pendapatan":570279.06,"kematian":3155,"ayamDijual":40645,"beratKg":95139.51,"pembekal":"GT Poultry Sdn Bhd","catatan":"","baka":"LH COBB","umurJual":39,"makananKg":144700.0},{"tahun":2026,"pusingan":4,"tarikhMasuk":"2026-08-15","anakAyam":43800,"kosAnakAyam":93075.0,"kosMakanan":327150.0,"kosUbat":1975.6,"kosPelbagai":6012.74,"pendapatan":481458.76,"kematian":2298,"ayamDijual":41502,"beratKg":91706.42,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"CAB AA","umurJual":37,"makananKg":142500.0}],"jenisReban":"terbuka"},"PPK Bukit Diman":{"awalan":"asalBD","emel":"pegawai.bukitdiman@lpp.gov.my","rekod":[{"tahun":2023,"pusingan":1,"tarikhMasuk":"2023-04-04","anakAyam":14000,"kosAnakAyam":28420.0,"kosMakanan":124148.0,"kosUbat":5770.65,"kosPelbagai":103967.05,"pendapatan":243596.09,"kematian":486,"ayamDijual":13514,"beratKg":31195.48,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"Jualan ayam RM 182,493.57 + geran kerajaan RM 58,670.00 + pendapatan lain RM 2,432.52","baka":"","umurJual":35,"makananKg":45233.45},{"tahun":2023,"pusingan":2,"tarikhMasuk":"2023-06-12","anakAyam":15000,"kosAnakAyam":30000.0,"kosMakanan":125804.0,"kosUbat":2114.75,"kosPelbagai":14801.4,"pendapatan":190675.09,"kematian":660,"ayamDijual":14340,"beratKg":32152.8,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"Jualan ayam RM 188,093.89 + pendapatan lain RM 2,581.20","baka":"","umurJual":35,"makananKg":47907.67},{"tahun":2023,"pusingan":3,"tarikhMasuk":"2023-08-17","anakAyam":15000,"kosAnakAyam":30300.0,"kosMakanan":129690.0,"kosUbat":0.0,"kosPelbagai":6345.73,"pendapatan":196358.74,"kematian":370,"ayamDijual":14630,"beratKg":33115.44,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"Jualan ayam RM 193,725.34 + pendapatan lain RM 2,633.40","baka":"","umurJual":35,"makananKg":49673.16},{"tahun":2023,"pusingan":4,"tarikhMasuk":"2023-10-26","anakAyam":15000,"kosAnakAyam":30450.0,"kosMakanan":132370.0,"kosUbat":1633.2,"kosPelbagai":12361.62,"pendapatan":205946.35,"kematian":450,"ayamDijual":14550,"beratKg":35204.5,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":54214.93},{"tahun":2024,"pusingan":1,"tarikhMasuk":"2024-01-04","anakAyam":15000,"kosAnakAyam":30450.0,"kosMakanan":128782.0,"kosUbat":1995.0,"kosPelbagai":12490.95,"pendapatan":194627.76,"kematian":579,"ayamDijual":14421,"beratKg":32269.7,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":46145.67},{"tahun":2024,"pusingan":2,"tarikhMasuk":"2024-03-12","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":121382.0,"kosUbat":5598.85,"kosPelbagai":30052.65,"pendapatan":193108.52,"kematian":256,"ayamDijual":14744,"beratKg":33010.0,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":44893.6},{"tahun":2024,"pusingan":3,"tarikhMasuk":"2024-05-17","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":121918.0,"kosUbat":4137.0,"kosPelbagai":12052.2,"pendapatan":194315.38,"kematian":290,"ayamDijual":14710,"beratKg":33216.3,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":45174.17},{"tahun":2024,"pusingan":4,"tarikhMasuk":"2024-07-18","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":122588.0,"kosUbat":1730.0,"kosPelbagai":18485.54,"pendapatan":175027.34,"kematian":420,"ayamDijual":14594,"beratKg":29919.2,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":45477.18},{"tahun":2024,"pusingan":5,"tarikhMasuk":"2024-09-19","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":122803.0,"kosUbat":3101.8,"kosPelbagai":14657.89,"pendapatan":182860.32,"kematian":846,"ayamDijual":14154,"beratKg":32947.8,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":49092.22},{"tahun":2024,"pusingan":6,"tarikhMasuk":"2024-11-22","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":115130.0,"kosUbat":2961.0,"kosPelbagai":27693.33,"pendapatan":174811.14,"kematian":482,"ayamDijual":14518,"beratKg":31497.5,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":45986.35},{"tahun":2025,"pusingan":1,"tarikhMasuk":"2025-01-23","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":118478.0,"kosUbat":3162.0,"kosPelbagai":16408.33,"pendapatan":181735.53,"kematian":568,"ayamDijual":14432,"beratKg":32745.14,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":37,"makananKg":47350.0},{"tahun":2025,"pusingan":2,"tarikhMasuk":"2025-03-28","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":114386.0,"kosUbat":2892.0,"kosPelbagai":16290.68,"pendapatan":179977.65,"kematian":812,"ayamDijual":14188,"beratKg":32428.4,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":37,"makananKg":45700.0},{"tahun":2025,"pusingan":3,"tarikhMasuk":"2025-06-03","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":112774.0,"kosUbat":14.0,"kosPelbagai":18336.68,"pendapatan":175645.31,"kematian":667,"ayamDijual":14333,"beratKg":31647.8,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":37,"makananKg":45050.0},{"tahun":2025,"pusingan":4,"tarikhMasuk":"2025-08-11","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":108096.0,"kosUbat":2939.0,"kosPelbagai":26701.28,"pendapatan":176469.11,"kematian":730,"ayamDijual":14270,"beratKg":33613.16,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":37,"makananKg":46950.0},{"tahun":2025,"pusingan":5,"tarikhMasuk":"2025-10-14","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":109464.0,"kosUbat":7.8,"kosPelbagai":20632.88,"pendapatan":179737.98,"kematian":707,"ayamDijual":14293,"beratKg":34235.8,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"","umurJual":37,"makananKg":47550.0},{"tahun":2026,"pusingan":1,"tarikhMasuk":"2025-12-16","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":102510.0,"kosUbat":970.0,"kosPelbagai":12778.33,"pendapatan":167750.13,"kematian":604,"ayamDijual":14396,"beratKg":31952.4,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"ROSS","umurJual":37,"makananKg":44500.0},{"tahun":2026,"pusingan":2,"tarikhMasuk":"2026-02-13","anakAyam":15000,"kosAnakAyam":31950.0,"kosMakanan":101712.0,"kosUbat":320.0,"kosPelbagai":20600.26,"pendapatan":152144.5,"kematian":980,"ayamDijual":14020,"beratKg":28979.9,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"ROSS","umurJual":38,"makananKg":44150.0},{"tahun":2026,"pusingan":3,"tarikhMasuk":"2026-04-22","anakAyam":15000,"kosAnakAyam":34200.0,"kosMakanan":100572.0,"kosUbat":320.0,"kosPelbagai":17186.03,"pendapatan":164068.3,"kematian":716,"ayamDijual":14284,"beratKg":31251.1,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"COBB","umurJual":33,"makananKg":43650.0},{"tahun":2026,"pusingan":4,"tarikhMasuk":"2026-06-29","anakAyam":15000,"kosAnakAyam":34200.0,"kosMakanan":74850.0,"kosUbat":970.0,"kosPelbagai":22195.15,"pendapatan":110645.85,"kematian":5985,"ayamDijual":9015,"beratKg":21075.4,"pembekal":"Chop Cheong Bee Sdn Bhd","catatan":"","baka":"COBB","umurJual":33,"makananKg":32500.0}],"jenisReban":"terbuka"},"PPK Kijal":{"awalan":"asalKJ","emel":"pegawai.kijal@lpp.gov.my","rekod":[{"tahun":2021,"pusingan":1,"tarikhMasuk":"2021-01-14","anakAyam":20200,"kosAnakAyam":33700.0,"kosMakanan":135180.0,"kosUbat":1889.5,"kosPelbagai":14453.23,"pendapatan":195276.25,"kematian":1208,"ayamDijual":18992,"beratKg":42434.7,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 193,502.25 + pendapatan lain RM 1,774.00","baka":"","umurJual":35,"makananKg":70017.26},{"tahun":2021,"pusingan":2,"tarikhMasuk":"2021-03-22","anakAyam":20200,"kosAnakAyam":33700.0,"kosMakanan":135180.0,"kosUbat":1203.5,"kosPelbagai":11032.04,"pendapatan":195429.65,"kematian":1073,"ayamDijual":19127,"beratKg":42164.25,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 194,181.65 + pendapatan lain RM 1,248.00","baka":"","umurJual":35,"makananKg":69992.65},{"tahun":2021,"pusingan":3,"tarikhMasuk":"2021-05-27","anakAyam":19190,"kosAnakAyam":34960.0,"kosMakanan":142647.5,"kosUbat":1512.5,"kosPelbagai":13360.55,"pendapatan":205046.55,"kematian":1431,"ayamDijual":17759,"beratKg":41009.9,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 200,948.55 + pendapatan lain RM 4,098.00","baka":"","umurJual":35,"makananKg":67256.24},{"tahun":2021,"pusingan":4,"tarikhMasuk":"2021-07-27","anakAyam":21210,"kosAnakAyam":38640.0,"kosMakanan":153197.5,"kosUbat":2869.0,"kosPelbagai":14848.86,"pendapatan":204760.72,"kematian":1381,"ayamDijual":19829,"beratKg":41484.7,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 204,260.72 + pendapatan lain RM 500.00","baka":"","umurJual":35,"makananKg":72183.38},{"tahun":2021,"pusingan":5,"tarikhMasuk":"2021-10-05","anakAyam":33000,"kosAnakAyam":63680.0,"kosMakanan":223446.5,"kosUbat":1695.0,"kosPelbagai":19186.16,"pendapatan":317232.55,"kematian":2024,"ayamDijual":30976,"beratKg":68890.8,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 316,632.55 + pendapatan lain RM 600.00","baka":"","umurJual":35,"makananKg":110914.19},{"tahun":2021,"pusingan":6,"tarikhMasuk":"2021-11-29","anakAyam":35600,"kosAnakAyam":61690.0,"kosMakanan":256175.0,"kosUbat":1772.5,"kosPelbagai":16309.82,"pendapatan":321999.65,"kematian":1550,"ayamDijual":34050,"beratKg":77499.66,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 320,969.65 + pendapatan lain RM 1,030.00","baka":"","umurJual":35,"makananKg":120124.47},{"tahun":2022,"pusingan":1,"tarikhMasuk":"2022-01-25","anakAyam":33200,"kosAnakAyam":81942.0,"kosMakanan":336770.5,"kosUbat":1772.5,"kosPelbagai":14665.07,"pendapatan":454199.97,"kematian":2690,"ayamDijual":30510,"beratKg":66538.34,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 437,724.57 + pendapatan lain RM 16,475.40","baka":"","umurJual":35,"makananKg":101138.28},{"tahun":2022,"pusingan":2,"tarikhMasuk":"2022-03-23","anakAyam":35900,"kosAnakAyam":93129.0,"kosMakanan":359807.5,"kosUbat":0.0,"kosPelbagai":32571.11,"pendapatan":504314.55,"kematian":2347,"ayamDijual":33553,"beratKg":69517.8,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 504,302.65 + pendapatan lain RM 11.90; Tarikh masuk asal: 23&24.03.2022","baka":"","umurJual":35,"makananKg":111923.66},{"tahun":2022,"pusingan":3,"tarikhMasuk":"2022-05-16","anakAyam":34000,"kosAnakAyam":89272.0,"kosMakanan":359584.5,"kosUbat":0.0,"kosPelbagai":11893.69,"pendapatan":522560.9,"kematian":1722,"ayamDijual":32278,"beratKg":65017.18,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 480,284.12 + pendapatan lain RM 42,276.78; Tarikh masuk asal: 16&17.05.2022","baka":"","umurJual":35,"makananKg":111179.38},{"tahun":2022,"pusingan":4,"tarikhMasuk":"2022-07-23","anakAyam":37500,"kosAnakAyam":76125.0,"kosMakanan":333271.0,"kosUbat":0.0,"kosPelbagai":16672.25,"pendapatan":442110.14,"kematian":2541,"ayamDijual":31959,"beratKg":57945.7,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":101404.98},{"tahun":2022,"pusingan":5,"tarikhMasuk":"2022-09-26","anakAyam":33000,"kosAnakAyam":70035.0,"kosMakanan":304409.5,"kosUbat":0.0,"kosPelbagai":22142.99,"pendapatan":341768.96,"kematian":2024,"ayamDijual":30976,"beratKg":68890.8,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":110914.19},{"tahun":2022,"pusingan":6,"tarikhMasuk":"2022-11-30","anakAyam":35600,"kosAnakAyam":72268.0,"kosMakanan":324447.5,"kosUbat":728.4,"kosPelbagai":10117.31,"pendapatan":468358.18,"kematian":1550,"ayamDijual":34050,"beratKg":77499.66,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 462,605.56 + pendapatan lain RM 5,752.62","baka":"","umurJual":35,"makananKg":120124.47},{"tahun":2023,"pusingan":1,"tarikhMasuk":"2023-03-03","anakAyam":26300,"kosAnakAyam":53389.0,"kosMakanan":237966.5,"kosUbat":0.0,"kosPelbagai":29366.09,"pendapatan":329946.46,"kematian":1526,"ayamDijual":24774,"beratKg":55985.11,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":87896.62},{"tahun":2023,"pusingan":2,"tarikhMasuk":"2023-05-09","anakAyam":36400,"kosAnakAyam":73882.0,"kosMakanan":319720.0,"kosUbat":4644.8,"kosPelbagai":33831.22,"pendapatan":435127.06,"kematian":2305,"ayamDijual":34095,"beratKg":72130.5,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 428,998.06 + pendapatan lain RM 6,129.00; Tarikh masuk asal: 09&11.05.2023","baka":"","umurJual":35,"makananKg":118294.02},{"tahun":2023,"pusingan":3,"tarikhMasuk":"2023-07-13","anakAyam":35000,"kosAnakAyam":68130.0,"kosMakanan":309905.0,"kosUbat":2067.2,"kosPelbagai":26805.41,"pendapatan":418133.25,"kematian":2415,"ayamDijual":32585,"beratKg":69525.05,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 413,674.13 + pendapatan lain RM 4,459.12; Tarikh masuk asal: 13&14.07.2023","baka":"","umurJual":35,"makananKg":114716.33},{"tahun":2023,"pusingan":4,"tarikhMasuk":"2023-08-14","anakAyam":33000,"kosAnakAyam":66990.0,"kosMakanan":278397.5,"kosUbat":2986.9,"kosPelbagai":13183.46,"pendapatan":348310.67,"kematian":2511,"ayamDijual":30489,"beratKg":58662.7,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Tarikh masuk asal: 14&15.08.2023","baka":"","umurJual":35,"makananKg":102659.73},{"tahun":2023,"pusingan":5,"tarikhMasuk":"2023-11-09","anakAyam":33000,"kosAnakAyam":66990.0,"kosMakanan":300386.5,"kosUbat":1793.5,"kosPelbagai":13345.37,"pendapatan":420894.59,"kematian":2024,"ayamDijual":30976,"beratKg":68890.8,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 409,541.27 + pendapatan lain RM 11,353.32","baka":"","umurJual":35,"makananKg":110914.19},{"tahun":2024,"pusingan":1,"tarikhMasuk":"2024-01-17","anakAyam":35000,"kosAnakAyam":71050.0,"kosMakanan":350720.5,"kosUbat":3129.65,"kosPelbagai":17866.19,"pendapatan":446501.15,"kematian":2691,"ayamDijual":32309,"beratKg":75112.5,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":129193.5},{"tahun":2024,"pusingan":2,"tarikhMasuk":"2024-03-15","anakAyam":36600,"kosAnakAyam":77958.0,"kosMakanan":337560.0,"kosUbat":2735.3,"kosPelbagai":19710.13,"pendapatan":448473.34,"kematian":2645,"ayamDijual":33955,"beratKg":75473.9,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"Jualan ayam RM 448,136.50 + pendapatan lain RM 336.84","baka":"","umurJual":35,"makananKg":124531.93},{"tahun":2024,"pusingan":3,"tarikhMasuk":"2024-05-18","anakAyam":18500,"kosAnakAyam":39405.0,"kosMakanan":165023.5,"kosUbat":4489.25,"kosPelbagai":22617.06,"pendapatan":219283.71,"kematian":1301,"ayamDijual":17199,"beratKg":36854.4,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":60809.76},{"tahun":2024,"pusingan":4,"tarikhMasuk":"2024-07-15","anakAyam":24000,"kosAnakAyam":51120.0,"kosMakanan":230030.0,"kosUbat":840.0,"kosPelbagai":18003.19,"pendapatan":270373.8,"kematian":3154,"ayamDijual":20846,"beratKg":45849.2,"pembekal":"Kee Sung Agriculture (M) Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":84821.02},{"tahun":2024,"pusingan":5,"tarikhMasuk":"2024-10-08","anakAyam":30000,"kosAnakAyam":55500.0,"kosMakanan":296208.0,"kosUbat":17844.65,"kosPelbagai":40791.82,"pendapatan":382026.35,"kematian":1526,"ayamDijual":28474,"beratKg":64846.23,"pembekal":"Goldform Corporation Sdn Bhd","catatan":"","baka":"","umurJual":35,"makananKg":110238.59},{"tahun":2025,"pusingan":1,"tarikhMasuk":"2024-12-12","anakAyam":35040,"kosAnakAyam":68503.2,"kosMakanan":337510.0,"kosUbat":8308.7,"kosPelbagai":18734.88,"pendapatan":479216.72,"kematian":1590,"ayamDijual":33450,"beratKg":81349.98,"pembekal":"Goldform Corporation Sdn Bhd","catatan":"Jualan ayam RM 479,006.72 + pendapatan lain RM 210.00","baka":"","umurJual":32,"makananKg":125250.0},{"tahun":2025,"pusingan":2,"tarikhMasuk":"2025-02-28","anakAyam":34720,"kosAnakAyam":67877.6,"kosMakanan":325960.0,"kosUbat":5941.93,"kosPelbagai":32521.39,"pendapatan":447975.66,"kematian":1972,"ayamDijual":32748,"beratKg":75846.72,"pembekal":"Goldform Corporation Sdn Bhd","catatan":"Jualan ayam RM 447,495.66 + pendapatan lain RM 480.00; Tarikh masuk asal: 28/02/2025&03/03/2025","baka":"","umurJual":33,"makananKg":121000.0},{"tahun":2025,"pusingan":3,"tarikhMasuk":"2025-05-02","anakAyam":34960,"kosAnakAyam":68346.8,"kosMakanan":344258.0,"kosUbat":8824.7,"kosPelbagai":25610.62,"pendapatan":430719.54,"kematian":2239,"ayamDijual":32721,"beratKg":73189.46,"pembekal":"Goldform Corporation Sdn Bhd","catatan":"Jualan ayam RM 430,544.54 + pendapatan lain RM 175.00; Tarikh masuk asal: 02/05/2025&05/05/2025","baka":"","umurJual":33,"makananKg":127850.0},{"tahun":2025,"pusingan":4,"tarikhMasuk":"2025-07-08","anakAyam":32800,"kosAnakAyam":64124.0,"kosMakanan":278270.0,"kosUbat":7260.85,"kosPelbagai":28960.3,"pendapatan":348802.3,"kematian":2400,"ayamDijual":30400,"beratKg":59140.06,"pembekal":"Goldform Corporation Sdn Bhd","catatan":"Jualan ayam RM 348,762.30 + pendapatan lain RM 40.00; Tarikh masuk asal: 08/07/2025 & 11/07/2025","baka":"","umurJual":36.07,"makananKg":103250.0},{"tahun":2025,"pusingan":5,"tarikhMasuk":"2025-10-10","anakAyam":32800,"kosAnakAyam":64124.0,"kosMakanan":296656.0,"kosUbat":4287.53,"kosPelbagai":31196.89,"pendapatan":379456.74,"kematian":3382,"ayamDijual":29418,"beratKg":65315.11,"pembekal":"Goldform Corporation Sdn Bhd","catatan":"Jualan ayam RM 379,137.34 + pendapatan lain RM 319.40","baka":"","umurJual":38,"makananKg":110200.0},{"tahun":2026,"pusingan":1,"tarikhMasuk":"2025-12-17","anakAyam":17000,"kosAnakAyam":40460.0,"kosMakanan":160240.5,"kosUbat":2803.25,"kosPelbagai":20662.04,"pendapatan":225588.27,"kematian":1193,"ayamDijual":15807,"beratKg":38235.3,"pembekal":"AK MUHIBBAH SDN BHD","catatan":"","baka":"ROSS","umurJual":32,"makananKg":59450.0},{"tahun":2026,"pusingan":2,"tarikhMasuk":"2026-02-25","anakAyam":17000,"kosAnakAyam":40460.0,"kosMakanan":139905.0,"kosUbat":3084.5,"kosPelbagai":17949.99,"pendapatan":199653.25,"kematian":963,"ayamDijual":16037,"beratKg":33610.96,"pembekal":"AK MUHIBBAH SDN BHD","catatan":"","baka":"ROSS","umurJual":30,"makananKg":52200.0},{"tahun":2026,"pusingan":3,"tarikhMasuk":"2026-04-29","anakAyam":23000,"kosAnakAyam":57040.0,"kosMakanan":200979.0,"kosUbat":0.0,"kosPelbagai":26437.18,"pendapatan":272928.06,"kematian":1828,"ayamDijual":21172,"beratKg":45721.5,"pembekal":"GT POULTRY SDN BHD","catatan":"","baka":"COBB","umurJual":32,"makananKg":73900.0},{"tahun":2026,"pusingan":4,"tarikhMasuk":"2026-06-27","anakAyam":13000,"kosAnakAyam":32240.0,"kosMakanan":117045.0,"kosUbat":2148.0,"kosPelbagai":10790.53,"pendapatan":161003.72,"kematian":973,"ayamDijual":12027,"beratKg":27015.62,"pembekal":"GT POULTRY SDN BHD","catatan":"","baka":"COBB","umurJual":36.6,"makananKg":43000.0}],"jenisReban":"terbuka"},"PPK Kuala Terengganu":{"awalan":"asalKT","emel":"pegawai.kualaterengganu@lpp.gov.my","jenisReban":"tertutup","rekod":[{"tahun":2026,"pusingan":1,"tarikhMasuk":"2026-06-08","anakAyam":30000,"kosAnakAyam":74400.0,"kosMakanan":248212.0,"kosUbat":4246.9,"kosPelbagai":20994.35,"pendapatan":357451.88,"kematian":880,"ayamDijual":29120,"beratKg":59080.0,"pembekal":"GT Poultry Sdn Bhd","catatan":"Baka DOC: COBB + vaksin","baka":"COBB","umurJual":35,"makananKg":91200.0}]}};
 
 /* ---------- 2. Pemalar & utiliti ---------- */
-const KUNCI = { pengguna: 'lppAyam.v2.pengguna', rekod: 'lppAyam.v2.rekod', sesi: 'lppAyam.v2.sesi', versi: 'lppAyam.v2.versiData' };
+const KUNCI = { pengguna: 'lppAyam.v2.pengguna', rekod: 'lppAyam.v2.rekod', sesi: 'lppAyam.v2.sesi', versi: 'lppAyam.v2.versiData',
+  ingat: 'lppAyam.v2.ingatLogMasuk', peruntukan: 'lppAyam.v2.peruntukan', sasaran: 'lppAyam.v2.sasaran', versiProjek: 'lppAyam.v2.versiProjek' };
 const PERANAN = { admin: 'Admin', pengguna: 'Pengguna', pemerhati: 'Pemerhati' };
+/* Data asal Maklumat Projek daripada "DATABASE MAKLUMAT DAN SASARAN PROJEK TERNAKAN AYAM DAGING" (17/10/2026) */
+const PROJEK_ASAL = {"pr":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2015,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":220000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman"},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2016,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":20000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman"},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman"},{"ppk":"PPK Kijal","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":3275000.0,"lokasi":"Kg. Bukit Anak Dara, Kemaman"},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Besol, Dungun"},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":300000.0,"lokasi":"Kg. Besol, Dungun"},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Besol, Dungun"},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2024","nilai":3300000.0,"lokasi":"Kg. Tepus, Dungun"},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PENGUKUHAN KETERJAMINAN MAKANAN 2024","nilai":1226000.0,"lokasi":"Kg. Tepus, Dungun"},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Peladan, Hulu Terengganu"},{"ppk":"PPK Bukit Diman","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Batu Bertindan, Hulu Terengganu"},{"ppk":"PPK Jerangau","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Padang Ping, Dungun"},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Telaga Papan, Kuala Terengganu"}],"sa":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2021,"pendapatan":1400000.0,"untung":25000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2022,"pendapatan":2600000.0,"untung":100000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2023,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2024,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2025,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2026,"pendapatan":970000.0,"untung":70000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"pendapatan":400000.0,"untung":25000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"pendapatan":1800000.0,"untung":120000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2023,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2024,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2025,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2026,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2023,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2024,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2025,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2026,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2026,"pendapatan":838000.0,"untung":30000.0}]};
+const VERSI_PROJEK = 2;   // v2: tambah lokasi projek pada peruntukan
 /* Versi data asal: naikkan setiap kali data Excel disemak semula.
    v2 (17/10/2026): semakan data reban terbuka — tarikh masuk Bukit Diman 2024 P1 & P6, Kijal 2025 P1 & 2026 P1 */
 const VERSI_DATA = 3;   // v3 (17/10/2026): tambah baka DOC, umur jualan & jumlah makanan (kg) daripada Excel untuk pengiraan FCR & BPI
@@ -712,7 +796,7 @@ const cipReban = (j) => j ? `<span class="chip chip-neutral"><i class="fa-solid 
 /** Padanan penapis jenis reban ('' = semua) */
 const padanReban = (r, j) => !j || r.jenisReban === j;
 const DOMAIN_EMEL = /^[a-z0-9._%+-]+@lpp\.gov\.my$/i;
-const PPK_CADANGAN = ['PPK Bukit Diman', 'PPK Dungun', 'PPK Kijal', 'PPK Kemaman', 'PPK Kuala Terengganu', 'PPK Marang'];
+const PPK_CADANGAN = ['PPK Bukit Diman', 'PPK Dungun', 'PPK Jerangau', 'PPK Kijal', 'PPK Kemaman', 'PPK Kuala Terengganu', 'PPK Marang'];
 const UNIT_LPP = 'LPP Negeri Terengganu';
 /** Bandingkan nama PPK tanpa mengira huruf besar/kecil dan ruang berlebihan */
 const normPPK = (s) => String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
@@ -829,6 +913,34 @@ function rekodAsal() {
     id: d.awalan + i, ppk, jenisReban: d.jenisReban || 'terbuka', catatan: '', ...r, olehEmel: d.emel, dicipta: kini
   })));
 }
+/** Data asal peruntukan & sasaran; dimasukkan sekali bagi setiap versi supaya item yang dipadam Admin tidak muncul semula */
+function sediakanProjekAsal(paksa = false) {
+  const kini = new Date().toISOString();
+  const asal = {
+    peruntukan: PROJEK_ASAL.pr.map((x, i) => ({ id: 'asalPR' + i, ...x, olehEmel: 'import@lpp.gov.my', dicipta: kini })),
+    sasaran: PROJEK_ASAL.sa.map((x, i) => ({ id: 'asalSA' + i, ...x, olehEmel: 'import@lpp.gov.my', dicipta: kini }))
+  };
+  if (paksa) { simpan(KUNCI.peruntukan, asal.peruntukan); simpan(KUNCI.sasaran, asal.sasaran); simpan(KUNCI.versiProjek, VERSI_PROJEK); return; }
+  const perluKemaskini = (baca(KUNCI.versiProjek, 0) || 0) < VERSI_PROJEK;
+  ['peruntukan', 'sasaran'].forEach(jenis => {
+    const kunci = KUNCI[jenis];
+    let senarai = baca(kunci, []);
+    let berubah = false;
+    // Migrasi: item lama tanpa jenis reban dianggap reban terbuka
+    senarai.forEach(x => { if (!x.jenisReban) { x.jenisReban = 'terbuka'; berubah = true; } });
+    if (perluKemaskini) {
+      asal[jenis].forEach(b => {
+        const i = senarai.findIndex(x => x.id === b.id);
+        if (i >= 0) { if (!senarai[i].dikemaskini) { senarai[i] = b; berubah = true; } return; }
+        // Sasaran: jangan tindih sasaran yang sudah dimasukkan pengguna bagi PPK, reban & tahun yang sama
+        if (jenis === 'sasaran' && senarai.some(x => samaPPK(x.ppk, b.ppk) && x.jenisReban === b.jenisReban && +x.tahun === +b.tahun)) return;
+        senarai.push(b); berubah = true;
+      });
+    }
+    if (berubah) simpan(kunci, senarai);
+  });
+  if (perluKemaskini) simpan(KUNCI.versiProjek, VERSI_PROJEK);
+}
 async function sediakanDataAsal(paksa = false) {
   const kini = new Date().toISOString();
   const binaPengguna = async (u) => { const { kl, ...data } = u; return { ...data, hash: await cincang(kl), tarikh: kini }; };
@@ -840,6 +952,7 @@ async function sediakanDataAsal(paksa = false) {
     const tiada = PENGGUNA_ASAL.filter(u => !senarai.some(x => x.emel === u.emel));
     if (tiada.length) simpan(KUNCI.pengguna, [...senarai, ...await Promise.all(tiada.map(binaPengguna))]);
   }
+  sediakanProjekAsal(paksa);
   if (paksa || !baca(KUNCI.rekod, null)) {
     simpan(KUNCI.rekod, rekodAsal());
     simpan(KUNCI.versi, VERSI_DATA);
@@ -869,11 +982,28 @@ async function sediakanDataAsal(paksa = false) {
 }
 
 /* ---------- 5. Peralihan paparan (Log Masuk <-> Aplikasi) ---------- */
+/* ---------- Memori log masuk (emel & kata laluan yang pernah digunakan pada peranti ini) ---------- */
+const akaunDiingat = () => baca(KUNCI.ingat, []);
+function isiMemoriLogin() {
+  const senarai = akaunDiingat();
+  $('#senarai-emel-diingat').innerHTML = senarai.map(a => `<option value="${escapeHTML(a.emel)}"></option>`).join('');
+  $('#btn-lupakan').hidden = !senarai.length;
+  if (senarai.length) {
+    // Isi akaun terakhir yang digunakan
+    $('#login-emel').value = senarai[0].emel; $('#login-katalaluan').value = senarai[0].kl; $('#login-ingat').checked = true;
+  } else { $('#login-ingat').checked = false; }
+}
+function ingatAkaun(emel, kl, ingat) {
+  let senarai = akaunDiingat().filter(a => a.emel !== emel);
+  if (ingat) senarai = [{ emel, kl, masa: new Date().toISOString() }, ...senarai].slice(0, 5);
+  if (senarai.length) simpan(KUNCI.ingat, senarai); else buang(KUNCI.ingat);
+}
 function paparAuth() {
   $('#view-app').hidden = true;
   $('#daftar-ppk').innerHTML = '<option value="">Pilih PPK / unit</option>' + PPK_CADANGAN.map(p => `<option>${p}</option>`).join('') + `<option>${UNIT_LPP}</option>`;
   const v = $('#view-auth'); v.hidden = false; v.classList.remove('masuk'); void v.offsetWidth; v.classList.add('masuk');
   tukarTabAuth('login');
+  isiMemoriLogin();
 }
 function paparApp() {
   $('#view-auth').hidden = true;
@@ -886,7 +1016,8 @@ function paparApp() {
   $$('.skop-data').forEach(el => { el.innerHTML = boleh.lihatSemua() ? '<i class="fa-solid fa-users"></i> Rekod semua PPK' : `<i class="fa-solid fa-lock"></i> Rekod ${escapeHTML(p.ppk || 'PPK anda')} sahaja`; });
   binaNavigasi();
   // Kosongkan penapis daripada sesi sebelumnya supaya skop PPK ikut akaun yang baru log masuk
-  ['#f-ppk', '#r-ppk', '#f-reban', '#r-reban', '#r-status'].forEach(s => { $(s).value = ''; });
+  ['#f-ppk', '#r-ppk', '#f-reban', '#r-reban', '#r-status', '#mp-ppk-tapis'].forEach(s => { $(s).value = ''; });
+  suntingProjek.peruntukan = null; suntingProjek.sasaran = null;
   isiPilihanPenapis();
   tukarSeksyen('dashboard');
 }
@@ -916,6 +1047,7 @@ async function kendaliLogin(e) {
   if (p.status === 'ditolak') return tunjuk('Pendaftaran akaun ini telah ditolak. Hubungi Admin Sistem.');
   keadaan.pengguna = p;
   try { sessionStorage.setItem(KUNCI.sesi, p.emel); } catch (e2) { memori[KUNCI.sesi] = p.emel; }
+  ingatAkaun(emel, kl, $('#login-ingat').checked);
   $('#form-login').reset();
   paparApp();
   toast(`Selamat datang, ${p.nama}.`, 'ok');
@@ -959,6 +1091,7 @@ function logKeluar() {
 /* ---------- 7. Navigasi dalam aplikasi ---------- */
 const MENU = [
   { id: 'dashboard', label: 'Papan Pemuka', pendek: 'Pemuka', ikon: 'fa-chart-pie', sub: () => boleh.lihatSemua() ? 'Ringkasan prestasi pusingan · semua pengguna' : 'Ringkasan prestasi pusingan yang anda rekod' },
+  { id: 'projek', label: 'Maklumat Projek', pendek: 'Projek', ikon: 'fa-folder-open', sub: () => 'Peruntukan diterima & sasaran tahunan', peranan: ['admin', 'pengguna'] },
   { id: 'input', label: 'Kemasukan Data', pendek: 'Data', ikon: 'fa-pen-to-square', sub: () => 'Rekod kos & hasil pusingan', peranan: ['admin', 'pengguna'] },
   { id: 'rekod', label: 'Jadual Rekod', pendek: 'Rekod', ikon: 'fa-table-list', sub: () => boleh.lihatSemua() ? 'Sejarah pusingan semua pengguna' : 'Pusingan yang anda masukkan' },
   { id: 'pengguna', label: 'Pengesahan Pengguna', pendek: 'Pengguna', ikon: 'fa-user-check', sub: () => 'Urus akaun, peranan & pendaftaran', peranan: ['admin'] }
@@ -990,6 +1123,7 @@ function tukarSeksyen(id) {
   if (id === 'dashboard') renderDashboard();
   if (id === 'rekod') renderRekod();
   if (id === 'pengguna') renderPengguna();
+  if (id === 'projek') renderProjek();
   if (id === 'input') { kunciMedanPPK(); kemaskiniKiraan(); }
   window.scrollTo(0, 0);
 }
@@ -1087,6 +1221,7 @@ function renderDashboard() {
   binaCartaTahunan(rekodPPK, tahun);
 
   renderAnalisa(rekodTahun, tahun, ppk, reban);
+  renderSasaranDashboard(tahun, ppk, reban);
 
   // Jadual pusingan tahun dipilih
   $('#jadual-tahun-label').textContent = tahun;
@@ -1415,6 +1550,178 @@ function padamRekod(id) {
   });
 }
 
+/* ---------- 12b. Maklumat Projek: peruntukan & sasaran ---------- */
+const semuaPeruntukan = () => baca(KUNCI.peruntukan, []);
+const semuaSasaran = () => baca(KUNCI.sasaran, []);
+/** Senarai yang boleh dilihat: Admin & Pemerhati semua PPK, Pengguna PPK sendiri */
+const dilihatPPK = (senarai) => boleh.lihatSemua() ? senarai : senarai.filter(x => samaPPK(x.ppk, keadaan.pengguna?.ppk));
+const bolehUbahProjek = (x) => peranan() === 'admin' || (peranan() === 'pengguna' && samaPPK(x.ppk, keadaan.pengguna.ppk));
+const suntingProjek = { peruntukan: null, sasaran: null };
+
+function pilihanPPKProjek() {
+  if (peranan() === 'pengguna') return [keadaan.pengguna.ppk];
+  return [...new Set([...PPK_CADANGAN, ...semuaRekod().map(r => r.ppk)])].filter(Boolean).sort();
+}
+function isiBorangProjek() {
+  const ppkList = pilihanPPKProjek();
+  const opsyen = ppkList.map(p => `<option>${escapeHTML(p)}</option>`).join('');
+  ['#pr-ppk', '#sa-ppk'].forEach(s => { const el = $(s), v = el.value; el.innerHTML = opsyen; el.value = ppkList.includes(v) ? v : ppkList[0] || ''; el.disabled = peranan() === 'pengguna'; });
+  const thnSemasa = new Date().getFullYear(), thn = []; for (let y = thnSemasa + 2; y >= 2018; y--) thn.push(y);
+  ['#pr-tahun', '#sa-tahun'].forEach(s => { const el = $(s), v = el.value; el.innerHTML = thn.map(y => `<option value="${y}">${y}</option>`).join(''); el.value = v || String(thnSemasa); });
+  const tapis = $('#mp-ppk-tapis'), vt = tapis.value;
+  tapis.innerHTML = boleh.lihatSemua() ? '<option value="">Semua PPK</option>' + ppkList.map(p => `<option>${escapeHTML(p)}</option>`).join('') : `<option>${escapeHTML(keadaan.pengguna.ppk)}</option>`;
+  tapis.value = [...tapis.options].some(o => o.value === vt) ? vt : tapis.options[0].value;
+  tapis.disabled = !boleh.lihatSemua();
+}
+function renderProjek() {
+  isiBorangProjek();
+  const tapis = $('#mp-ppk-tapis').value;
+  const ikutTapis = (x) => !tapis || samaPPK(x.ppk, tapis);
+  const aksi = (jenis, x) => {
+    const b = [];
+    if (bolehUbahProjek(x)) b.push(`<button class="btn btn-ghost btn-sm" data-sunting-${jenis}="${x.id}"><i class="fa-solid fa-pen"></i> Edit</button>`);
+    if (boleh.padam()) b.push(`<button class="icon-btn danger" data-padam-${jenis}="${x.id}" aria-label="Padam" title="Padam"><i class="fa-solid fa-trash-can"></i></button>`);
+    return `<div class="flex gap-1 justify-end items-center">${b.join('')}</div>`;
+  };
+  // Jadual peruntukan
+  const pr = dilihatPPK(semuaPeruntukan()).filter(ikutTapis).sort((a, b) => b.tahun - a.tahun || a.ppk.localeCompare(b.ppk));
+  const jumPr = pr.reduce((a, x) => a + nombor(x.nilai), 0);
+  $('#jadual-peruntukan').innerHTML = pr.length ? `
+    <thead><tr><th>Tahun</th><th>PPK</th><th>Reban</th><th>Nama Program</th><th>Lokasi Projek</th><th class="r">Nilai (RM)</th><th></th></tr></thead>
+    <tbody>${pr.map(x => `<tr><td class="num">${x.tahun}</td><td>${escapeHTML(x.ppk)}</td><td>${cipReban(x.jenisReban)}</td><td style="white-space:normal;min-width:200px">${escapeHTML(x.program)}</td><td style="white-space:normal;min-width:140px">${escapeHTML(x.lokasi || '—')}</td><td class="r font-semibold">${fmtRM.format(nombor(x.nilai))}</td><td>${aksi('pr', x)}</td></tr>`).join('')}</tbody>
+    <tfoot><tr><td colspan="5">Jumlah (${pr.length} peruntukan)</td><td class="r">${fmtRM.format(jumPr)}</td><td></td></tr></tfoot>`
+    : '<tbody><tr><td class="text-center text-muted py-8" style="white-space:normal">Belum ada peruntukan direkod. Isi borang di atas untuk menambah.</td></tr></tbody>';
+  // Jadual sasaran (dengan pencapaian sebenar)
+  const sa = dilihatPPK(semuaSasaran()).filter(ikutTapis).sort((a, b) => b.tahun - a.tahun || a.ppk.localeCompare(b.ppk));
+  $('#jadual-sasaran').innerHTML = sa.length ? `
+    <thead><tr><th>Tahun</th><th>PPK</th><th>Reban</th><th class="r">Sasaran Pendapatan</th><th class="r">Capai</th><th class="r">Sasaran Keuntungan</th><th class="r">Capai</th><th></th></tr></thead>
+    <tbody>${sa.map(x => { const s = sebenarTahun(x.ppk, x.tahun, x.jenisReban); return `<tr><td class="num">${x.tahun}</td><td>${escapeHTML(x.ppk)}</td><td>${cipReban(x.jenisReban)}</td>
+      <td class="r">${x.pendapatan === '' ? '—' : fmtRM.format(nombor(x.pendapatan))}</td><td class="r">${cipCapai(s.pendapatan, x.pendapatan)}</td>
+      <td class="r">${x.untung === '' ? '—' : fmtRM.format(nombor(x.untung))}</td><td class="r">${cipCapai(s.untung, x.untung)}</td><td>${aksi('sa', x)}</td></tr>`; }).join('')}</tbody>`
+    : '<tbody><tr><td class="text-center text-muted py-8" style="white-space:normal">Belum ada sasaran ditetapkan. Isi borang di atas untuk menambah.</td></tr></tbody>';
+}
+/** Pendapatan & untung sebenar bagi satu PPK, jenis reban dan tahun */
+function sebenarTahun(ppk, tahun, reban) {
+  return rekodDilihat().filter(r => +r.tahun === +tahun && (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban))
+    .reduce((a, r) => { const k = kira(r); a.pendapatan += k.jumlahPendapatan; a.untung += k.untung; a.n++; return a; }, { pendapatan: 0, untung: 0, n: 0 });
+}
+function cipCapai(sebenar, sasaran) {
+  if (sasaran === '' || sasaran == null || !nombor(sasaran)) return '<span class="text-muted">—</span>';
+  const p = sebenar / nombor(sasaran);
+  const kelas = p >= 1 ? 'chip-gain' : p >= 0.8 ? 'chip-warn' : 'chip-loss';
+  return `<span class="chip ${kelas}">${(p * 100).toFixed(1)}%</span>`;
+}
+function resetBorangProjek(jenis) {
+  suntingProjek[jenis] = null;
+  const pfx = jenis === 'peruntukan' ? 'pr' : 'sa';
+  $(`#form-${jenis}`).reset();
+  $(`#${pfx}-ralat`).hidden = true; $(`#${pfx}-batal`).hidden = true;
+  $(`#${pfx}-simpan`).innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Simpan ${jenis === 'peruntukan' ? 'Peruntukan' : 'Sasaran'}`;
+  isiBorangProjek();
+}
+function simpanPeruntukan(e) {
+  e.preventDefault();
+  if (!boleh.input()) return;
+  const ralat = $('#pr-ralat'); ralat.hidden = true;
+  const x = { ppk: $('#pr-ppk').value, jenisReban: $('#pr-reban').value, tahun: +$('#pr-tahun').value, program: $('#pr-program').value.trim(), lokasi: $('#pr-lokasi').value.trim(), nilai: nombor($('#pr-nilai').value) };
+  const salah = !x.ppk ? 'Pilih PPK.' : !x.program ? 'Masukkan nama program.' : !x.lokasi ? 'Masukkan lokasi projek.' : !(x.nilai > 0) ? 'Masukkan nilai peruntukan yang diterima.' :
+    (peranan() === 'pengguna' && !samaPPK(x.ppk, keadaan.pengguna.ppk)) ? `Anda hanya boleh mengisi data untuk ${keadaan.pengguna.ppk}.` : '';
+  if (salah) { ralat.textContent = salah; ralat.hidden = false; return; }
+  const senarai = semuaPeruntukan();
+  if (suntingProjek.peruntukan) {
+    const i = senarai.findIndex(y => y.id === suntingProjek.peruntukan);
+    if (i < 0 || !bolehUbahProjek(senarai[i])) return;
+    senarai[i] = { ...senarai[i], ...x, dikemaskini: new Date().toISOString(), dikemaskiniOleh: keadaan.pengguna.emel };
+  } else senarai.push({ id: idBaru(), ...x, olehEmel: keadaan.pengguna.emel, dicipta: new Date().toISOString() });
+  simpan(KUNCI.peruntukan, senarai);
+  toast(`Peruntukan ${x.program} (${x.tahun}) disimpan: ${rm(x.nilai)}`, 'ok');
+  resetBorangProjek('peruntukan'); renderProjek();
+}
+function simpanSasaran(e) {
+  e.preventDefault();
+  if (!boleh.input()) return;
+  const ralat = $('#sa-ralat'); ralat.hidden = true;
+  const vP = $('#sa-pendapatan').value, vU = $('#sa-untung').value;
+  const x = { ppk: $('#sa-ppk').value, jenisReban: $('#sa-reban').value, tahun: +$('#sa-tahun').value, pendapatan: vP === '' ? '' : nombor(vP), untung: vU === '' ? '' : nombor(vU) };
+  const salah = !x.ppk ? 'Pilih PPK.' : (vP === '' && vU === '') ? 'Masukkan sekurang-kurangnya satu sasaran.' : (x.pendapatan !== '' && x.pendapatan < 0) ? 'Sasaran pendapatan tidak boleh negatif.' :
+    (peranan() === 'pengguna' && !samaPPK(x.ppk, keadaan.pengguna.ppk)) ? `Anda hanya boleh mengisi data untuk ${keadaan.pengguna.ppk}.` : '';
+  if (salah) { ralat.textContent = salah; ralat.hidden = false; return; }
+  const senarai = semuaSasaran();
+  // Satu sasaran bagi setiap PPK + tahun
+  const i = suntingProjek.sasaran ? senarai.findIndex(y => y.id === suntingProjek.sasaran) : senarai.findIndex(y => samaPPK(y.ppk, x.ppk) && y.jenisReban === x.jenisReban && +y.tahun === x.tahun);
+  const pendua = senarai.findIndex(y => samaPPK(y.ppk, x.ppk) && y.jenisReban === x.jenisReban && +y.tahun === x.tahun);
+  if (suntingProjek.sasaran && pendua >= 0 && pendua !== i) { ralat.textContent = `Sasaran ${x.ppk} (reban ${labelReban(x.jenisReban).toLowerCase()}) bagi ${x.tahun} sudah wujud. Edit sasaran tersebut.`; ralat.hidden = false; return; }
+  if (i >= 0) {
+    if (!bolehUbahProjek(senarai[i])) return;
+    senarai[i] = { ...senarai[i], ...x, dikemaskini: new Date().toISOString(), dikemaskiniOleh: keadaan.pengguna.emel };
+  } else senarai.push({ id: idBaru(), ...x, olehEmel: keadaan.pengguna.emel, dicipta: new Date().toISOString() });
+  simpan(KUNCI.sasaran, senarai);
+  toast(`Sasaran ${x.ppk} · reban ${labelReban(x.jenisReban).toLowerCase()} · ${x.tahun} ${i >= 0 ? 'dikemas kini' : 'disimpan'}.`, 'ok');
+  resetBorangProjek('sasaran'); renderProjek();
+}
+function suntingItemProjek(jenis, id) {
+  const senarai = jenis === 'peruntukan' ? semuaPeruntukan() : semuaSasaran();
+  const x = senarai.find(y => y.id === id); if (!x || !bolehUbahProjek(x)) return;
+  suntingProjek[jenis] = id;
+  if (jenis === 'peruntukan') { $('#pr-ppk').value = x.ppk; $('#pr-reban').value = x.jenisReban || 'terbuka'; $('#pr-tahun').value = String(x.tahun); $('#pr-program').value = x.program; $('#pr-lokasi').value = x.lokasi || ''; $('#pr-nilai').value = x.nilai; }
+  else { $('#sa-ppk').value = x.ppk; $('#sa-reban').value = x.jenisReban || 'terbuka'; $('#sa-tahun').value = String(x.tahun); $('#sa-pendapatan').value = x.pendapatan; $('#sa-untung').value = x.untung; }
+  const pfx = jenis === 'peruntukan' ? 'pr' : 'sa';
+  $(`#${pfx}-batal`).hidden = false; $(`#${pfx}-simpan`).innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan';
+  $(`#form-${jenis}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+function padamItemProjek(jenis, id) {
+  if (!boleh.padam()) return;
+  const kunci = jenis === 'peruntukan' ? KUNCI.peruntukan : KUNCI.sasaran;
+  const x = baca(kunci, []).find(y => y.id === id); if (!x) return;
+  bukaModal(jenis === 'peruntukan' ? 'Padam peruntukan ini?' : 'Padam sasaran ini?', jenis === 'peruntukan' ? `${x.program} (${x.ppk}, ${x.tahun}) · ${rm(nombor(x.nilai))}` : `Sasaran ${x.ppk} (reban ${labelReban(x.jenisReban).toLowerCase()}) bagi tahun ${x.tahun}`, 'Padam', () => {
+    simpan(kunci, baca(kunci, []).filter(y => y.id !== id)); renderProjek(); toast('Dipadam.', 'ok');
+  });
+}
+
+/** Papan pemuka: Pendapatan vs Sasaran, Keuntungan vs Sasaran, Peruntukan Diterima */
+function renderSasaranDashboard(tahun, ppk, reban) {
+  const sasaran = dilihatPPK(semuaSasaran()).filter(x => +x.tahun === tahun && (!ppk || samaPPK(x.ppk, ppk)) && padanReban(x, reban));
+  const ada = (f) => sasaran.some(x => x[f] !== '' && x[f] != null);
+  const jum = (f) => sasaran.reduce((a, x) => a + nombor(x[f]), 0);
+  // Pencapaian sebenar hanya bagi PPK yang ada sasaran, supaya perbandingan setara
+  // Pencapaian sebenar dikira hanya bagi pasangan PPK + jenis reban yang mempunyai sasaran
+  const pasanganSasaran = (f) => sasaran.filter(x => x[f] !== '' && x[f] != null);
+  const sebenar = (f) => rekodDilihat().filter(r => +r.tahun === tahun && pasanganSasaran(f).some(x => samaPPK(x.ppk, r.ppk) && x.jenisReban === r.jenisReban))
+    .reduce((a, r) => { const k = kira(r); return a + (f === 'pendapatan' ? k.jumlahPendapatan : k.untung); }, 0);
+  const pautan = boleh.input() ? '<button class="btn btn-ghost btn-sm mt-3 perlu-input no-print" data-aksi="ke-projek"><i class="fa-solid fa-bullseye"></i> Tetapkan sasaran</button>' : '';
+  const kadSasaran = (tajuk, f, ikon) => {
+    if (!ada(f)) return `<div class="card p-5"><div class="flex items-center justify-between"><span class="eyebrow text-muted">${tajuk} ${tahun}</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid ${ikon}"></i></span></div>
+      <p class="text-sm text-muted mt-3">Sasaran ${tahun} belum ditetapkan${ppk ? ' bagi ' + escapeHTML(ppk) : ''}.</p>${pautan}</div>`;
+    const S = jum(f), A = sebenar(f), p = S ? A / S : NaN;
+    const kelas = p >= 1 ? 'gain' : p >= 0.8 ? 'warn' : 'loss';
+    const label = p >= 1 ? 'Capai sasaran' : p >= 0.8 ? 'Hampir capai' : 'Di bawah sasaran';
+    const lebar = Math.max(0, Math.min(100, p * 100));
+    const baki = S - A;
+    return `<div class="card p-5">
+      <div class="flex items-center justify-between"><span class="eyebrow text-muted">${tajuk} ${tahun}</span><span class="chip chip-${kelas}">${label}</span></div>
+      <div class="num font-display font-extrabold text-[26px] leading-tight mt-3 ${A < 0 ? 'text-loss' : ''}">${rm(A)}</div>
+      <div class="text-[12.5px] text-muted">daripada sasaran <b class="text-ink num">${rm(S)}</b></div>
+      <div class="mt-3 h-2.5 rounded-full bg-surface2 overflow-hidden" role="progressbar" aria-valuenow="${(p * 100).toFixed(0)}" aria-valuemin="0" aria-valuemax="100"><div class="h-full rounded-full" style="width:${lebar}%;background:var(--${kelas})"></div></div>
+      <div class="flex justify-between text-[12.5px] mt-2"><span class="num font-semibold">${isFinite(p) ? (p * 100).toFixed(1) + '% dicapai' : '—'}</span><span class="text-muted num">${baki > 0 ? 'Baki ' + rm(baki) : 'Melebihi ' + rm(-baki)}</span></div>
+    </div>`;
+  };
+  // Peruntukan diterima
+  const pr = dilihatPPK(semuaPeruntukan()).filter(x => (!ppk || samaPPK(x.ppk, ppk)) && padanReban(x, reban)).sort((a, b) => b.tahun - a.tahun || nombor(b.nilai) - nombor(a.nilai));
+  const jumPr = pr.reduce((a, x) => a + nombor(x.nilai), 0);
+  const prTahun = pr.filter(x => +x.tahun === tahun).reduce((a, x) => a + nombor(x.nilai), 0);
+  const untungTerkumpul = rekodDilihat().filter(r => (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban) && pr.some(x => samaPPK(x.ppk, r.ppk) && x.jenisReban === r.jenisReban)).reduce((a, r) => a + kira(r).untung, 0);
+  const kadPr = pr.length ? `<div class="card p-5 md:col-span-2 xl:col-span-1">
+      <div class="flex items-center justify-between"><span class="eyebrow text-muted">Peruntukan Diterima</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid fa-hand-holding-dollar"></i></span></div>
+      <div class="num font-display font-extrabold text-[26px] leading-tight mt-3">${rm(jumPr)}</div>
+      <div class="text-[12.5px] text-muted">terkumpul · ${rm(prTahun)} pada ${tahun}</div>
+      <ul class="mt-3 space-y-1.5 text-[12.5px]">${pr.slice(0, 4).map(x => `<li class="flex justify-between gap-3"><span class="min-w-0 truncate"><span class="num text-muted">${x.tahun}</span> · ${escapeHTML(x.program)} <span class="text-muted">(${[ppk ? '' : escapeHTML(x.ppk), reban ? '' : labelReban(x.jenisReban)].filter(Boolean).join(', ') || labelReban(x.jenisReban)})</span></span><span class="num font-semibold shrink-0">${rmRingkas(nombor(x.nilai))}</span></li>`).join('')}</ul>
+      ${pr.length > 4 ? `<div class="text-[12px] text-muted mt-1">+${pr.length - 4} lagi di Maklumat Projek</div>` : ''}
+      <div class="mt-3 pt-3 border-t border-line text-[12.5px] flex justify-between gap-2"><span class="text-muted">Untung bersih terkumpul berbanding peruntukan</span><span class="num font-semibold ${untungTerkumpul < 0 ? 'text-loss' : 'text-gain'}">${jumPr ? (untungTerkumpul / jumPr * 100).toFixed(1) + '%' : '—'}</span></div>
+    </div>` : `<div class="card p-5 md:col-span-2 xl:col-span-1"><div class="flex items-center justify-between"><span class="eyebrow text-muted">Peruntukan Diterima</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid fa-hand-holding-dollar"></i></span></div>
+      <p class="text-sm text-muted mt-3">Belum ada peruntukan direkod${ppk ? ' bagi ' + escapeHTML(ppk) : ''}.</p>${boleh.input() ? '<button class="btn btn-ghost btn-sm mt-3 perlu-input no-print" data-aksi="ke-projek"><i class="fa-solid fa-plus"></i> Rekod peruntukan</button>' : ''}</div>`;
+  $('#kotak-sasaran').innerHTML = kadSasaran('Pendapatan vs Sasaran', 'pendapatan', 'fa-coins') + kadSasaran('Keuntungan / Kerugian vs Sasaran', 'untung', 'fa-scale-balanced') + kadPr;
+}
+
 /* ---------- 13. Pengesahan pengguna (Admin) ---------- */
 function renderPengguna() {
   const senarai = semuaPengguna();
@@ -1497,6 +1804,14 @@ function pasangPeristiwa() {
   $('#form-login').addEventListener('submit', kendaliLogin);
   $('#form-daftar').addEventListener('submit', kendaliDaftar);
   $('#form-projek').addEventListener('submit', kendaliSimpan);
+  $('#form-peruntukan').addEventListener('submit', simpanPeruntukan);
+  $('#form-sasaran').addEventListener('submit', simpanSasaran);
+  $('#pr-batal').addEventListener('click', () => resetBorangProjek('peruntukan'));
+  $('#sa-batal').addEventListener('click', () => resetBorangProjek('sasaran'));
+  $('#mp-ppk-tapis').addEventListener('change', renderProjek);
+  $('#btn-lupakan').addEventListener('click', () => { buang(KUNCI.ingat); $('#login-emel').value = ''; $('#login-katalaluan').value = ''; isiMemoriLogin(); toast('Akaun yang diingati telah dipadam daripada peranti ini.', 'info'); });
+  // Pilih emel yang diingati -> isi kata laluannya
+  $('#login-emel').addEventListener('input', () => { const a = akaunDiingat().find(x => x.emel === $('#login-emel').value.trim().toLowerCase()); if (a) { $('#login-katalaluan').value = a.kl; $('#login-ingat').checked = true; } });
   $('#form-projek').addEventListener('input', kemaskiniKiraan);
   $('#in-ppk').addEventListener('change', () => { if (!keadaan.suntingId) { cadangPusingan(); kemaskiniKiraan(); } });
   $('#in-tahun').addEventListener('change', () => { if (!keadaan.suntingId) { cadangPusingan(); kemaskiniKiraan(); } });
@@ -1516,6 +1831,14 @@ function pasangPeristiwa() {
 
   // Delegasi klik untuk elemen yang dijana secara dinamik
   document.addEventListener('click', (e) => {
+    const ep = e.target.closest('[data-sunting-pr],[data-padam-pr],[data-sunting-sa],[data-padam-sa]');
+    if (ep) {
+      if (ep.dataset.suntingPr) suntingItemProjek('peruntukan', ep.dataset.suntingPr);
+      else if (ep.dataset.padamPr) padamItemProjek('peruntukan', ep.dataset.padamPr);
+      else if (ep.dataset.suntingSa) suntingItemProjek('sasaran', ep.dataset.suntingSa);
+      else if (ep.dataset.padamSa) padamItemProjek('sasaran', ep.dataset.padamSa);
+      return;
+    }
     const el = e.target.closest('[data-nav],[data-aksi],[data-sunting],[data-padam],[data-sahkan],[data-tolak],[data-demo],[data-toggle-pw]');
     if (!el) return;
     if (el.dataset.nav) { e.preventDefault(); tukarSeksyen(el.dataset.nav); }
@@ -1528,6 +1851,7 @@ function pasangPeristiwa() {
     else switch (el.dataset.aksi) {
       case 'logout': logKeluar(); break;
       case 'ke-input': if (boleh.input()) { resetBorang(); tukarSeksyen('input'); } break;
+      case 'ke-projek': if (boleh.input()) tukarSeksyen('projek'); break;
       case 'ke-rekod': $('#r-tahun').value = $('#f-tahun').value; $('#r-ppk').value = $('#f-ppk').value; $('#r-reban').value = $('#f-reban').value; tukarSeksyen('rekod'); break;
       case 'cetak': cetakLaporan(el.dataset.bahagian); break;
       case 'pulih-data': bukaModal('Pulihkan data asal?', 'Semua rekod dan pengguna dalam pelayar ini akan diganti dengan data asal PPK Dungun dan akaun demo.', 'Pulihkan', async () => {
@@ -1546,6 +1870,7 @@ function pasangPeristiwa() {
 
 /* ---------- 17. Mula aplikasi ---------- */
 (async function mula() {
+  $('#tahun-hakcipta').textContent = new Date().getFullYear();
   pasangPeristiwa();
   await sediakanDataAsal();
   // Pulihkan sesi jika pengguna belum log keluar
