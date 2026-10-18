@@ -573,7 +573,7 @@
             <label for="login-emel">Emel</label>
             <div class="b360-ic">
               <i class="fa-regular fa-envelope" aria-hidden="true"></i>
-              <input id="login-emel" class="input" type="email" inputmode="email" autocomplete="username" list="senarai-emel-diingat" placeholder="nama@lpp.gov.my" required>
+              <input id="login-emel" class="input" type="email" inputmode="email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" list="senarai-emel-diingat" placeholder="nama@lpp.gov.my" required>
             </div>
             <datalist id="senarai-emel-diingat"></datalist>
           </div>
@@ -581,7 +581,7 @@
             <label for="login-katalaluan">Kata Laluan</label>
             <div class="b360-ic">
               <i class="fa-solid fa-lock" aria-hidden="true"></i>
-              <input id="login-katalaluan" class="input pr-12" type="password" autocomplete="current-password" placeholder="Masukkan kata laluan" required>
+              <input id="login-katalaluan" class="input pr-12" type="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Masukkan kata laluan" required>
               <button type="button" class="icon-btn absolute right-1.5 top-1/2 -translate-y-1/2 w-10 h-10" data-toggle-pw="login-katalaluan" aria-label="Papar kata laluan"><i class="fa-regular fa-eye"></i></button>
             </div>
           </div>
@@ -609,7 +609,7 @@
           </div>
           <div class="field">
             <label for="daftar-emel">Emel Rasmi</label>
-            <input id="daftar-emel" class="input" type="email" autocomplete="email" placeholder="nama@lpp.gov.my" required>
+            <input id="daftar-emel" class="input" type="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="nama@lpp.gov.my" required>
             <p class="hint">Hanya emel berakhir dengan @lpp.gov.my diterima.</p>
           </div>
           <div class="grid sm:grid-cols-2 gap-4">
@@ -1211,7 +1211,7 @@ const PERANAN = { superadmin: 'Super Admin', admin: 'Admin', pengguna: 'Pengguna
 /** Akaun Super Admin (tetap): satu-satunya akaun yang boleh melihat kata laluan semua pengguna */
 const EMEL_SUPER = 'admin@lpp.gov.my';
 /** Versi aplikasi (dipaparkan di halaman log masuk & bar sisi untuk semakan) */
-const VERSI_APP = 'Versi 33 · 18/10/2026';
+const VERSI_APP = 'Versi 34 · 18/10/2026';
 /* Data asal Maklumat Projek daripada "DATABASE MAKLUMAT DAN SASARAN PROJEK TERNAKAN AYAM DAGING" (17/10/2026) */
 const PROJEK_ASAL = {"pr":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2015,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":220000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2016,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":20000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":3275000.0,"lokasi":"Kg. Bukit Anak Dara, Kemaman","kapasiti":60000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":300000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2024","nilai":3300000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":82000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PENGUKUHAN KETERJAMINAN MAKANAN 2024","nilai":1226000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":82000},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Peladan, Hulu Terengganu","kapasiti":15000},{"ppk":"PPK Bukit Diman","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Batu Bertindan, Hulu Terengganu","kapasiti":30000},{"ppk":"PPK Jerangau","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Padang Ping, Dungun","kapasiti":30000},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Telaga Papan, Kuala Terengganu","kapasiti":30000}],"sa":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2021,"pendapatan":1400000.0,"untung":25000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2022,"pendapatan":2600000.0,"untung":100000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2023,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2024,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2025,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2026,"pendapatan":970000.0,"untung":70000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"pendapatan":400000.0,"untung":25000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"pendapatan":1800000.0,"untung":120000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2023,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2024,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2025,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2026,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2023,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2024,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2025,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2026,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2026,"pendapatan":838000.0,"untung":30000.0}]};
 const VERSI_PROJEK = 3;   // v2: lokasi projek · v3: kapasiti projek (ekor / pusingan)
@@ -1399,6 +1399,12 @@ async function sediakanDataAsal(paksa = false) {
       // Migrasi: isi kata laluan akaun asal jika belum direkod & cincangan masih sepadan (belum ditukar)
       const asal = PENGGUNA_ASAL.find(a => a.emel === u.emel);
       if (asal && !u.kl && u.hash === await cincang(asal.kl)) { u.kl = asal.kl; berubahU = true; }
+      // Akaun rasmi yang telah disahkan menggantikan pendaftaran sendiri yang belum disahkan pada peranti ini
+      // (cth. emel pernah didaftar melalui borang pada peranti lain dan masih "menunggu")
+      if (asal && asal.status === 'aktif' && u.status !== 'aktif' && !u.disahkanOleh) {
+        Object.assign(u, { nama: asal.nama, jawatan: asal.jawatan || u.jawatan || '', ppk: asal.ppk, peranan: asal.peranan, status: 'aktif', kl: asal.kl, hash: await cincang(asal.kl), disahkanOleh: 'akaun rasmi sistem' });
+        berubahU = true;
+      }
     }
     if (tiada.length || berubahU) simpan(KUNCI.pengguna, [...senarai, ...await Promise.all(tiada.map(binaPengguna))]);
   }
@@ -1494,8 +1500,18 @@ async function kendaliLogin(e) {
   ralat.hidden = true;
   if (!DOMAIN_EMEL.test(emel)) return tunjuk('Hanya emel rasmi @lpp.gov.my dibenarkan.');
   if (!kl) return tunjuk('Sila masukkan kata laluan.');
-  const p = semuaPengguna().find(u => u.emel === emel);
-  if (!p || p.hash !== await cincang(kl)) return tunjuk('Emel atau kata laluan tidak tepat.');
+  let p = semuaPengguna().find(u => u.emel === emel);
+  const asal = PENGGUNA_ASAL.find(a => a.emel === emel && a.status === 'aktif');
+  // Akaun rasmi: jika rekod pada peranti ini berbeza (cth. pendaftaran lama) dan kata laluan belum pernah ditukar,
+  // terima kata laluan rasmi dan selaraskan rekod. Akaun yang dinyahaktif oleh Admin kekal disekat.
+  if (asal && kl === asal.kl && (!p || (p.hash !== await cincang(kl) && !p.klDikemaskini && !(p.status !== 'aktif' && p.disahkanOleh && p.disahkanOleh !== 'akaun rasmi sistem')))) {
+    const s = semuaPengguna(); let x = s.find(u => u.emel === emel);
+    const baru = { nama: asal.nama, jawatan: asal.jawatan || '', ppk: asal.ppk, peranan: asal.peranan, status: 'aktif', kl: asal.kl, hash: await cincang(asal.kl), disahkanOleh: 'akaun rasmi sistem' };
+    if (x) Object.assign(x, baru); else s.push(x = { emel, ...baru, tarikh: new Date().toISOString() });
+    simpan(KUNCI.pengguna, s); p = x;
+  }
+  if (!p) return tunjuk(`Akaun ${emel} tidak dijumpai dalam pelayar ini. Pastikan aplikasi ialah ${VERSI_APP.split(' · ')[0]} atau lebih baharu (lihat label versi di bawah), atau hubungi Admin Sistem.`);
+  if (p.hash !== await cincang(kl)) return tunjuk('Emel atau kata laluan tidak tepat.');
   if (p.status === 'menunggu') return tunjuk('Akaun ini masih menunggu pengesahan Admin Sistem.');
   if (p.status === 'ditolak') return tunjuk('Pendaftaran akaun ini telah ditolak. Hubungi Admin Sistem.');
   if (p.kl !== kl) { const s = semuaPengguna(); const x = s.find(u => u.emel === p.emel); if (x) { x.kl = kl; simpan(KUNCI.pengguna, s); } p.kl = kl; }
