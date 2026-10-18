@@ -560,7 +560,7 @@
       <div class="b360-card p-5 sm:p-8 flex flex-col gap-5">
         <div class="seg" role="tablist" aria-label="Akses akaun">
           <button id="tab-login" role="tab" aria-selected="true" type="button">Log Masuk</button>
-          <button id="tab-daftar" role="tab" aria-selected="false" type="button"><span class="sm:hidden">Daftar Baru</span><span class="hidden sm:inline">Daftar Pengguna Baru</span></button>
+          <button id="tab-daftar" role="tab" aria-selected="false" type="button"><span class="sm:hidden">Daftar Baharu</span><span class="hidden sm:inline">Daftar Pengguna Baharu</span></button>
         </div>
 
         <!-- Borang Log Masuk -->
@@ -600,7 +600,7 @@
         <!-- Borang Pendaftaran -->
         <form id="form-daftar" class="space-y-4" novalidate hidden>
           <div>
-            <h2 class="b360-h2">Daftar pengguna baru</h2>
+            <h2 class="b360-h2">Daftar pengguna baharu</h2>
             <p class="text-muted text-sm mt-1.5">Akaun akan aktif selepas disahkan oleh Admin Sistem.</p>
           </div>
           <div class="field">
@@ -763,7 +763,7 @@
           </div>
           <span class="chip chip-neutral skop-data mb-3"></span>
           <div class="ml-auto flex gap-2">
-            <button class="btn btn-ghost perlu-input" data-aksi="ke-input"><i class="fa-solid fa-plus"></i><span class="hidden sm:inline">Rekod Baru</span></button>
+            <button class="btn btn-ghost perlu-input" data-aksi="ke-input"><i class="fa-solid fa-plus"></i><span class="hidden sm:inline">Rekod Baharu</span></button>
             <button class="btn btn-primary" data-aksi="cetak" data-bahagian="dashboard"><i class="fa-solid fa-print"></i> Cetak Laporan</button>
           </div>
         </div>
@@ -863,7 +863,7 @@
                 <div class="field col-span-1 md:col-span-1"><label for="pr-tahun">Tahun Peruntukan</label><input id="pr-tahun" class="input num" type="number" inputmode="numeric" min="1980" step="1" placeholder="cth. 2025" required><p class="hint">Isi tahun, cth. 2015</p></div>
                 <div class="field col-span-2 md:col-span-4"><label for="pr-program">Nama Program</label><input id="pr-program" class="input" type="text" placeholder="cth. Program Pembangunan Reban Ayam Pedaging" required></div>
                 <div class="field col-span-2 md:col-span-2"><label for="pr-lokasi">Lokasi Projek</label><input id="pr-lokasi" class="input" type="text" placeholder="cth. Kg. Besol, Dungun" required></div>
-                <div class="field col-span-1 md:col-span-1"><label for="pr-kapasiti">Kapasiti Projek</label><input id="pr-kapasiti" class="input num text-right" type="number" inputmode="numeric" min="1" step="1" placeholder="0" required><p class="hint">ekor / pusingan</p></div>
+                <div class="field col-span-1 md:col-span-1"><label for="pr-kapasiti">Kapasiti Tambahan</label><input id="pr-kapasiti" class="input num text-right" type="number" inputmode="numeric" min="1" step="1" placeholder="0" required><p class="hint">ekor / pusingan, hasil peruntukan ini sahaja</p></div>
                 <div class="field col-span-1 md:col-span-1"><label for="pr-nilai">Nilai Diterima</label><div class="input-rm"><span>RM</span><input id="pr-nilai" class="input" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" required></div></div>
                 <p id="pr-ralat" class="err col-span-2 md:col-span-4" role="alert" hidden></p>
                 <div class="col-span-2 md:col-span-4 flex gap-2 justify-end">
@@ -1075,11 +1075,11 @@
           </div>
           <div class="field">
             <label for="r-status">Status</label>
-            <select id="r-status" class="input !w-auto"><option value="">Semua</option><option value="untung">Untung</option><option value="rugi">Rugi</option></select>
+            <select id="r-status" class="input !w-auto"><option value="">Semua</option><option value="untung">Untung</option><option value="rugi">Rugi</option><option value="proses">Dalam proses</option></select>
           </div>
           <span class="chip chip-neutral skop-data mb-3"></span>
           <div class="ml-auto flex gap-2">
-            <button class="btn btn-ghost perlu-input" data-aksi="ke-input"><i class="fa-solid fa-plus"></i><span class="hidden sm:inline">Rekod Baru</span></button>
+            <button class="btn btn-ghost perlu-input" data-aksi="ke-input"><i class="fa-solid fa-plus"></i><span class="hidden sm:inline">Rekod Baharu</span></button>
             <button class="btn btn-primary" data-aksi="cetak" data-bahagian="rekod"><i class="fa-solid fa-print"></i> Cetak Laporan</button>
           </div>
         </div>
@@ -1100,7 +1100,7 @@
           <div class="flex items-center justify-between gap-3 flex-wrap">
             <div>
               <h2 class="font-display font-bold text-lg">Menunggu Pengesahan</h2>
-              <p class="text-[13px] text-muted">Pendaftaran baru yang perlu disahkan sebelum boleh log masuk</p>
+              <p class="text-[13px] text-muted">Pendaftaran baharu yang perlu disahkan sebelum boleh log masuk</p>
             </div>
             <span id="bil-menunggu" class="chip chip-warn"></span>
           </div>
@@ -1113,8 +1113,8 @@
         </div>
         <div class="card p-5 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 class="font-display font-bold text-base">Data simulasi</h2>
-            <p class="text-[13px] text-muted">Pulihkan rekod asal daripada fail Excel dan akaun asal. Semua perubahan dalam pelayar ini, termasuk peruntukan dan sasaran, akan dipadam.</p>
+            <h2 class="font-display font-bold text-base">Pulihkan data asal</h2>
+            <p class="text-[13px] text-muted">Kembalikan rekod pusingan, peruntukan, sasaran dan akaun asal seperti dalam fail Excel. Semua perubahan dalam pelayar ini akan dipadam.</p>
           </div>
           <button class="btn btn-ghost" data-aksi="pulih-data"><i class="fa-solid fa-clock-rotate-left"></i> Pulihkan Data Asal</button>
         </div>
@@ -1211,10 +1211,12 @@ const PERANAN = { superadmin: 'Super Admin', admin: 'Admin', pengguna: 'Pengguna
 /** Akaun Super Admin (tetap): satu-satunya akaun yang boleh melihat kata laluan semua pengguna */
 const EMEL_SUPER = 'admin@lpp.gov.my';
 /** Versi aplikasi (dipaparkan di halaman log masuk & bar sisi untuk semakan) */
-const VERSI_APP = 'Versi 35 · 18/10/2026';
+const VERSI_APP = 'Versi 37 · 18/10/2026';
 /* Data asal Maklumat Projek daripada "DATABASE MAKLUMAT DAN SASARAN PROJEK TERNAKAN AYAM DAGING" (17/10/2026) */
-const PROJEK_ASAL = {"pr":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2015,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":220000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2016,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":20000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":35000},{"ppk":"PPK Kijal","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":3275000.0,"lokasi":"Kg. Bukit Anak Dara, Kemaman","kapasiti":60000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":300000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":45000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2024","nilai":3300000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":82000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PENGUKUHAN KETERJAMINAN MAKANAN 2024","nilai":1226000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":82000},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Peladan, Hulu Terengganu","kapasiti":15000},{"ppk":"PPK Bukit Diman","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Batu Bertindan, Hulu Terengganu","kapasiti":30000},{"ppk":"PPK Jerangau","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Padang Ping, Dungun","kapasiti":30000},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Telaga Papan, Kuala Terengganu","kapasiti":30000}],"sa":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2021,"pendapatan":1400000.0,"untung":25000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2022,"pendapatan":2600000.0,"untung":100000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2023,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2024,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2025,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2026,"pendapatan":970000.0,"untung":70000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"pendapatan":400000.0,"untung":25000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"pendapatan":1800000.0,"untung":120000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2023,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2024,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2025,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2026,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2023,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2024,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2025,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2026,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2026,"pendapatan":838000.0,"untung":30000.0}]};
-const VERSI_PROJEK = 3;   // v2: lokasi projek · v3: kapasiti projek (ekor / pusingan)
+const PROJEK_ASAL = {"pr":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2015,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":220000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":17000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2016,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":20000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":3000},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Pengkalan Ranggon, Kemaman","kapasiti":15000},{"ppk":"PPK Kijal","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":3275000.0,"lokasi":"Kg. Bukit Anak Dara, Kemaman","kapasiti":60000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2020,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":200000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":15000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":300000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":15000},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Besol, Dungun","kapasiti":15000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2024","nilai":3300000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":60000},{"ppk":"PPK Dungun","jenisReban":"tertutup","tahun":2024,"program":"PENGUKUHAN KETERJAMINAN MAKANAN 2024","nilai":1226000.0,"lokasi":"Kg. Tepus, Dungun","kapasiti":22000},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2022,"program":"PENINGKATAN PRODUKTIVITI TERNAKAN","nilai":450000.0,"lokasi":"Kg. Peladan, Hulu Terengganu","kapasiti":15000},{"ppk":"PPK Bukit Diman","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Batu Bertindan, Hulu Terengganu","kapasiti":30000},{"ppk":"PPK Jerangau","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Padang Ping, Dungun","kapasiti":30000},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2025,"program":"PEMERKASAAN LADANG SATELIT PP TAHUN 2025","nilai":1650000.0,"lokasi":"Kg. Telaga Papan, Kuala Terengganu","kapasiti":30000}],"sa":[{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2021,"pendapatan":1400000.0,"untung":25000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2022,"pendapatan":2600000.0,"untung":100000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2023,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2024,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2025,"pendapatan":2000000.0,"untung":60000.0},{"ppk":"PPK Kijal","jenisReban":"terbuka","tahun":2026,"pendapatan":970000.0,"untung":70000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2021,"pendapatan":400000.0,"untung":25000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2022,"pendapatan":1800000.0,"untung":120000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2023,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2024,"pendapatan":3000000.0,"untung":180000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2025,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Dungun","jenisReban":"terbuka","tahun":2026,"pendapatan":3200000.0,"untung":200000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2023,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2024,"pendapatan":800000.0,"untung":30000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2025,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Bukit Diman","jenisReban":"terbuka","tahun":2026,"pendapatan":950000.0,"untung":40000.0},{"ppk":"PPK Kuala Terengganu","jenisReban":"tertutup","tahun":2026,"pendapatan":838000.0,"untung":30000.0}]};
+const VERSI_PROJEK = 4;   // v2: lokasi projek · v3: kapasiti projek (ekor / pusingan) · v4: kapasiti = tambahan bagi setiap peruntukan
+/** Nilai kapasiti asal (v3, kapasiti keseluruhan projek) bagi rekod peruntukan asal: dibetulkan kepada kapasiti tambahan v4 jika belum diubah pengguna */
+const KAPASITI_V3 = [35000, 35000, 35000, 60000, 45000, 45000, 45000, 82000, 82000, 15000, 30000, 30000, 30000];
 /* Versi data asal: naikkan setiap kali data Excel disemak semula.
    v2 (17/10/2026): semakan data reban terbuka — tarikh masuk Bukit Diman 2024 P1 & P6, Kijal 2025 P1 & 2026 P1 */
 const VERSI_DATA = 3;   // v3 (17/10/2026): tambah baka DOC, umur jualan & jumlah makanan (kg) daripada Excel untuk pengiraan FCR & BPI
@@ -1278,6 +1280,8 @@ async function cincang(teks) {
   }
 }
 
+/** Pusingan selesai = sudah ada jualan (pendapatan atau ayam dijual). Pusingan belum dijual berstatus "Dalam proses". */
+const selesai = (r) => nombor(r.pendapatan) > 0 || nombor(r.ayamDijual) > 0;
 /** Kira medan terbitan bagi satu rekod */
 function kira(r) {
   const jumlahKos = nombor(r.kosAnakAyam) + nombor(r.kosMakanan) + nombor(r.kosUbat) + nombor(r.kosPelbagai);
@@ -1293,6 +1297,7 @@ function kira(r) {
   // BPI / EPEF = (Livability % × Berat Purata kg) ÷ (Umur hari × FCR) × 100
   const bpi = isFinite(kadarHidup) && isFinite(beratPurata) && isFinite(fcr) && umur > 0 ? (kadarHidup * 100 * beratPurata) / (umur * fcr) * 100 : NaN;
   return {
+    selesai: selesai(r),
     jumlahKos, jumlahPendapatan, untung,
     margin: jumlahPendapatan > 0 ? untung / jumlahPendapatan : NaN,
     kadarHidup,
@@ -1329,6 +1334,8 @@ const boleh = {
 };
 /** Rekod yang boleh dilihat oleh pengguna semasa */
 const rekodDilihat = () => boleh.lihatSemua() ? semuaRekod() : semuaRekod().filter(r => samaPPK(r.ppk, keadaan.pengguna?.ppk));
+/** Rekod untuk analisa kewangan & teknikal: pusingan yang sudah dijual sahaja */
+const rekodAnalisa = () => rekodDilihat().filter(selesai);
 /** Nama pengguna berdasarkan emel (untuk lajur "Dimasukkan oleh") */
 const namaPengguna = (emel) => semuaPengguna().find(u => u.emel === emel)?.nama || emel || '—';
 
@@ -1359,7 +1366,8 @@ function sediakanProjekAsal(paksa = false) {
     sasaran: PROJEK_ASAL.sa.map((x, i) => ({ id: 'asalSA' + i, ...x, olehEmel: 'import@lpp.gov.my', dicipta: kini }))
   };
   if (paksa) { simpan(KUNCI.peruntukan, asal.peruntukan); simpan(KUNCI.sasaran, asal.sasaran); simpan(KUNCI.versiProjek, VERSI_PROJEK); return; }
-  const perluKemaskini = (baca(KUNCI.versiProjek, 0) || 0) < VERSI_PROJEK;
+  const versiLama = baca(KUNCI.versiProjek, 0) || 0;
+  const perluKemaskini = versiLama < VERSI_PROJEK;
   ['peruntukan', 'sasaran'].forEach(jenis => {
     const kunci = KUNCI[jenis];
     let senarai = baca(kunci, []);
@@ -1371,7 +1379,12 @@ function sediakanProjekAsal(paksa = false) {
         const i = senarai.findIndex(x => x.id === b.id);
         if (i >= 0) {
           if (!senarai[i].dikemaskini) { senarai[i] = b; berubah = true; }
-          else ['lokasi', 'kapasiti'].forEach(f => { if (b[f] && !senarai[i][f]) { senarai[i][f] = b[f]; berubah = true; } });   // rekod dibetulkan: isi medan baharu sahaja
+          else {
+            ['lokasi', 'kapasiti'].forEach(f => { if (b[f] && !senarai[i][f]) { senarai[i][f] = b[f]; berubah = true; } });   // rekod dibetulkan: isi medan baharu sahaja
+            // v4: kapasiti asal (keseluruhan projek) ditukar kepada kapasiti tambahan peruntukan itu
+            const j = jenis === 'peruntukan' && versiLama < 4 ? +String(b.id).replace('asalPR', '') : -1;
+            if (j >= 0 && nombor(senarai[i].kapasiti) === KAPASITI_V3[j] && b.kapasiti !== KAPASITI_V3[j]) { senarai[i].kapasiti = b.kapasiti; berubah = true; }
+          }
           return;
         }
         // Sasaran: jangan tindih sasaran yang sudah dimasukkan pengguna bagi PPK, reban & tahun yang sama
@@ -1688,7 +1701,8 @@ function renderDashboard() {
   const lbl = tahun || 'Semua Tahun';
   const ppk = $('#f-ppk').value;
   const reban = $('#f-reban').value;
-  const rekodPPK = rekodDilihat().filter(r => (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban));
+  const rekodPPK = rekodAnalisa().filter(r => (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban));
+  const bilProses = rekodDilihat().filter(r => !selesai(r) && (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban) && (!tahun || +r.tahun === tahun)).length;
   const rekodTahun = rekodPPK.filter(r => !tahun || +r.tahun === tahun);
 
   // Agregat mengikut pusingan 1–6 (jumlahkan semua PPK jika "Semua PPK")
@@ -1724,7 +1738,7 @@ function renderDashboard() {
       <div class="text-[12.5px] mt-1 ${utama ? 'opacity-85' : 'text-muted'}">${nota}</div>
     </div>`;
   $('#kad-ringkasan').innerHTML =
-    kad(`Jumlah Untung Bersih ${tahun || '(Semua Tahun)'}`, rm(jumUntung), 'fa-sack-dollar', `${bilPusingan} pusingan${bilPPK > 1 ? ` · ${bilPPK} PPK` : ''} · ${bilRugi ? bilRugi + ' pusingan rugi' : 'tiada pusingan rugi'}`, true, jumUntung) +
+    kad(`Jumlah Untung Bersih ${tahun || '(Semua Tahun)'}`, rm(jumUntung), 'fa-sack-dollar', `${bilPusingan} pusingan${bilPPK > 1 ? ` · ${bilPPK} PPK` : ''} · ${bilRugi ? bilRugi + ' pusingan rugi' : 'tiada pusingan rugi'}${bilProses ? ` · ${bilProses} dalam proses (tidak dikira)` : ''}`, true, jumUntung) +
     kad('Jumlah Kos', rm(jumKos), 'fa-receipt', jumPend ? `${peratus(jumKos / jumPend)} daripada pendapatan` : 'Tiada data') +
     kad('Purata Untung / Pusingan', rm(purata), 'fa-scale-balanced',
       !tahun ? `${new Set(rekodTahun.map(r => r.tahun)).size} tahun beroperasi` : beza == null ? `Tiada data ${tahun - 1} untuk perbandingan` : `<span class="${beza >= 0 ? 'text-gain' : 'text-loss'} font-semibold">${beza >= 0 ? '▲' : '▼'} ${peratus(Math.abs(beza))}</span> berbanding purata ${tahun - 1}`, false, purata) +
@@ -1842,6 +1856,7 @@ function kategoriBPI(bpi) {
 }
 /** Cip status untung / rugi berdasarkan margin */
 function cipStatus(k) {
+  if (k.selesai === false) return '<span class="chip chip-neutral"><i class="fa-solid fa-hourglass-half"></i> Dalam proses</span>';
   if (k.untung < 0) return '<span class="chip chip-loss"><i class="fa-solid fa-arrow-trend-down"></i> Rugi</span>';
   if (k.margin < 0.03) return '<span class="chip chip-warn"><i class="fa-solid fa-minus"></i> Tipis</span>';
   return '<span class="chip chip-gain"><i class="fa-solid fa-arrow-trend-up"></i> Untung</span>';
@@ -1995,11 +2010,15 @@ function kendaliSimpan(e) {
   else if (peranan() === 'pengguna' && !samaPPK(r.ppk, keadaan.pengguna.ppk)) salah.push(['ppk', `Anda hanya boleh mengisi data untuk ${keadaan.pengguna.ppk}.`]);
   if (!JENIS_REBAN[r.jenisReban]) salah.push(['jenisReban', 'Pilih jenis reban: Terbuka atau Tertutup.']);
   if (!(nombor(r.anakAyam) > 0)) salah.push(['anakAyam', 'Bilangan anak ayam mesti lebih daripada 0.']);
-  ['kosAnakAyam', 'kosMakanan', 'kosUbat', 'kosPelbagai', 'pendapatan', 'kematian', 'ayamDijual', 'beratKg'].forEach(k => { if (r[k] !== '' && nombor(r[k]) < 0) salah.push([k, 'Nilai tidak boleh negatif.']); });
-  if (r.pendapatan === '') salah.push(['pendapatan', 'Masukkan hasil jualan ayam (0 jika belum dijual).']);
+  ['kosAnakAyam', 'kosMakanan', 'kosUbat', 'kosPelbagai', 'pendapatan', 'kematian', 'ayamDijual', 'beratKg', 'umurJual', 'makananKg'].forEach(k => { if (r[k] !== '' && nombor(r[k]) < 0) salah.push([k, 'Nilai tidak boleh negatif.']); });
+  if (r.pendapatan === '') salah.push(['pendapatan', 'Masukkan hasil jualan ayam (0 jika belum dijual — pusingan akan berstatus "Dalam proses" dan tidak dikira dalam analisa).']);
   if (nombor(r.kematian) > nombor(r.anakAyam)) salah.push(['kematian', 'Bilangan kematian melebihi anak ayam masuk.']);
+  else if (nombor(r.kematian) + nombor(r.ayamDijual) > nombor(r.anakAyam)) salah.push(['ayamDijual', `Kematian (${fmtNom.format(nombor(r.kematian))}) + ayam dijual (${fmtNom.format(nombor(r.ayamDijual))}) melebihi anak ayam masuk (${fmtNom.format(nombor(r.anakAyam))}).`]);
+  if (r.umurJual !== '' && (nombor(r.umurJual) <= 0 || nombor(r.umurJual) > 70)) salah.push(['umurJual', 'Purata umur ayam dijual mesti antara 1 hingga 70 hari.']);
+  if (!r.tarikhMasuk) salah.push(['tarikhMasuk', 'Masukkan tarikh anak ayam masuk.']);
+  else if (![+r.tahun, +r.tahun - 1].includes(+String(r.tarikhMasuk).slice(0, 4))) salah.push(['tarikhMasuk', `Tarikh masuk ${tarikhMS(r.tarikhMasuk)} tidak sepadan dengan tahun pusingan ${r.tahun}.`]);
   // Satu PPK boleh mengendalikan reban terbuka dan tertutup serentak, jadi jenis reban termasuk dalam kunci unik
-  const wujud = semuaRekod().find(x => x.ppk.toLowerCase() === r.ppk.toLowerCase() && x.jenisReban === r.jenisReban && +x.tahun === +r.tahun && +x.pusingan === +r.pusingan && x.id !== keadaan.suntingId);
+  const wujud = semuaRekod().find(x => samaPPK(x.ppk, r.ppk) && x.jenisReban === r.jenisReban && +x.tahun === +r.tahun && +x.pusingan === +r.pusingan && x.id !== keadaan.suntingId);
   if (wujud) salah.push(['pusingan', boleh.sunting(wujud)
     ? `Pusingan ${r.pusingan}/${r.tahun} reban ${labelReban(r.jenisReban).toLowerCase()} bagi ${r.ppk} sudah direkod. Gunakan butang Edit dalam Jadual Rekod.`
     : `Pusingan ${r.pusingan}/${r.tahun} reban ${labelReban(r.jenisReban).toLowerCase()} bagi ${r.ppk} sudah direkod oleh ${namaPengguna(wujud.olehEmel)}. Hubungi Admin jika perlu dibetulkan.`]);
@@ -2038,11 +2057,12 @@ function kendaliSimpan(e) {
 /* ---------- 12. Jadual Rekod ---------- */
 function renderRekod() {
   const tahun = $('#r-tahun').value, ppk = $('#r-ppk').value, reban = $('#r-reban').value, status = $('#r-status').value;
-  const rek = rekodDilihat().filter(r => (!tahun || +r.tahun === +tahun) && (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban) && (!status || (status === 'rugi' ? kira(r).untung < 0 : kira(r).untung >= 0)))
+  const rek = rekodDilihat().filter(r => (!tahun || +r.tahun === +tahun) && (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban) && (!status || (status === 'rugi' ? selesai(r) && kira(r).untung < 0 : status === 'proses' ? !selesai(r) : selesai(r) && kira(r).untung >= 0)))
     .sort((a, b) => b.tahun - a.tahun || b.pusingan - a.pusingan || a.ppk.localeCompare(b.ppk));
-  const jum = rek.reduce((a, r) => { const k = kira(r); a.kos += k.jumlahKos; a.pend += k.jumlahPendapatan; a.untung += k.untung; a.rugi += k.untung < 0 ? 1 : 0; return a; }, { kos: 0, pend: 0, untung: 0, rugi: 0 });
+  // Jumlah kewangan hanya bagi pusingan yang sudah dijual; pusingan dalam proses dikira berasingan
+  const jum = rek.reduce((a, r) => { const k = kira(r); if (!k.selesai) { a.proses++; return a; } a.kos += k.jumlahKos; a.pend += k.jumlahPendapatan; a.untung += k.untung; a.rugi += k.untung < 0 ? 1 : 0; return a; }, { kos: 0, pend: 0, untung: 0, rugi: 0, proses: 0 });
   const kotak = (l, v, cls = '') => `<div class="card p-4" style="box-shadow:none"><div class="text-[12px] text-muted">${l}</div><div class="num font-display font-bold text-lg ${cls}">${v}</div></div>`;
-  $('#rekod-ringkasan').innerHTML = kotak('Bilangan pusingan', `${rek.length}${jum.rugi ? ` <span class="text-[13px] text-loss font-semibold">(${jum.rugi} rugi)</span>` : ''}`) + kotak('Jumlah kos', rm(jum.kos)) + kotak('Jumlah pendapatan', rm(jum.pend)) + kotak('Untung bersih', rm(jum.untung), jum.untung < 0 ? 'text-loss' : 'text-gain');
+  $('#rekod-ringkasan').innerHTML = kotak('Bilangan pusingan', `${rek.length}${jum.rugi ? ` <span class="text-[13px] text-loss font-semibold">(${jum.rugi} rugi)</span>` : ''}${jum.proses ? ` <span class="text-[13px] text-muted font-semibold">(${jum.proses} dalam proses)</span>` : ''}`) + kotak('Jumlah kos', rm(jum.kos)) + kotak('Jumlah pendapatan', rm(jum.pend)) + kotak('Untung bersih', rm(jum.untung), jum.untung < 0 ? 'text-loss' : 'text-gain');
 
   const semua = boleh.lihatSemua();
   const adaAksi = boleh.input();
@@ -2132,7 +2152,7 @@ function renderProjek() {
   $('#jadual-peruntukan').innerHTML = pr.length ? `
     <thead><tr><th>Tahun</th><th>PPK</th><th>Reban</th><th>Nama Program</th><th>Lokasi Projek</th><th class="r">Kapasiti (ekor)</th><th class="r">Nilai (RM)</th><th></th></tr></thead>
     <tbody>${pr.map(x => `<tr><td class="num">${x.tahun}</td><td>${escapeHTML(x.ppk)}</td><td>${cipReban(x.jenisReban)}</td><td style="white-space:normal;min-width:200px">${escapeHTML(x.program)}</td><td style="white-space:normal;min-width:140px">${escapeHTML(x.lokasi || '—')}</td><td class="r">${nombor(x.kapasiti) ? fmtNom.format(nombor(x.kapasiti)) : '—'}</td><td class="r font-semibold">${fmtRM.format(nombor(x.nilai))}</td><td>${aksi('pr', x)}</td></tr>`).join('')}</tbody>
-    <tfoot><tr><td colspan="6">Jumlah (${pr.length} peruntukan)</td><td class="r">${fmtRM.format(jumPr)}</td><td></td></tr></tfoot>`
+    <tfoot><tr><td colspan="5">Jumlah (${pr.length} peruntukan)</td><td class="r">${(() => { const jk = pr.reduce((a, x) => a + nombor(x.kapasiti), 0); return jk ? fmtNom.format(jk) : '—'; })()}</td><td class="r">${fmtRM.format(jumPr)}</td><td></td></tr></tfoot>`
     : '<tbody><tr><td class="text-center text-muted py-8" style="white-space:normal">Belum ada peruntukan direkod. Isi borang di atas untuk menambah.</td></tr></tbody>';
   // Jadual sasaran (dengan pencapaian sebenar)
   const sa = dilihatPPK(semuaSasaran()).filter(ikutTapis).sort((a, b) => b.tahun - a.tahun || a.ppk.localeCompare(b.ppk));
@@ -2145,7 +2165,7 @@ function renderProjek() {
 }
 /** Pendapatan & untung sebenar bagi satu PPK, jenis reban dan tahun */
 function sebenarTahun(ppk, tahun, reban) {
-  return rekodDilihat().filter(r => +r.tahun === +tahun && (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban))
+  return rekodAnalisa().filter(r => +r.tahun === +tahun && (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban))
     .reduce((a, r) => { const k = kira(r); a.pendapatan += k.jumlahPendapatan; a.untung += k.untung; a.n++; return a; }, { pendapatan: 0, untung: 0, n: 0 });
 }
 function cipCapai(sebenar, sasaran) {
@@ -2169,7 +2189,7 @@ function simpanPeruntukan(e) {
   const ralat = $('#pr-ralat'); ralat.hidden = true;
   const x = { ppk: $('#pr-ppk').value, jenisReban: $('#pr-reban').value, tahun: +$('#pr-tahun').value, program: $('#pr-program').value.trim(), lokasi: $('#pr-lokasi').value.trim(), kapasiti: Math.round(nombor($('#pr-kapasiti').value)), nilai: nombor($('#pr-nilai').value) };
   const thnMaks = new Date().getFullYear() + 5;
-  const salah = !x.ppk ? 'Pilih PPK.' : !(Number.isInteger(x.tahun) && x.tahun >= 1980 && x.tahun <= thnMaks) ? `Isi tahun peruntukan yang sah (1980 – ${thnMaks}).` : !x.program ? 'Masukkan nama program.' : !x.lokasi ? 'Masukkan lokasi projek.' : !(x.kapasiti > 0) ? 'Masukkan kapasiti projek (bilangan ekor bagi setiap pusingan).' : !(x.nilai > 0) ? 'Masukkan nilai peruntukan yang diterima.' :
+  const salah = !x.ppk ? 'Pilih PPK.' : !(Number.isInteger(x.tahun) && x.tahun >= 1980 && x.tahun <= thnMaks) ? `Isi tahun peruntukan yang sah (1980 – ${thnMaks}).` : !x.program ? 'Masukkan nama program.' : !x.lokasi ? 'Masukkan lokasi projek.' : !(x.kapasiti > 0) ? 'Masukkan kapasiti tambahan hasil peruntukan ini (bilangan ekor bagi setiap pusingan).' : !(x.nilai > 0) ? 'Masukkan nilai peruntukan yang diterima.' :
     (peranan() === 'pengguna' && !samaPPK(x.ppk, keadaan.pengguna.ppk)) ? `Anda hanya boleh mengisi data untuk ${keadaan.pengguna.ppk}.` : '';
   if (salah) { ralat.textContent = salah; ralat.hidden = false; return; }
   const senarai = semuaPeruntukan();
@@ -2231,7 +2251,7 @@ function renderSasaranDashboard(tahun, ppk, reban, kadTambahan = '') {
   // Pencapaian sebenar hanya bagi PPK yang ada sasaran, supaya perbandingan setara
   // Pencapaian sebenar dikira hanya bagi pasangan PPK + jenis reban yang mempunyai sasaran
   const pasanganSasaran = (f) => sasaran.filter(x => x[f] !== '' && x[f] != null);
-  const sebenar = (f) => rekodDilihat().filter(r => (!tahun || +r.tahun === tahun) && pasanganSasaran(f).some(x => samaPPK(x.ppk, r.ppk) && x.jenisReban === r.jenisReban && +x.tahun === +r.tahun))
+  const sebenar = (f) => rekodAnalisa().filter(r => (!tahun || +r.tahun === tahun) && pasanganSasaran(f).some(x => samaPPK(x.ppk, r.ppk) && x.jenisReban === r.jenisReban && +x.tahun === +r.tahun))
     .reduce((a, r) => { const k = kira(r); return a + (f === 'pendapatan' ? k.jumlahPendapatan : k.untung); }, 0);
   const pautan = boleh.input() ? '<button class="btn btn-ghost btn-sm mt-3 perlu-input no-print" data-aksi="ke-projek"><i class="fa-solid fa-bullseye"></i> Tetapkan sasaran</button>' : '';
   const kadSasaran = (tajuk, f, ikon) => {
@@ -2254,7 +2274,7 @@ function renderSasaranDashboard(tahun, ppk, reban, kadTambahan = '') {
   const pr = dilihatPPK(semuaPeruntukan()).filter(x => (!ppk || samaPPK(x.ppk, ppk)) && padanReban(x, reban)).sort((a, b) => b.tahun - a.tahun || nombor(b.nilai) - nombor(a.nilai));
   const jumPr = pr.reduce((a, x) => a + nombor(x.nilai), 0);
   const prTahun = pr.filter(x => +x.tahun === tahun).reduce((a, x) => a + nombor(x.nilai), 0);
-  const untungTerkumpul = rekodDilihat().filter(r => (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban) && pr.some(x => samaPPK(x.ppk, r.ppk) && x.jenisReban === r.jenisReban)).reduce((a, r) => a + kira(r).untung, 0);
+  const untungTerkumpul = rekodAnalisa().filter(r => (!ppk || samaPPK(r.ppk, ppk)) && padanReban(r, reban) && pr.some(x => samaPPK(x.ppk, r.ppk) && x.jenisReban === r.jenisReban)).reduce((a, r) => a + kira(r).untung, 0);
   const kadPr = pr.length ? `<div class="card p-5">
       <div class="flex items-center justify-between"><span class="eyebrow text-muted">Peruntukan Diterima</span><span class="w-8 h-8 rounded-lg bg-surface2 text-muted flex items-center justify-center"><i class="fa-solid fa-hand-holding-dollar"></i></span></div>
       <div class="num font-display font-extrabold text-[clamp(24px,1.9vw,32px)] leading-tight mt-3">${rm(jumPr)}</div>
@@ -2311,14 +2331,14 @@ function senaraiProjek() {
   if (projek.length > 1) projek.unshift({ kunci: KUNCI_SEMUA, semua: true, ppk: boleh.lihatSemua() ? 'Semua PPK' : `Semua projek ${keadaan.pengguna?.ppk || ''}`.trim(), reban: '', bil: rekodDilihat().length });
   return projek;
 }
-/** Kapasiti (ekor / pusingan) yang berkuat kuasa pada tahun tertentu: peruntukan terkini setakat tahun itu */
+/** Kapasiti (ekor / pusingan) yang berkuat kuasa pada tahun tertentu: jumlah kapasiti tambahan semua peruntukan setakat tahun itu */
 function kapasitiPada(pr, tahun) {
   const ada = pr.filter(x => nombor(x.kapasiti) > 0);
   if (!ada.length) return 0;
   const sebelum = ada.filter(x => +x.tahun <= tahun);
-  const asas = sebelum.length ? sebelum : ada;
-  const thn = sebelum.length ? Math.max(...asas.map(x => +x.tahun)) : Math.min(...asas.map(x => +x.tahun));
-  return Math.max(...asas.filter(x => +x.tahun === thn).map(x => nombor(x.kapasiti)));
+  const thnAwal = Math.min(...ada.map(x => +x.tahun));
+  const asas = sebelum.length ? sebelum : ada.filter(x => +x.tahun === thnAwal);
+  return asas.reduce((a, x) => a + nombor(x.kapasiti), 0);
 }
 /** Agregat sekumpulan rekod pusingan (nisbah dikira semula daripada jumlah) */
 function agregatLaporan(rs) {
@@ -2350,7 +2370,7 @@ function isiPilihanLaporan() {
   el.value = L.kunci;
   const p = senarai.find(x => x.kunci === L.kunci);
   if (!p) return null;
-  const rek = rekodDilihat().filter(r => padanProjek(r, p));
+  const rek = rekodAnalisa().filter(r => padanProjek(r, p));
   const pr = dilihatPPK(semuaPeruntukan()).filter(x => padanProjek(x, p));
   const thnRek = rek.map(r => +r.tahun), thnSemua = [...thnRek, ...pr.map(x => +x.tahun)];
   const thnSemasa = new Date().getFullYear();
@@ -2520,7 +2540,7 @@ function renderLaporan() {
         <div class="overflow-x-auto"><table class="tbl">${pr.length ? `
           <thead><tr><th>Tahun</th>${p.semua ? '<th>PPK</th><th>Reban</th>' : ''}<th>Program</th>${p.semua ? '' : '<th>Lokasi</th>'}<th class="r">Kapasiti (ekor)</th><th class="r">Nilai (RM)</th></tr></thead>
           <tbody>${pr.map(x => `<tr><td class="num">${x.tahun}</td>${p.semua ? `<td>${escapeHTML(x.ppk)}</td><td>${labelReban(x.jenisReban)}</td>` : ''}<td class="sel-tajuk">${escapeHTML(x.program)}</td>${p.semua ? '' : `<td>${escapeHTML(x.lokasi || '—')}</td>`}<td class="r">${nombor(x.kapasiti) ? fmtNom.format(x.kapasiti) : '—'}</td><td class="r font-semibold">${fmtRM.format(nombor(x.nilai))}</td></tr>`).join('')}</tbody>
-          <tfoot><tr><td colspan="${p.semua ? 5 : 4}">Jumlah peruntukan (${pr.length})</td><td class="r">${fmtRM.format(jumPr)}</td></tr></tfoot>`
+          <tfoot><tr><td colspan="${p.semua ? 4 : 3}">Jumlah peruntukan (${pr.length})</td><td class="r">${(() => { const jk = pr.reduce((a, x) => a + nombor(x.kapasiti), 0); return jk ? fmtNom.format(jk) : '—'; })()}</td><td class="r">${fmtRM.format(jumPr)}</td></tr></tfoot>`
           : `<tbody><tr><td class="text-center text-muted py-8" style="white-space:normal">Tiada peruntukan direkod sehingga ${hingga}.</td></tr></tbody>`}</table></div>
       </div>
     </div>`;
@@ -2536,7 +2556,7 @@ function renderLaporan() {
       ${kad('Penggunaan Kapasiti', peratus(gunaKap), 'fa-warehouse', p.semua && isFinite(gunaKap) ? `Purata setiap pusingan · jumlah kapasiti ${fmtNom.format(kap)} ekor` : isFinite(purataMasuk) && kap ? `Purata ${fmtNom.format(purataMasuk)} daripada ${fmtNom.format(kap)} ekor` : 'Perlu kapasiti & rekod pusingan', false, false, nilaiStatus(gunaKap, PENANDA.kapasiti))}
       ${kad('Purata Untung / Pusingan', T.n ? rm(T.untung / T.n) : '—', 'fa-scale-balanced', T.n ? `Margin ${peratus(T.margin)} · ${T.rugi} pusingan rugi` : 'Tiada rekod pusingan', false, T.untung < 0, nilaiStatus(T.margin, PENANDA.margin))}
     </div>
-    <p class="text-[12px] text-muted">Andaian: semua peruntukan dikira sebagai pelaburan modal projek. Tempoh pulang modal = jumlah peruntukan ÷ purata untung bersih setahun (${tahunAda.length || 0} tahun beroperasi dalam tempoh). Penggunaan kapasiti = anak ayam masuk ÷ kapasiti berkuat kuasa pada tahun pusingan.${p.semua ? ' <b>Semua PPK:</b> peruntukan merangkumi projek yang belum beroperasi (tiada rekod pusingan), jadi pulangan dan tempoh pulang modal mencerminkan keseluruhan pelaburan.' : ''}${pus ? ` <b>Penapis Pusingan ${pus} aktif:</b> angka merangkumi Pusingan ${pus} sahaja; pulangan, tempoh pulang modal dan perbandingan sasaran tahunan tidak dikira.` : ''}</p>`;
+    <p class="text-[12px] text-muted">Andaian: semua peruntukan dikira sebagai pelaburan modal projek. Tempoh pulang modal = jumlah peruntukan ÷ purata untung bersih setahun (${tahunAda.length || 0} tahun beroperasi dalam tempoh). Penggunaan kapasiti = anak ayam masuk ÷ kapasiti berkuat kuasa pada tahun pusingan (jumlah kapasiti tambahan semua peruntukan sehingga tahun itu).${p.semua ? ' <b>Semua PPK:</b> peruntukan merangkumi projek yang belum beroperasi (tiada rekod pusingan), jadi pulangan dan tempoh pulang modal mencerminkan keseluruhan pelaburan.' : ''}${pus ? ` <b>Penapis Pusingan ${pus} aktif:</b> angka merangkumi Pusingan ${pus} sahaja; pulangan, tempoh pulang modal dan perbandingan sasaran tahunan tidak dikira.` : ''}</p>`;
 
   if (!T.n) {
     html += `<div class="card p-8 text-center"><i class="fa-solid fa-seedling text-2xl text-muted"></i><p class="font-semibold mt-3">Projek belum mempunyai rekod pusingan bagi ${tempoh}.</p>
@@ -2849,7 +2869,7 @@ function kadBPI(rekodTahun, tahun) {
 /** Kedudukan prestasi PPK (hanya apabila melihat semua PPK) */
 function renderKedudukan(tahun, ppk, reban) {
   const el = $('#kotak-kedudukan');
-  const rek = rekodDilihat().filter(r => (!tahun || +r.tahun === tahun) && padanReban(r, reban));
+  const rek = rekodAnalisa().filter(r => (!tahun || +r.tahun === tahun) && padanReban(r, reban));
   const kumpulan = {};
   rek.forEach(r => { (kumpulan[r.ppk] = kumpulan[r.ppk] || []).push(r); });
   const senarai = Object.entries(kumpulan).map(([nama, rs]) => {
@@ -3021,7 +3041,7 @@ function pasangPeristiwa() {
       case 'ke-rekod': $('#r-tahun').value = $('#f-tahun').value; $('#r-ppk').value = $('#f-ppk').value; $('#r-reban').value = $('#f-reban').value; tukarSeksyen('rekod'); break;
       case 'cetak': cetakLaporan(el.dataset.bahagian); break;
       case 'simpan-ulasan': simpanUlasan(); break;
-      case 'pulih-data': bukaModal('Pulihkan data asal?', 'Semua rekod dan pengguna dalam pelayar ini akan diganti dengan data asal PPK Dungun dan akaun demo.', 'Pulihkan', async () => {
+      case 'pulih-data': bukaModal('Pulihkan data asal?', 'Semua rekod pusingan, peruntukan, sasaran dan pengguna dalam pelayar ini akan diganti dengan data asal (PPK Dungun, Bukit Diman, Kijal & Kuala Terengganu) dan akaun asal.', 'Pulihkan', async () => {
         const emel = keadaan.pengguna.emel; await sediakanDataAsal(true);
         const p = semuaPengguna().find(u => u.emel === emel);
         if (!p) { logKeluar(); return; }
